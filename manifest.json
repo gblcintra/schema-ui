@@ -1,0 +1,55 @@
+{
+  "vendor": "account",
+  "name": "schema-ui",
+  "version": "0.0.1",
+  "title": "UI Schema",
+  "description": "UI Schema",
+  "autor": "Gabriel Cintra",
+  "builders": {
+    "react": "3.x",
+    "messages": "1.x",
+    "store": "0.x",
+    "docs": "0.x"
+  },
+  "scripts": {
+    "postreleasy": "vtex publish --verbose"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.22.4",
+    "@babel/preset-react": "^7.22.3",
+    "@babel/preset-typescript": "^7.21.5",
+    "@storybook/addon-a11y": "^7.0.18",
+    "@storybook/addon-essentials": "7.0.18",
+    "@storybook/addon-interactions": "7.0.18",
+    "@storybook/addon-links": "7.0.18",
+    "@storybook/addon-storysource": "^7.0.18",
+    "@storybook/blocks": "7.0.18",
+    "@storybook/react": "7.0.18",
+    "@storybook/react-webpack5": "7.0.18",
+    "@storybook/testing-library": "0.0.14-next.2",
+    "@vtex/danger": "^0.2.7",
+    "@vtex/intl-equalizer": "^2.5.0",
+    "@vtex/prettier-config": "^0.3.5",
+    "eslint": "^7.14.0",
+    "eslint-config-vtex": "^12.8.11",
+    "eslint-config-vtex-react": "^6.8.3",
+    "husky": "^8.0.3",
+    "lint-staged": "^10.5.1",
+    "prettier": "^2.2.0",
+    "prop-types": "15.8.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "storybook": "7.0.18",
+    "storybook-addon-pseudo-states": "^2.0.1",
+    "storybook-css-modules": "^1.0.8",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "vtex-tachyons": "^3.2.2"
+  },
+  "registries": [
+    "smartcheckout"
+  ],
+  "policies": [],
+  "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
+}

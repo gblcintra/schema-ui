@@ -1,0 +1,30 @@
+{
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "material-icon-theme.activeIconPack": "react",
+  "material-icon-theme.folders.associations": {
+    "elements": "components",
+    ".vtex": "Animation",
+    "store": "Animation",
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "eslint.alwaysShowStatus": true,
+  "eslint.packageManager": "yarn",
+  "eslint.workingDirectories": [
+    {
+      "directory": "react",
+      "changeProcessCWD": true
+    },
+    {
+      "directory": "node",
+      "changeProcessCWD": true
+    }
+  ]
+}
