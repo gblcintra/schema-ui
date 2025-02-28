@@ -1,22 +1,20 @@
 import React from 'react';
 import { SchemaUiItemProps } from './schema';
-
 export interface SchemaUiProps {
   titleItem: string;
   activeItem: boolean;
-  [key: string]: any
+  [key: string]: any;
 }
 
 const SchemaUi = ({ titleItem, activeItem, ...props }: SchemaUiProps) => {
   if (!activeItem) return null;
-
-  const schema = SchemaUi.schema || {};
+  const schema = SchemaUi.schema;
   const schemaProperties = schema.properties || {};
   const dependencies = schema.dependencies || {};
 
   let dynamicProperties = { ...schemaProperties };
 
-  Object.entries(dependencies).forEach(([dependentField, dependencyCondition]) => {
+  Object.entries(dependencies).forEach(([dependentField, dependencyCondition]: any) => {
     const dependencyMet = dependencyCondition.oneOf?.some((condition: any) => {
       return (
         condition.properties[dependentField]?.enum?.includes(props[dependentField])
@@ -87,6 +85,6 @@ const SchemaUi = ({ titleItem, activeItem, ...props }: SchemaUiProps) => {
   );
 };
 
-SchemaUi.schema = SchemaUiItemProps
+SchemaUi.schema = SchemaUiItemProps;
 
 export default SchemaUi;
