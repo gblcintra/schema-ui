@@ -1,5 +1,5 @@
 import React from 'react';
-import { SchemaUiItemProps } from './schema';
+import { SchemaPropsDefault, SchemaUiItemProps } from './schema';
 export interface SchemaUiProps {
   titleItem: string;
   activeItem: boolean;
@@ -84,7 +84,7 @@ const SchemaUi = ({ titleItem, activeItem, ...props }: SchemaUiProps) => {
     </div>
   );
 };
-
+SchemaUi.defaultProps = SchemaPropsDefault
 SchemaUi.schema = SchemaUiItemProps;
 
 export default SchemaUi;

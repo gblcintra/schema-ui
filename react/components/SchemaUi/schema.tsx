@@ -1,5 +1,38 @@
 import React from "react";
 
+const SchemaPropsDefault = {
+  titleItem: 'Configuração do Schema',
+  activeItem: true,
+  textProps: {
+    titleItem: 'Texto Exemplo Carol',
+    passwordItem: 'senha123',
+    descriptionItem: 'Uma breve descrição.',
+  },
+  dataProps: {
+    dataTimeItem: '2025-01-01T00:00:00',
+    dataItem: '2025-01-01',
+  },
+  selectProps: {
+    selectItem: '#000',
+    colorItem: '#ff0000',
+    radioItem: 'Opção 1',
+    reference: 'option #0',
+  },
+  restrictProps: {
+    secret: 'supersecreta',
+    disabledItem: 'desabilitado',
+    readonlyItem: 'somenteLeitura',
+    readonlyItem2: 'somenteLeitura2',
+  },
+  arrayItem: [
+    { __editorItemTitle: 'Item 1', title: 'Item 1' },
+    { __editorItemTitle: 'Item 2', title: 'Item 2' },
+  ],
+  uploadItem: 'url-da-imagem.jpg',
+  uploadFile: 'documento.pdf',
+  showMoreConfig: true
+};
+
 const SchemaUiItemProps = {
   title: 'Configuração do schema',
   type: 'object',
@@ -362,39 +395,9 @@ const SchemaUiItemProps = {
         }
       ],
     },
-  }
+  },
+  default: SchemaPropsDefault
 };
-const SchemaPropsDefault = {
-  titleItem: 'Configuração do Schema',
-  activeItem: true,
-  textProps: {
-    titleItem: 'Texto Exemplo Carol',
-    passwordItem: 'senha123',
-    descriptionItem: 'Uma breve descrição.',
-  },
-  dataProps: {
-    dataTimeItem: '2025-01-01T00:00:00',
-    dataItem: '2025-01-01',
-  },
-  selectProps: {
-    selectItem: '#000',
-    colorItem: '#ff0000',
-    radioItem: 'Opção 1',
-    reference: 'option #0',
-  },
-  restrictProps: {
-    secret: 'supersecreta',
-    disabledItem: 'desabilitado',
-    readonlyItem: 'somenteLeitura',
-    readonlyItem2: 'somenteLeitura2',
-  },
-  arrayItem: [
-    { __editorItemTitle: 'Item 1', title: 'Item 1' },
-    { __editorItemTitle: 'Item 2', title: 'Item 2' },
-  ],
-  uploadItem: 'url-da-imagem.jpg',
-  uploadFile: 'documento.pdf',
-  showMoreConfig: true,
-};
+
 
 export { SchemaUiItemProps, SchemaPropsDefault }
