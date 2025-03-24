@@ -1,5 +1,6 @@
 import React from 'react';
 import SchemaUi, { SchemaUiProps } from './';
+import { SchemaPropsDefault } from './schema';
 // import { SchemaUiItemProps } from './schema';
 
 export default {
@@ -22,38 +23,7 @@ export default {
 const Template = (args: SchemaUiProps) => <SchemaUi {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {
-  titleItem: 'Configuração do Schema',
-  activeItem: true,
-  textProps: {
-    titleItem: 'Texto Exemplo',
-    passwordItem: 'senha123',
-    descriptionItem: 'Uma breve descrição.',
-  },
-  dataProps: {
-    dataTimeItem: '2025-01-01T00:00:00',
-    dataItem: '2025-01-01',
-  },
-  selectProps: {
-    selectItem: '#000',
-    colorItem: '#ff0000',
-    radioItem: 'Opção 1',
-    reference: 'option #0',
-  },
-  restrictProps: {
-    secret: 'supersecreta',
-    disabledItem: 'desabilitado',
-    readonlyItem: 'somenteLeitura',
-    readonlyItem2: 'somenteLeitura2',
-  },
-  arrayItem: [
-    { __editorItemTitle: 'Item 1', title: 'Item 1' },
-    { __editorItemTitle: 'Item 2', title: 'Item 2' },
-  ],
-  uploadItem: 'url-da-imagem.jpg',
-  uploadFile: 'documento.pdf',
-  showMoreConfig: true,
-};
+Default.args = SchemaPropsDefault
 
 export const NoActiveItem = Template.bind({});
 NoActiveItem.args = {

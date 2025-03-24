@@ -338,9 +338,63 @@ const SchemaUiItemProps = {
             },
           },
         },
+        {
+          properties: {
+            showMoreConfig: {
+              enum: [false],
+              title: 'Mostrar mais Configurações',
+              type: 'boolean',
+              widget: {
+                classNames: 'bg-danger--faded ba b--light-gray ph3 mb3',
+              },
+              alert: {
+                title: "Aviso",
+                type: "string",
+                description: "Para ativar mais configurações, ative o campo acima.",
+                widget: {
+                  'ui:field': ({ schema }: { schema: any }) => {
+                    return <h4 className="ma0 f5 near-black"><strong className="yellow">Atenção: </strong>{schema?.description}</h4>;
+                  },
+                },
+              },
+            },
+          }
+        }
       ],
     },
   }
 };
+const SchemaPropsDefault = {
+  titleItem: 'Configuração do Schema',
+  activeItem: true,
+  textProps: {
+    titleItem: 'Texto Exemplo Carol',
+    passwordItem: 'senha123',
+    descriptionItem: 'Uma breve descrição.',
+  },
+  dataProps: {
+    dataTimeItem: '2025-01-01T00:00:00',
+    dataItem: '2025-01-01',
+  },
+  selectProps: {
+    selectItem: '#000',
+    colorItem: '#ff0000',
+    radioItem: 'Opção 1',
+    reference: 'option #0',
+  },
+  restrictProps: {
+    secret: 'supersecreta',
+    disabledItem: 'desabilitado',
+    readonlyItem: 'somenteLeitura',
+    readonlyItem2: 'somenteLeitura2',
+  },
+  arrayItem: [
+    { __editorItemTitle: 'Item 1', title: 'Item 1' },
+    { __editorItemTitle: 'Item 2', title: 'Item 2' },
+  ],
+  uploadItem: 'url-da-imagem.jpg',
+  uploadFile: 'documento.pdf',
+  showMoreConfig: true,
+};
 
-export { SchemaUiItemProps }
+export { SchemaUiItemProps, SchemaPropsDefault }
