@@ -544,7 +544,7 @@ SchemaUi.schema = {
 ### Estilização campos do Site Edito usando Tachyons
 #### `widget classNames `
 ##### Dynamic Configuration with Dependencies
-Certain configurations can be conditionally shown based on the state of other fields. For example, a showMoreConfig field will reveal additional fields like numberItem when enabled.
+Utiliza as classes do Tachyons para estilizar o bloco do site editor e deixa com a aparência mais agradável.
 | Propriedade  | Tipo     | Descrição       |
 | ------------ | -------- | --------------- |
 | `classNames` | `string` | Classe Tachyons |
