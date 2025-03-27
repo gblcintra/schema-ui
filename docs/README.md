@@ -599,24 +599,6 @@ SchemaUi.schema = {
 Para mais detalhes sobre a estrutura do schema, consulte a [documentação oficial do rjsf](https://github.com/rjsf-team/react-jsonschema-form).
 
 ## 🤝 Contribuição
-- [Gabriel Cintra](https://github.com/gblcintra) - contato.gabrielcintra@gmail.com
-Sinta-se à vontade para contribuir com melhorias! Basta abrir uma issue ou pull request no repositório.
-
-## Como Contribuir
-1. Faça um fork do repositório.
-2. Crie uma branch para a sua feature (`git checkout -b feature/MinhaFeature`).
-3. Commit suas mudanças (`git commit -am 'Adiciona nova funcionalidade'`).
-4. Envie a branch para o repositório remoto (`git push origin feature/MinhaFeature`).
-5. Abra um Pull Request no GitHub.
-
-Se você encontrou algum bug ou tem uma sugestão, abra uma issue ou um pull request!
-
-
-
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
@@ -642,4 +624,13 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+Sinta-se à vontade para contribuir com melhorias! Basta abrir uma issue ou pull request no repositório.
+
+## Como Contribuir
+1. Faça um fork do repositório.
+2. Crie uma branch para a sua feature (`git checkout -b feature/MinhaFeature`).
+3. Commit suas mudanças (`git commit -am 'Adiciona nova funcionalidade'`).
+4. Envie a branch para o repositório remoto (`git push origin feature/MinhaFeature`).
+5. Abra um Pull Request no GitHub.
+
+Se você encontrou algum bug ou tem uma sugestão, abra uma issue ou um pull request!
