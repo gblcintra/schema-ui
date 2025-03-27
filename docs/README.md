@@ -11,10 +11,10 @@
 Schema UI é um projeto que fornece um esquema de configuração flexível e altamente personalizável para componentes customizados no VTEX IO. Utilizando React JSON Schema Form, este repositório facilita a criação de interfaces dinâmicas e adaptáveis dentro do ecossistema VTEX.
 
 ### 📌 Recursos
-✅ Definição clara de types para cada propriedade
-✅ Uso de widgets personalizados para melhorar a experiência de edição
-✅ Implementação de dependencies e oneOf para configurações condicionais
-✅ Suporte a uploads, seleções, datas, arrays e muito mais
+✅ Definição clara de types para cada propriedade <br/>
+✅ Uso de widgets personalizados para melhorar a experiência de edição<br/>
+✅ Implementação de dependencies e oneOf para configurações condicionais<br/>
+✅ Suporte a uploads, seleções, datas, arrays e muito mais<br/>
 
 
 ### 🔧 Como Usar
@@ -43,9 +43,7 @@ nomeação de componentes na interface (store\interfaces.json)
     "component": "SchemaUi"
   }
 ```
-## 🚀 How to use
-
-#### in store theme
+## 🚀 Como usar no store theme
 
 ```jsx
 ...
@@ -61,7 +59,7 @@ nomeação de componentes na interface (store\interfaces.json)
 }
 ```
 
-## Configuration
+## Configuralçao
 
 1. Adicione o aplicativo Login às dependências do seu tema no arquivo `manifest.json`:
 
