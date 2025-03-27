@@ -1,6 +1,6 @@
 {
-  "projectName": "react-app-template",
-  "projectOwner": "vtex-apps",
+  "projectName": "schema-ui",
+  "projectOwner": "gblcintra",
   "repoType": "github",
   "repoHost": "https://github.com",
   "files": [
@@ -9,6 +9,18 @@
   "imageSize": 100,
   "commit": true,
   "commitConvention": "none",
-  "contributors": [],
+  "contributors": [
+    {
+      "login": "gblcintra",
+      "name": "Gabriel Cintra",
+      "avatar_url": "https://avatars.githubusercontent.com/u/15270961?v=4",
+      "profile": "https://br.linkedin.com/in/gblcintra",
+      "contributions": [
+        "code",
+        "doc",
+        "maintenance"
+      ]
+    }
+  ],
   "contributorsPerLine": 7
 }
