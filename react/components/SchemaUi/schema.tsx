@@ -81,7 +81,6 @@ const SchemaUiItemProps = {
           description: 'https://github.com/rjsf-team/react-jsonschema-form',
           widget: {
             'ui:field': ({ schema }: { schema: any }) => {
-              console.log("💚🐛  ~ schema:", schema)
               return <h4 className="ma0 f5 near-black">{schema?.title}</h4>;
             },
           },
