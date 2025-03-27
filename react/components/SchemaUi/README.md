@@ -6,9 +6,34 @@
 ![Storybook](https://img.shields.io/badge/-Storybook-20232A?style=flat-square&logo=Storybook)
 ![Yarn](https://img.shields.io/badge/-Yarn-2C8EBB?style=flat-square&logo=yarn&logoColor=white)
 ![NPM](https://img.shields.io/badge/-npm-CB3837?style=flat-square&logo=npm&logoColor=white)
-# Component [Schema]
+# Component [Schema] 🎨
 
-O SchemaUi é um componente React dinâmico que exibe propriedades configuráveis com base em um esquema JSON. Ele permite renderizar diferentes tipos de campos, incluindo seleções, entradas de texto, cores e mais.
+Schema UI é um projeto que fornece um esquema de configuração flexível e altamente personalizável para componentes customizados no VTEX IO. Utilizando React JSON Schema Form, este repositório facilita a criação de interfaces dinâmicas e adaptáveis dentro do ecossistema VTEX.
+
+### 📌 Recursos
+✅ Definição clara de types para cada propriedade
+✅ Uso de widgets personalizados para melhorar a experiência de edição
+✅ Implementação de dependencies e oneOf para configurações condicionais
+✅ Suporte a uploads, seleções, datas, arrays e muito mais
+
+
+### 🔧 Como Usar
+1. Clone o repositório:
+```sh
+git clone https://github.com/gblcintra/schema-ui.git
+cd schema-ui
+```
+
+2. Instale as dependências:
+
+```sh
+yarn install
+```
+
+3. Execute o Storybook para visualizar os componentes:
+```sh
+yarn storybook
+```
 
 ### Schema
 nomeação de componentes na interface (store\interfaces.json)
@@ -568,6 +593,9 @@ SchemaUi.schema = {
   }}
 />
 ```
+
+📖 Documentação
+Para mais detalhes sobre a estrutura do schema, consulte a [documentação oficial do rjsf](https://github.com/rjsf-team/react-jsonschema-form).
 
 ## 🤝 Contribuição
 - [Gabriel Cintra](https://github.com/gblcintra) - contato.gabrielcintra@gmail.com
