@@ -625,3 +625,4 @@ Sinta-se à vontade para contribuir com melhorias! Basta abrir uma issue ou pull
 5. Abra um Pull Request no GitHub.
 
 Se você encontrou algum bug ou tem uma sugestão, abra uma issue ou um pull request!
+
