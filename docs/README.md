@@ -99,12 +99,12 @@ O `SchemaUi` suporta diferentes widgets para renderização dinâmica de campos.
 ## 🛠️ Tipos Disponíveis
 A configuração do schema proporciona flexibilidade através da utilização de vários tipos de dados para configurar elementos da IU. Estes tipos de dados podem ser utilizados para estilizar e definir o comportamento de diferentes componentes, quer se trate de introdução de texto, imagens, datas, cores ou menus pendentes de seleção.
 
-| Type      | Descrição                                                                   |
-| --------- | --------------------------------------------------------------------------- |
-| `String`  | Used for text, URL, image, or date fields.                                  |
-| `Boolean` | A simple toggle option to activate/deactivate features.                     |
-| `Object`  | Defines nested objects and their properties.                                |
-| `Array`   | Used for repeating groups of items, like images, forms, or multiple fields. |
+| Type      | Descrição                                                                       |
+| --------- | ------------------------------------------------------------------------------- |
+| `String`  | Usado para campos de texto, URL, imagem ou data.                                |
+| `Boolean` | Uma opção de alternância simples para ativar/desativar recursos.                |
+| `Object`  | Define objetos aninhados e suas propriedades.                                   |
+| `Array`   | Usado para repetir grupos de itens, como imagens, formulários ou vários campos. |
 
 
 ## 🎛️ Props Disponíveis
