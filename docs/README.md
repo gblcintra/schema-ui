@@ -11,7 +11,7 @@
 ![NPM](https://img.shields.io/badge/-npm-CB3837?style=flat-square&logo=npm&logoColor=white)
 # Component [Schema] 🎨
 
-Schema UI é um projeto que fornece um schama de configuração flexível e altamente personalizável para componentes customizados no VTEX IO. Utilizando React JSON Schema Form, este repositório facilita a criação de interfaces dinâmicas e adaptáveis dentro do ecossistema VTEX.
+Schema UI é um projeto que fornece um 'schema' de configuração flexível e altamente personalizável para componentes customizados no VTEX IO. Utilizando React JSON Schema Form, este repositório facilita a criação de interfaces dinâmicas e adaptáveis dentro do ecossistema VTEX.
 
 ### 📌 Recursos
 ✅ Definição clara de types para cada propriedade <br/>
