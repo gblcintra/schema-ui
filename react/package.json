@@ -5,8 +5,8 @@
     "test": "vtex-test-tools test"
   },
   "dependencies": {
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
     "react-intl": "^3.12.0"
   },
   "devDependencies": {
@@ -14,8 +14,7 @@
     "@types/react": "^16.9.31",
     "@vtex/test-tools": "^3.3.2",
     "@vtex/tsconfig": "^0.6.0",
-    "typescript": "3.9.7",
-    "vtex.render-runtime": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.135.1/public/@types/vtex.render-runtime"
+    "typescript": "3.9.7"
   },
   "resolutions": {
     "@types/jest": "26.0.15"
