@@ -146,7 +146,7 @@ SchemaUi.schema = {
   }
 }
  ```
- ![Campo NULL](https://img001.prntscr.com/file/img001/YN66XbXlSq2_usT6dnaqgw.png)
+ ![Campo NULL](../docs/images/null.png)
 
 #### `textProps`
 Campos de texto
@@ -193,7 +193,7 @@ SchemaUi.schema = {
   }
 }
  ```
-![Campos String](https://img001.prntscr.com/file/img001/g2Sy3q86S0-Z8y-E4UZ_UA.png)
+![Campos String](../docs/images/string.png)
 
 #### `dataProps`
 Campos de data
@@ -257,7 +257,7 @@ SchemaUi.schema = {
   }
 }
  ```
-![Campos de Data](https://img001.prntscr.com/file/img001/7AMNAOTdR92Qota1jA0eFA.png)
+![Campos de Data](../docs/images/datatype.png)
 
 #### `selectProps`
 ##### Configuração dinâmica com dependências
@@ -329,7 +329,7 @@ SchemaUi.schema = {
   }
 }
  ```
-![Campos de Seleções](https://img001.prntscr.com/file/img001/gnNxvgcuQ0WAFl5aEc0nxQ.png)
+![Campos de Seleções](../docs/images/selecttype.png)
 
 #### `restrictProps`
 Restringir campos (ocultos, desativados ou só de leitura)
@@ -378,7 +378,7 @@ SchemaUi.schema = {
   }
 }
  ```
- ![Campos de Restritos](https://img001.prntscr.com/file/img001/MBk9z-3ZTn6qfXDRAogQag.png)
+ ![Campos de Restritos](../docs/images/restricttype.png)
 
 
 #### `arrayItem`
@@ -431,8 +431,8 @@ SchemaUi.schema = {
   }
 }
  ```
-![Campos de Array](https://img001.prntscr.com/file/img001/YSykZ0_ASrKieCMyl12fxg.png)
-![Campos de Item do Array](https://img001.prntscr.com/file/img001/IhTJYcKEQbqtQztjBcitKg.png)
+![Campos de Array](../docs/images/array.png)
+![Campos de Item do Array](../docs/images/arraytype.png)
 
 #### `uploadItem`
 Campo de upload de Imagens
@@ -457,7 +457,7 @@ SchemaUi.schema = {
   }
 }
  ```
-![Campos de Upload de imagem](https://img001.prntscr.com/file/img001/deFS9JA3SDSDdNsqMHDUww.png)
+![Campos de Upload de imagem](../docs/images/upload-image.png)
 
 #### `uploadFile`
 Campo de upload de arquivos
@@ -481,7 +481,7 @@ SchemaUi.schema = {
   }
 }
  ```
-![Campos de Upload de Arquivos](https://img001.prntscr.com/file/img001/cNSyNzdqQ72_zBZ9MA7PcQ.png)
+![Campos de Upload de Arquivos](../docs/images/upload-file.png)
 
 #### `showMoreConfig`
 Certas configurações podem ser mostradas condicionalmente com base no estado de outros campos. Por exemplo, um campo showMoreConfig revelará campos adicionais como numberItem quando ativado.
@@ -542,7 +542,7 @@ SchemaUi.schema = {
   },
 }
  ```
- ![Campos de numeros](https://img001.prntscr.com/file/img001/VOpZGSx2Q0KZcyujGXt2jg.png)
+ ![Campos de numeros](../docs/images/number.png)
 
 ### Estilização campos do Site Edito usando Tachyons
 #### `widget classNames `
@@ -568,7 +568,7 @@ SchemaUi.schema = {
 }
  ```
 
- ![Campos de Class Style](https://img001.prntscr.com/file/img001/4sHRL5dgT6-nqiQ7bzScmQ.png)
+ ![Campos de Class Style](../docs/images/class.png)
 
 ## 📌 Exemplo Completo de implementação em componentes
 
