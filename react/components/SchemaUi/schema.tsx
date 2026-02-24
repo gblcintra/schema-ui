@@ -1,4 +1,26 @@
-import React from "react";
+import React, { ComponentType } from "react";
+
+type OnChange = (val: any) => void
+
+type RegisteredComponent<P = any> = ComponentType<P> & {
+  SchemaField?: {
+    defaultProps?: {
+      autoFocus?: boolean
+      disabled?: boolean
+      registry?: Registry
+      readonly?: boolean
+      uiSchema?: {
+        'ui:widget'?: string
+      }
+      formData?: string
+      name?: string
+      onChange?: OnChange
+    }
+  }
+}
+interface Registry {
+  [key: string]: RegisteredComponent
+}
 
 const SchemaPropsDefault = {
   titleItem: 'Configuração do Schema',
@@ -326,6 +348,44 @@ const SchemaUiItemProps = {
       widget: {
         'ui:widget': 'file'
       }
+    },
+    widgetCustomUpload: {
+      type: 'string',
+      title: 'Widget Upload Customizado',
+      widget: {
+        'ui:widget': ({
+          schema,
+          formData,
+          onChange,
+          registry,
+        }: { schema: any, formData: any, onChange: OnChange, registry: Registry }) => {
+
+          const SchemaField = registry.fields.SchemaField as RegisteredComponent
+
+          return (
+            <div className="custom-widget">
+              <SchemaField
+                name="imageChoice"
+                schema={{
+                  type: 'string',
+                  title: schema.title,
+                }}
+                uiSchema={{
+                  'ui:widget': 'image-uploader',
+                }}
+                formData={formData?.imageChoice || ''}
+                registry={registry}
+                onChange={(url: string) =>
+                  onChange({
+                    ...formData,
+                    imageChoice: url || '',
+                  })
+                }
+              />
+            </div>
+          )
+        }
+      },
     },
     showMoreConfig: {
       title: 'Mostrar mais Configurações com dependencies',
