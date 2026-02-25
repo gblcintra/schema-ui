@@ -906,7 +906,7 @@ Use `widgetCustomSelect` quando precisar:
 
 ---
 
-# `ui:widget (CUSTOM: widgetCustomRange)`
+#### `ui:widget (CUSTOM: widgetCustomRange)`
 
 O `widgetCustomRange` encapsula um `input type="range"` dentro do Schema, permitindo:
 
@@ -1000,7 +1000,7 @@ widgetCustomRange: {
 ![Campos Custom de Range](../docs/images/widgetCustomRange.png)
 ---
 
-# `ui:widget (CUSTOM: widgetCustomRating)`
+#### `ui:widget (CUSTOM: widgetCustomRating)`
 
 Sistema de avaliação por estrelas (1 a 5).
 
@@ -1082,7 +1082,7 @@ widgetCustomRating: {
 ![Campos Custom de Seletor de Estrela](../docs/images/widgetCustomRating.png)
 ---
 
-# `ui:widget (CUSTOM: widgetCustomColorPicker)`
+#### `ui:widget (CUSTOM: widgetCustomColorPicker)`
 
 Seletor visual de cores.
 
@@ -1162,7 +1162,7 @@ widgetCustomColorPicker: {
 ![Campos Custom de Seletor de Cores](../docs/images/widgetCustomColorPicker.png)
 ---
 
-# `ui:widget (CUSTOM: widgetCustomTextArea)`
+#### `ui:widget (CUSTOM: widgetCustomTextArea)`
 
 Campo de texto multilinha customizado.
 
@@ -1236,7 +1236,7 @@ widgetCustomTextArea: {
 ![Campos Custom de Text Area](../docs/images/widgetCustomTextArea.png)
 ---
 
-# `ui:widget (CUSTOM: widgetCustomCheckbox)`
+#### `ui:widget (CUSTOM: widgetCustomCheckbox)`
 
 Checkbox customizado.
 
@@ -1312,7 +1312,7 @@ widgetCustomCheckbox: {
 ![Campos Custom de Checkbox](../docs/images/widgetCustomCheckbox.png)
 ---
 
-# `ui:widget (CUSTOM: widgetCustomRadio)`
+#### `ui:widget (CUSTOM: widgetCustomRadio)`
 
 Grupo de radio buttons customizado.
 
@@ -1392,7 +1392,7 @@ widgetCustomRadio: {
 ![Campos Custom de Radio](../docs/images/widgetCustomRadio.png)
 ---
 
-# `ui:widget (CUSTOM: widgetCustomMultiSelect)`
+#### `ui:widget (CUSTOM: widgetCustomMultiSelect)`
 
 Seleção múltipla via checkboxes.
 
