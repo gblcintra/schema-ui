@@ -1,26 +1,4 @@
-import React, { ComponentType } from "react";
-
-type OnChange = (val: any) => void
-
-type RegisteredComponent<P = any> = ComponentType<P> & {
-  SchemaField?: {
-    defaultProps?: {
-      autoFocus?: boolean
-      disabled?: boolean
-      registry?: Registry
-      readonly?: boolean
-      uiSchema?: {
-        'ui:widget'?: string
-      }
-      formData?: string
-      name?: string
-      onChange?: OnChange
-    }
-  }
-}
-interface Registry {
-  [key: string]: RegisteredComponent
-}
+import React from "react";
 
 const SchemaPropsDefault = {
   titleItem: 'Configuração do Schema',
@@ -52,6 +30,9 @@ const SchemaPropsDefault = {
   ],
   showMoreConfig: true
 };
+
+let cachedNames: string[] | null = null
+let isFetching: boolean = false
 
 const SchemaUiItemProps = {
   title: 'Configuração do schema',
@@ -349,16 +330,16 @@ const SchemaUiItemProps = {
         'ui:widget': 'file'
       }
     },
-    widgetCustomUpload: {
+    widgetCustomUploadImage: {
       type: 'string',
       title: 'Widget Upload Customizado',
       widget: {
         'ui:widget': ({
           schema,
-          formData,
+          value,
           onChange,
           registry,
-        }: { schema: any, formData: any, onChange: OnChange, registry: Registry }) => {
+        }: { schema: any, value: any, onChange: OnChange, registry: Registry }) => {
 
           const SchemaField = registry.fields.SchemaField as RegisteredComponent
 
@@ -373,18 +354,106 @@ const SchemaUiItemProps = {
                 uiSchema={{
                   'ui:widget': 'image-uploader',
                 }}
-                formData={formData?.imageChoice || ''}
+                formData={value || ''}
                 registry={registry}
-                onChange={(url: string) =>
-                  onChange({
-                    ...formData,
-                    imageChoice: url || '',
-                  })
-                }
+                onChange={(url: string) => onChange(url)}
               />
             </div>
           )
         }
+      },
+    },
+    widgetCustomText: {
+      type: 'string',
+      title: 'Widget Texto Customizado',
+      widget: {
+        'ui:widget': ({
+          schema,
+          value,
+          onChange,
+          registry,
+        }: { schema: any, value: any, onChange: OnChange, registry: Registry }) => {
+
+          const SchemaField = registry.fields.SchemaField as RegisteredComponent
+
+          return (
+            <div className="custom-widget">
+              <SchemaField
+                name="textChoice"
+                schema={{
+                  type: 'string',
+                  title: schema.title,
+                }}
+                uiSchema={{
+                  'ui:widget': 'text',
+                }}
+                formData={value || ''}
+                registry={registry}
+                onChange={(url: string) => onChange(url)}
+              />
+            </div>
+          )
+        }
+      },
+    },
+    widgetCustomSelect: {
+      type: 'string',
+      title: 'Widget Select Customizado',
+      widget: {
+        'ui:widget': ({
+          schema,
+          value,
+          onChange,
+          registry
+        }: { schema: any, value: any, onChange: OnChange, registry: Registry }) => {
+
+          const SchemaField = registry.fields.SchemaField as RegisteredComponent
+
+          if (!cachedNames && !isFetching) {
+            isFetching = true
+
+            fetch('/api/catalog_system/pub/category/tree/2')
+              .then(res => res.json())
+              .then((data: any[]) => {
+                cachedNames = data.map(i => i.name).slice(0, 5)
+                isFetching = false
+                // força re-render do RJSF
+                onChange(value)
+              })
+              .catch((err) => {
+                cachedNames = []
+                isFetching = false
+                console.error("💚🐛  ~ Erro ao buscar opções:", err)
+              })
+          }
+
+          const options =
+            cachedNames === null
+              ? ['Carregando...']
+              : (cachedNames as string[]).length
+                ? cachedNames
+                : ['Sem opções']
+
+
+          return (
+            <div className="custom-widget">
+              <SchemaField
+                name="selectChoice"
+                schema={{
+                  type: 'string',
+                  title: schema.title,
+                  enum: options
+                }}
+                uiSchema={{
+                  'ui:widget': 'select',
+                }}
+                formData={value || ''}
+                registry={registry}
+                onChange={(option: string) => onChange(option)}
+              />
+            </div>
+          )
+        },
       },
     },
     showMoreConfig: {
