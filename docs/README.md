@@ -1038,7 +1038,7 @@ SchemaUi.schema = {
                 {stars.map(star => (
                   <span
                     key={star}
-                    className={`f2 pointer ${value >= star ? 'gold' : 'gray'}`}
+                    className={`f2 pointer ${value >= star ? 'yellow' : 'gray'}`}
                     onClick={() => onChange(star)}
                   >
                     ★
