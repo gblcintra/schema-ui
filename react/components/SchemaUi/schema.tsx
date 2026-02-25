@@ -33,6 +33,13 @@ const SchemaPropsDefault = {
   numberIntegerItem: 10,
   widgetCustomText: 'Texto do Widget Customizado',
   widgetCustomSelect: 'Carregando...', // valor inicial enquanto as opções são carregadas
+  widgetCustomRange: 50,
+  widgetCustomRating: 3,
+  widgetCustomColorPicker: '#00ff00',
+  widgetCustomTextArea: 'Texto do TextArea Customizado',
+  widgetCustomCheckbox: true,
+  widgetCustomRadio: 'Opção A',
+  widgetCustomMultiSelect: ['Opção 1', 'Opção 3'],
 };
 
 let cachedNames: string[] | null = null
@@ -255,7 +262,7 @@ const SchemaUiItemProps = {
         },
         secret: {
           type: "string",
-          default: "Invisivel string.",
+          default: "Invisível string.",
           widget: {
             "ui:widget": "hidden"
           },
@@ -459,6 +466,196 @@ const SchemaUiItemProps = {
             </div>
           )
         },
+      },
+    },
+    widgetCustomRange: {
+      type: 'number',
+      title: 'Widget Range Customizado',
+      widget: {
+        'ui:widget': ({
+          value,
+          onChange,
+        }: { value: any, onChange: OnChange }) => {
+          return (
+            <div className="custom-widget">
+              <span className="db mb2">Valor: {value || 0}</span>
+              <input type="range" className="w-100" min="0" max="100" value={value || 0} onChange={(e) => onChange(Number(e.target.value))} />
+              <div className="flex justify-between">
+                <span>0</span>
+                <span>50</span>
+                <span>100</span>
+              </div>
+
+            </div>
+          )
+        }
+      },
+    },
+    widgetCustomRating: {
+      type: 'number',
+      title: 'Widget Rating Customizado',
+      widget: {
+        'ui:widget': ({
+          value,
+          onChange,
+        }: { value: any, onChange: OnChange }) => {
+          const stars = [1, 2, 3, 4, 5]
+          return (
+            <div className="custom-widget">
+              <div className="flex justify-center ">
+                {stars.map(star => (
+                  <span
+                    key={star}
+                    className={`f2 pointer ${value >= star ? 'gold' : 'gray'}`}
+                    onClick={() => onChange(star)}
+                  >
+                    ★
+                  </span>
+                ))}
+              </div>
+            </div>
+          )
+        }
+      },
+    },
+    widgetCustomColorPicker: {
+      type: 'string',
+      title: 'Widget Color Picker Customizado',
+      widget: {
+        'ui:widget': ({
+          value,
+          onChange,
+        }: { value: any, onChange: OnChange }) => {
+          const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff']
+          return (
+            <div className="custom-widget">
+              <div className="flex justify-between">
+                {colors.map(color => (
+                  <div
+                    key={color}
+                    className={`w2 h2 pointer mr2 ${value === color ? 'ba b--black' : ''}`}
+                    style={{ backgroundColor: color }}
+                    onClick={() => onChange(color)}
+                  />
+                ))}
+              </div>
+            </div>
+          )
+        }
+      },
+    },
+    widgetCustomTextArea: {
+      type: 'string',
+      title: 'Widget TextArea Customizado',
+      widget: {
+        'ui:widget': ({
+          schema,
+          value,
+          onChange,
+        }: { schema: any, value: any, onChange: OnChange }) => {
+          return (
+            <div className="custom-widget">
+              <textarea
+                className="w-100 pa2"
+                placeholder={schema.description}
+                value={value || ''}
+                onChange={(e) => onChange(e.target.value)}
+              />
+            </div>
+          )
+        }
+      },
+    },
+    widgetCustomCheckbox: {
+      type: 'boolean',
+      title: 'Widget Checkbox Customizado',
+      widget: {
+        'ui:widget': ({
+          schema,
+          value,
+          onChange,
+        }: { schema: any, value: any, onChange: OnChange }) => {
+          return (
+            <div className="custom-widget">
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={value || false}
+                  onChange={(e) => onChange(e.target.checked)}
+                />
+                <span className="ml2">{schema.title}</span>
+              </label>
+            </div>
+          )
+        }
+      },
+    },
+    widgetCustomRadio: {
+      type: 'string',
+      title: 'Widget Radio Customizado',
+      enum: ['Opção A', 'Opção B', 'Opção C'],
+      widget: {
+        'ui:widget': ({
+          schema,
+          value,
+          onChange,
+        }: { schema: any, value: any, onChange: OnChange }) => {
+          return (
+            <div className="custom-widget">
+              <div className="flex flex-column"></div>
+              {schema.enum.map((option: string) => (
+                <label key={option} className="flex items-center mb2">
+                  <input
+                    type="radio"
+                    name={schema.title}
+                    value={option}
+                    checked={value === option}
+                    onChange={() => onChange(option)}
+                  />
+                  <span className="ml2">{option}</span>
+                </label>
+              ))}
+            </div>
+          )
+        }
+      },
+    },
+    widgetCustomMultiSelect: {
+      type: 'string',
+      title: 'Widget MultiSelect Customizado',
+      items: {
+        type: 'string',
+        enum: ['Opção 1', 'Opção 2', 'Opção 3', 'Opção 4', 'Opção 5'],
+      },
+      widget: {
+        'ui:widget': ({
+          schema,
+          value,
+          onChange,
+        }: { schema: any, value: any, onChange: OnChange }) => {
+          const options = schema.items.enum || []
+          return (
+            <div className="custom-widget">
+              {options.map((option: string) => (
+                <label key={option} className="flex items-center mb2">
+                  <input
+                    type="checkbox"
+                    value={option}
+                    checked={value?.includes(option)}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        onChange([...(value || []), option])
+                      } else {
+                        onChange(value.filter((v: string) => v !== option))
+                      }
+                    }}
+                  />
+                  <span className="ml2">{option}</span>
+                </label>
+              ))}
+            </div>
+          )
+        }
       },
     },
     showMoreConfig: {

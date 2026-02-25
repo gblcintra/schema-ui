@@ -542,7 +542,7 @@ SchemaUi.schema = {
   },
 }
  ```
- ![Campos de numeros](../docs/images/number.png)
+ ![Campos de números](../docs/images/number.png)
 
 ## Widgets Custons do Site Editor
 ### Tipagem para onChange e Registry
@@ -630,7 +630,7 @@ SchemaUi.schema = {
 }
  ```
 
-⚙️ Funcionamento Técnico
+### ⚙️ Funcionamento Técnico
 
 1. O widget intercepta as props padrão do RJSF:
 - `schema`
@@ -642,7 +642,7 @@ SchemaUi.schema = {
 4. Injeta o widget `image-uploader`.
 5. Repassa o valor para o formulário via `onChange`.
 
-🎯 Quando Utilizar
+### 🎯 Quando Utilizar
 
 Use `widgetCustomUploadImage` quando precisar:
 - Adicionar layout customizado ao upload
@@ -651,7 +651,7 @@ Use `widgetCustomUploadImage` quando precisar:
 - Encapsular regras de negócio
 - Criar múltiplos comportamentos reaproveitáveis
 
-🧠 Diferença para `ui:widget: image-uploader`
+### 🧠 Diferença para `ui:widget: image-uploader`
 
 | image-uploader padrão | widgetCustomUploadImage |
 | --------------------- | ----------------------- |
@@ -659,7 +659,7 @@ Use `widgetCustomUploadImage` quando precisar:
 | Sem lógica adicional  | Permite lógica custom   |
 | Layout padrão         | Layout customizável     |
 
-![Campos de Upload de Arquivos](../docs/images/widgetCustomImage.png)
+![Campos Custom de Upload de Imagem](../docs/images/widgetCustomImage.png)
 
 #### `ui:widget (CUSTOM: widgetCustomText)`
 
@@ -725,7 +725,7 @@ SchemaUi.schema = {
     }
   }
 ```
-⚙️ Funcionamento Técnico
+### ⚙️ Funcionamento Técnico
 
 1. O widget intercepta as props padrão do RJSF:
 - `schema`
@@ -738,7 +738,7 @@ SchemaUi.schema = {
 5. Define dinamicamente o `placeholder` utilizando `schema.description`.
 6. Repassa o valor para o formulário via `onChange`.
 
-🎯 Quando Utilizar
+### 🎯 Quando Utilizar
 
 Use `widgetCustomText` quando precisar:
 - Controlar dinamicamente o placeholder
@@ -748,7 +748,7 @@ Use `widgetCustomText` quando precisar:
 - Encapsular regras de negócio
 - Criar múltiplos comportamentos reaproveitáveis
 
-🧠 Diferença para `ui:widget: text`
+### 🧠 Diferença para `ui:widget: text`
 
 | text padrão                   | widgetCustomText                |
 | ----------------------------- | ------------------------------- |
@@ -757,7 +757,7 @@ Use `widgetCustomText` quando precisar:
 | Sem lógica adicional          | Permite lógica custom           |
 | Layout padrão                 | Layout customizável             |
 
-![Campos de Upload de Arquivos](../docs/images/widgetCustomText.png)
+![Campos Custom de Texto](../docs/images/widgetCustomText.png)
 
 
 
@@ -856,7 +856,7 @@ SchemaUi.schema = {
 
 ```
 
-⚙️ Funcionamento Técnico
+### ⚙️ Funcionamento Técnico
 
 1. O widget intercepta as props padrão do RJSF:
 - `schema`
@@ -876,7 +876,7 @@ SchemaUi.schema = {
 6. Força re-render via `onChange` após carregamento.
 
 ---
-🔄 Estados Possíveis
+### 🔄 Estados Possíveis
 
 | Estado         | Resultado no Select |
 | -------------- | ------------------- |
@@ -884,7 +884,7 @@ SchemaUi.schema = {
 | Array vazio    | "Sem opções"        |
 | Array populado | Lista dinâmica      |
 ---
-🎯 Quando Utilizar
+### 🎯 Quando Utilizar
 
 Use `widgetCustomSelect` quando precisar:
 - Popular selects via API externa
@@ -893,7 +893,7 @@ Use `widgetCustomSelect` quando precisar:
 - Criar comportamento inteligente com cache
 - Encapsular lógica assíncrona dentro do schema
 
-🧠 Diferença para `ui:widget: select`
+### 🧠 Diferença para `ui:widget: select`
 
 | select padrão  | widgetCustomSelect |
 | -------------- | ------------------ |
@@ -902,7 +902,587 @@ Use `widgetCustomSelect` quando precisar:
 | Sem cache      | Cache em memória   |
 | Render simples | Render inteligente |
 
-![Campos de Upload de Arquivos](../docs/images/widgetCustomSelect.png)
+![Campos Custom de Seletor de Item](../docs/images/widgetCustomSelect.png)
+
+---
+
+# `ui:widget (CUSTOM: widgetCustomRange)`
+
+O `widgetCustomRange` encapsula um `input type="range"` dentro do Schema, permitindo:
+
+- Controle visual em tempo real do valor selecionado  
+- Experiência interativa estilo slider  
+- Customização total da UI  
+- Integração direta com o ciclo de vida do RJSF  
+
+---
+
+## 🧩 Propriedade
+
+| Propriedade         | Tipo     | Descrição                                     |
+| ------------------- | -------- | --------------------------------------------- |
+| `widgetCustomRange` | `number` | Campo range customizado com slider interativo |
+
+---
+
+## 💻 Implementação no Schema
+
+```tsx
+widgetCustomRange: {
+  type: 'number',
+  title: 'Widget Range Customizado',
+  widget: {
+    'ui:widget': ({
+      value,
+      onChange,
+    }: { value: any, onChange: OnChange }) => {
+      return (
+        <div className="custom-widget">
+          <span className="db mb2">Valor: {value || 0}</span>
+
+          <input
+            type="range"
+            className="w-100"
+            min="0"
+            max="100"
+            value={value || 0}
+            onChange={(e) => onChange(Number(e.target.value))}
+          />
+
+          <div className="flex justify-between">
+            <span>0</span>
+            <span>50</span>
+            <span>100</span>
+          </div>
+        </div>
+      )
+    }
+  },
+}
+```
+---
+
+## ⚙️ Funcionamento Técnico
+
+1. Recebe `value` e `onChange` do RJSF.
+2. Renderiza um `input type="range"` controlado.
+3. Converte `string` → `number` antes de propagar.
+4. Exibe o valor atual acima do slider.
+
+---
+
+## 🔄 Estados Possíveis
+
+| Estado        | Resultado                     |
+| ------------- | ----------------------------- |
+| `undefined`   | Assume `0`                    |
+| Número válido | Atualiza slider dinamicamente |
+
+---
+
+## 🎯 Quando Utilizar
+
+- Ajuste de volume, porcentagem ou intensidade  
+- Configurações numéricas graduais  
+- UX mais intuitiva que `input number`
+
+---
+
+## 🧠 Diferença para `ui:widget: range` padrão
+
+| Range padrão         | widgetCustomRange         |
+| -------------------- | ------------------------- |
+| Sem preview visual   | Exibe valor em tempo real |
+| Estilização limitada | Total controle de UI      |
+| Sem marcações        | Marcações personalizadas  |
+
+---
+![Campos Custom de Range](../docs/images/widgetCustomRange.png)
+---
+
+# `ui:widget (CUSTOM: widgetCustomRating)`
+
+Sistema de avaliação por estrelas (1 a 5).
+
+## 🧩 Propriedade
+
+| Propriedade          | Tipo     | Descrição                             |
+| -------------------- | -------- | ------------------------------------- |
+| `widgetCustomRating` | `number` | Campo de avaliação por estrelas (1–5) |
+
+## 💻 Implementação
+
+```tsx
+widgetCustomRating: {
+  type: 'number',
+  title: 'Widget Rating Customizado',
+  widget: {
+    'ui:widget': ({
+      value,
+      onChange,
+    }: { value: any, onChange: OnChange }) => {
+      const stars = [1, 2, 3, 4, 5]
+
+      return (
+        <div className="custom-widget">
+          <div className="flex justify-center">
+            {stars.map(star => (
+              <span
+                key={star}
+                className={`f2 pointer ${value >= star ? 'gold' : 'gray'}`}
+                onClick={() => onChange(star)}
+              >
+                ★
+              </span>
+            ))}
+          </div>
+        </div>
+      )
+    }
+  },
+}
+```
+---
+
+## ⚙️ Funcionamento Técnico
+
+1. Define um array fixo `[1–5]`.
+2. Compara `value >= star` para aplicar estilo ativo.
+3. Atualiza o valor ao clicar.
+4. Mantém compatibilidade com tipo `number`.
+
+---
+
+## 🔄 Estados Possíveis
+
+| Estado      | Resultado                        |
+| ----------- | -------------------------------- |
+| `undefined` | Nenhuma estrela ativa            |
+| 1–5         | Estrelas preenchidas até o valor |
+
+---
+
+## 🎯 Quando Utilizar
+
+- Avaliação de produto  
+- Feedback interno  
+- Sistema de ranking
+
+---
+
+## 🧠 Diferença para `ui:widget: select`
+
+| Select padrão   | widgetCustomRating     |
+| --------------- | ---------------------- |
+| Lista textual   | Interface visual       |
+| UX simples      | Experiência interativa |
+| Menos intuitivo | Feedback imediato      |
+
+---
+![Campos Custom de Seletor de Estrela](../docs/images/widgetCustomRating.png)
+---
+
+# `ui:widget (CUSTOM: widgetCustomColorPicker)`
+
+Seletor visual de cores.
+
+## 🧩 Propriedade
+
+| Propriedade               | Tipo     | Descrição                     |
+| ------------------------- | -------- | ----------------------------- |
+| `widgetCustomColorPicker` | `string` | Campo seletor visual de cores |
+
+## 💻 Implementação
+
+```tsx
+widgetCustomColorPicker: {
+  type: 'string',
+  title: 'Widget Color Picker Customizado',
+  widget: {
+    'ui:widget': ({
+      value,
+      onChange,
+    }: { value: any, onChange: OnChange }) => {
+      const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff']
+
+      return (
+        <div className="custom-widget">
+          <div className="flex justify-between">
+            {colors.map(color => (
+              <div
+                key={color}
+                className={`w2 h2 pointer mr2 ${value === color ? 'ba b--black' : ''}`}
+                style={{ backgroundColor: color }}
+                onClick={() => onChange(color)}
+              />
+            ))}
+          </div>
+        </div>
+      )
+    }
+  },
+}
+```
+---
+
+## ⚙️ Funcionamento Técnico
+
+1. Define array fixo de cores.
+2. Aplica borda na cor selecionada.
+3. Retorna valor hexadecimal (`string`).
+
+---
+
+## 🔄 Estados Possíveis
+
+| Estado      | Resultado         |
+| ----------- | ----------------- |
+| `undefined` | Nenhuma cor ativa |
+| Hex válido  | Cor marcada       |
+
+---
+
+## 🎯 Quando Utilizar
+
+- Configuração de tema  
+- Escolha de cor principal  
+- Personalização visual
+
+---
+
+## 🧠 Diferença para `ui:widget: select`
+
+| Select padrão            | widgetCustomColorPicker |
+| ------------------------ | ----------------------- |
+| Texto                    | Representação visual    |
+| Não intuitivo para cores | Visual imediato         |
+| UX básica                | UX moderna              |
+
+---
+![Campos Custom de Seletor de Cores](../docs/images/widgetCustomColorPicker.png)
+---
+
+# `ui:widget (CUSTOM: widgetCustomTextArea)`
+
+Campo de texto multilinha customizado.
+
+## 🧩 Propriedade
+
+| Propriedade            | Tipo     | Descrição                        |
+| ---------------------- | -------- | -------------------------------- |
+| `widgetCustomTextArea` | `string` | Campo de texto multilinha custom |
+
+## 💻 Implementação
+
+```tsx
+widgetCustomTextArea: {
+  type: 'string',
+  title: 'Widget TextArea Customizado',
+  widget: {
+    'ui:widget': ({
+      schema,
+      value,
+      onChange,
+    }: { schema: any, value: any, onChange: OnChange }) => {
+      return (
+        <div className="custom-widget">
+          <textarea
+            className="w-100 pa2"
+            placeholder={schema.description}
+            value={value || ''}
+            onChange={(e) => onChange(e.target.value)}
+          />
+        </div>
+      )
+    }
+  },
+}
+```
+---
+
+## ⚙️ Funcionamento Técnico
+
+1. Recebe `schema.description` como placeholder.
+2. Controla valor via `onChange`.
+3. Trabalha como campo controlado React.
+
+---
+
+## 🔄 Estados Possíveis
+
+| Estado            | Resultado            |
+| ----------------- | -------------------- |
+| `undefined`       | Campo vazio          |
+| String preenchida | Atualização dinâmica |
+
+---
+
+## 🎯 Quando Utilizar
+
+- Descrições longas  
+- Observações  
+- Campos narrativos
+
+---
+
+## 🧠 Diferença para `ui:widget: textarea`
+
+| Textarea padrão  | widgetCustomTextArea     |
+| ---------------- | ------------------------ |
+| Sem customização | Total controle de layout |
+| Placeholder fixo | Dinâmico via schema      |
+
+---
+![Campos Custom de Text Area](../docs/images/widgetCustomTextArea.png)
+---
+
+# `ui:widget (CUSTOM: widgetCustomCheckbox)`
+
+Checkbox customizado.
+
+## 🧩 Propriedade
+
+| Propriedade            | Tipo      | Descrição                 |
+| ---------------------- | --------- | ------------------------- |
+| `widgetCustomCheckbox` | `boolean` | Campo boolean customizado |
+
+## 💻 Implementação
+
+```tsx
+widgetCustomCheckbox: {
+  type: 'boolean',
+  title: 'Widget Checkbox Customizado',
+  widget: {
+    'ui:widget': ({
+      schema,
+      value,
+      onChange,
+    }: { schema: any, value: any, onChange: OnChange }) => {
+      return (
+        <div className="custom-widget">
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              checked={value || false}
+              onChange={(e) => onChange(e.target.checked)}
+            />
+            <span className="ml2">{schema.title}</span>
+          </label>
+        </div>
+      )
+    }
+  },
+}
+```
+---
+
+## ⚙️ Funcionamento Técnico
+
+1. Trabalha com tipo `boolean`.
+2. Usa `checked={value || false}`.
+3. Propaga `e.target.checked`.
+
+---
+
+## 🔄 Estados Possíveis
+
+| Estado  | Resultado  |
+| ------- | ---------- |
+| `false` | Desmarcado |
+| `true`  | Marcado    |
+
+---
+
+## 🎯 Quando Utilizar
+
+- Flags de ativação  
+- Habilitar/desabilitar recursos  
+
+---
+
+## 🧠 Diferença para checkbox padrão
+
+| Checkbox padrão           | widgetCustomCheckbox  |
+| ------------------------- | --------------------- |
+| Layout simples            | Layout customizado    |
+| Sem controle visual extra | Integração estilizada |
+
+---
+
+![Campos Custom de Checkbox](../docs/images/widgetCustomCheckbox.png)
+---
+
+# `ui:widget (CUSTOM: widgetCustomRadio)`
+
+Grupo de radio buttons customizado.
+
+## 🧩 Propriedade
+
+| Propriedade         | Tipo     | Descrição                        |
+| ------------------- | -------- | -------------------------------- |
+| `widgetCustomRadio` | `string` | Campo de seleção única via radio |
+
+## 💻 Implementação
+
+```tsx
+widgetCustomRadio: {
+  type: 'string',
+  title: 'Widget Radio Customizado',
+  enum: ['Opção A', 'Opção B', 'Opção C'],
+  widget: {
+    'ui:widget': ({
+      schema,
+      value,
+      onChange,
+    }: { schema: any, value: any, onChange: OnChange }) => {
+      return (
+        <div className="custom-widget">
+          {schema.enum.map((option: string) => (
+            <label key={option} className="flex items-center mb2">
+              <input
+                type="radio"
+                name={schema.title}
+                value={option}
+                checked={value === option}
+                onChange={() => onChange(option)}
+              />
+              <span className="ml2">{option}</span>
+            </label>
+          ))}
+        </div>
+      )
+    }
+  },
+}
+```
+---
+
+## ⚙️ Funcionamento Técnico
+
+1. Itera sobre `schema.enum`.
+2. Compara `value === option`.
+3. Atualiza via `onChange(option)`.
+
+---
+
+## 🔄 Estados Possíveis
+
+| Estado        | Resultado                 |
+| ------------- | ------------------------- |
+| `undefined`   | Nenhuma opção selecionada |
+| String válida | Radio ativo               |
+
+---
+
+## 🎯 Quando Utilizar
+
+- Escolhas exclusivas  
+- Modos de operação  
+
+---
+
+## 🧠 Diferença para radio padrão
+
+| Radio padrão         | widgetCustomRadio  |
+| -------------------- | ------------------ |
+| Render automático    | Controle manual    |
+| Estilização limitada | Total customização |
+
+---
+![Campos Custom de Radio](../docs/images/widgetCustomRadio.png)
+---
+
+# `ui:widget (CUSTOM: widgetCustomMultiSelect)`
+
+Seleção múltipla via checkboxes.
+
+## 🧩 Propriedade
+
+| Propriedade               | Tipo    | Descrição                        |
+| ------------------------- | ------- | -------------------------------- |
+| `widgetCustomMultiSelect` | `array` | Campo de seleção múltipla custom |
+
+## 💻 Implementação
+
+```tsx
+widgetCustomMultiSelect: {
+  type: 'array',
+  title: 'Widget MultiSelect Customizado',
+  items: {
+    type: 'string',
+    enum: ['Opção 1', 'Opção 2', 'Opção 3', 'Opção 4', 'Opção 5'],
+  },
+  widget: {
+    'ui:widget': ({
+      schema,
+      value,
+      onChange,
+    }: { schema: any, value: any, onChange: OnChange }) => {
+      const options = schema.items.enum || []
+
+      return (
+        <div className="custom-widget">
+          {options.map((option: string) => (
+            <label key={option} className="flex items-center mb2">
+              <input
+                type="checkbox"
+                value={option}
+                checked={value?.includes(option)}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    onChange([...(value || []), option])
+                  } else {
+                    onChange(value.filter((v: string) => v !== option))
+                  }
+                }}
+              />
+              <span className="ml2">{option}</span>
+            </label>
+          ))}
+        </div>
+      )
+    }
+  },
+}
+```
+---
+
+## ⚙️ Funcionamento Técnico
+
+1. Trabalha com `type: array`.
+2. Adiciona/remover via spread operator.
+3. Controla estado via `value?.includes`.
+
+---
+
+## 🔄 Estados Possíveis
+
+| Estado         | Resultado               |
+| -------------- | ----------------------- |
+| `[]`           | Nenhuma opção           |
+| Array populado | Múltiplas opções ativas |
+
+---
+
+## 🎯 Quando Utilizar
+
+- Tags  
+- Categorias múltiplas  
+- Features habilitáveis simultaneamente  
+
+---
+
+## 🧠 Diferença para `ui:widget: select (multiple)`
+
+| Select multiple padrão     | widgetCustomMultiSelect |
+| -------------------------- | ----------------------- |
+| Dropdown fechado           | Visual direto           |
+| UX menos clara             | Controle explícito      |
+| Difícil visualização total | Todas opções visíveis   |
+
+---
+![Campos Custom de Checkbox](../docs/images/widgetCustomMultiSelect.png)
+---
 
 
 ### Estilização campos do Site Editor usando Tachyons
