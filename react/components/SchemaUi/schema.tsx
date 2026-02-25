@@ -4,7 +4,7 @@ const SchemaPropsDefault = {
   titleItem: 'Configuração do Schema',
   activeItem: true,
   textProps: {
-    titleItem: 'Texto Exemplo Carol',
+    titleItem: 'Texto Exemplo',
     passwordItem: 'senha123',
     descriptionItem: 'Uma breve descrição.',
   },
@@ -28,7 +28,11 @@ const SchemaPropsDefault = {
     { __editorItemTitle: 'Item 1', title: 'Item 1' },
     { __editorItemTitle: 'Item 2', title: 'Item 2' },
   ],
-  showMoreConfig: true
+  showMoreConfig: true,
+  numberItem: 8,
+  numberIntegerItem: 10,
+  widgetCustomText: 'Texto do Widget Customizado',
+  widgetCustomSelect: 'Carregando...', // valor inicial enquanto as opções são carregadas
 };
 
 let cachedNames: string[] | null = null
@@ -366,6 +370,7 @@ const SchemaUiItemProps = {
     widgetCustomText: {
       type: 'string',
       title: 'Widget Texto Customizado',
+      description: 'Esse é um exemplo de widget customizado para um campo de texto.',
       widget: {
         'ui:widget': ({
           schema,
@@ -386,6 +391,7 @@ const SchemaUiItemProps = {
                 }}
                 uiSchema={{
                   'ui:widget': 'text',
+                  'ui:placeholder': schema.description,
                 }}
                 formData={value || ''}
                 registry={registry}
@@ -433,7 +439,6 @@ const SchemaUiItemProps = {
               : (cachedNames as string[]).length
                 ? cachedNames
                 : ['Sem opções']
-
 
           return (
             <div className="custom-widget">
