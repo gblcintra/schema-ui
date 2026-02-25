@@ -544,7 +544,7 @@ SchemaUi.schema = {
  ```
  ![Campos de numeros](../docs/images/number.png)
 
-### Widgets Custons do Site Edito
+## Widgets Custons do Site Editor
 ### Tipagem para onChange e Registry
 ```jsx
   type OnChange = (val: any) => void
@@ -905,7 +905,7 @@ Use `widgetCustomSelect` quando precisar:
 ![Campos de Upload de Arquivos](../docs/images/widgetCustomSelect.png)
 
 
-### Estilização campos do Site Edito usando Tachyons
+### Estilização campos do Site Editor usando Tachyons
 #### `widget classNames `
 ##### Dynamic Configuration with Dependencies
 Utiliza as classes do Tachyons para estilizar o bloco do site editor e deixa com a aparência mais agradável.
