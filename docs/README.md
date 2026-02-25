@@ -544,6 +544,367 @@ SchemaUi.schema = {
  ```
  ![Campos de numeros](../docs/images/number.png)
 
+### Widgets Custons do Site Edito
+### Tipagem para onChange e Registry
+```jsx
+  type OnChange = (val: any) => void
+
+  type RegisteredComponent<P = any> = ComponentType<P> & {
+    SchemaField?: {
+      defaultProps?: {
+        autoFocus?: boolean
+        disabled?: boolean
+        registry?: Registry
+        readonly?: boolean
+        uiSchema?: {
+          'ui:widget'?: string
+        }
+        formData?: string
+        name?: string
+        onChange?: OnChange
+      }
+    }
+  }
+  interface Registry {
+    [key: string]: RegisteredComponent
+  }
+```
+
+#### `ui:widget(CUSTOM: widgetCustomUploadImage)`
+O widgetCustomUploadImage é um widget customizado que encapsula o `image-uploader` padrão do Site Editor, permitindo:
+- Controle total sobre a renderização
+- Customização de layout
+- Encapsulamento de lógica adicional
+- Reutilização estruturada via `registry`
+Ele utiliza o `SchemaField` interno do rjsf-team no projeto react-jsonschema-form para manter compatibilidade total com o ecossistema do schema.
+
+---
+
+| Propriedade               | Tipo     | Descrição                                               |
+| ------------------------- | -------- | ------------------------------------------------------- |
+| `widgetCustomUploadImage` | `string` | Campo de upload de imagem utilizando widget customizado |
+
+---
+
+### 💻 Implementação no Schema
+
+```jsx
+SchemaUi.schema = {
+  title: 'Configuração do schema',
+  type: 'object',
+  properties: {
+    widgetCustomUploadImage: {
+      type: 'string',
+      title: 'Widget Upload Customizado',
+      widget: {
+        'ui:widget': ({
+          schema,
+          value,
+          onChange,
+          registry,
+        }: { schema: any, value: any, onChange: OnChange, registry: Registry }) => {
+
+          const SchemaField = registry.fields.SchemaField as RegisteredComponent
+
+          return (
+            <div className="custom-widget">
+              <SchemaField
+                name="imageChoice"
+                schema={{
+                  type: 'string',
+                  title: schema.title,
+                }}
+                uiSchema={{
+                  'ui:widget': 'image-uploader',
+                }}
+                formData={value || ''}
+                registry={registry}
+                onChange={(url: string) => onChange(url)}
+              />
+            </div>
+          )
+        }
+      },
+    }
+  }
+}
+ ```
+
+⚙️ Funcionamento Técnico
+
+1. O widget intercepta as props padrão do RJSF:
+- `schema`
+- `value`
+- `onChange`
+- `registry`
+2. Recupera o `SchemaField` via `registry.fields`.
+3. Renderiza internamente um campo padrão do tipo `string`.
+4. Injeta o widget `image-uploader`.
+5. Repassa o valor para o formulário via `onChange`.
+
+🎯 Quando Utilizar
+
+Use `widgetCustomUploadImage` quando precisar:
+- Adicionar layout customizado ao upload
+- Incluir validações adicionais
+- Adicionar preview customizado
+- Encapsular regras de negócio
+- Criar múltiplos comportamentos reaproveitáveis
+
+🧠 Diferença para `ui:widget: image-uploader`
+
+| image-uploader padrão | widgetCustomUploadImage |
+| --------------------- | ----------------------- |
+| Uso direto            | Uso encapsulado         |
+| Sem lógica adicional  | Permite lógica custom   |
+| Layout padrão         | Layout customizável     |
+
+![Campos de Upload de Arquivos](../docs/images/widgetCustomImage.png)
+
+#### `ui:widget (CUSTOM: widgetCustomText)`
+
+O `widgetCustomText` é um widget customizado que encapsula o `text` padrão do Site Editor, permitindo:
+
+- Controle total sobre a renderização  
+- Customização de layout  
+- Uso dinâmico de `description` como placeholder  
+- Encapsulamento de lógica adicional  
+- Reutilização estruturada via `registry`  
+
+Ele utiliza o `SchemaField` interno do rjsf-team no projeto react-jsonschema-form para manter compatibilidade total com o ecossistema do schema.
+
+---
+
+| Propriedade        | Tipo     | Descrição                                    |
+| ------------------ | -------- | -------------------------------------------- |
+| `widgetCustomText` | `string` | Campo de texto utilizando widget customizado |
+
+---
+
+### 💻 Implementação no Schema
+
+```tsx
+SchemaUi.schema = {
+  title: 'Configuração do schema',
+  type: 'object',
+  properties: {
+    widgetCustomText: {
+      type: 'string',
+      title: 'Widget Texto Customizado',
+      description: 'Esse é um exemplo de widget customizado para um campo de texto.',
+      widget: {
+        'ui:widget': ({
+          schema,
+          value,
+          onChange,
+          registry,
+        }: { schema: any, value: any, onChange: OnChange, registry: Registry }) => {
+
+          const SchemaField = registry.fields.SchemaField as RegisteredComponent
+
+          return (
+            <div className="custom-widget">
+              <SchemaField
+                name="textChoice"
+                schema={{
+                  type: 'string',
+                  title: schema.title,
+                }}
+                uiSchema={{
+                  'ui:widget': 'text',
+                  'ui:placeholder': schema.description,
+                }}
+                formData={value || ''}
+                registry={registry}
+                onChange={(value: string) => onChange(value)}
+              />
+            </div>
+          )
+        }
+      },
+    }
+  }
+```
+⚙️ Funcionamento Técnico
+
+1. O widget intercepta as props padrão do RJSF:
+- `schema`
+- `value`
+- `onChange`
+- `registry`
+2. Recupera o `SchemaField` via `registry.fields`.
+3. Renderiza internamente um campo padrão do tipo `string`.
+4. Injeta o widget `text`.
+5. Define dinamicamente o `placeholder` utilizando `schema.description`.
+6. Repassa o valor para o formulário via `onChange`.
+
+🎯 Quando Utilizar
+
+Use `widgetCustomText` quando precisar:
+- Controlar dinamicamente o placeholder
+- Adicionar layout customizado ao input
+- Incluir validações adicionais
+- Adicionar preview customizado
+- Encapsular regras de negócio
+- Criar múltiplos comportamentos reaproveitáveis
+
+🧠 Diferença para `ui:widget: text`
+
+| text padrão                   | widgetCustomText                |
+| ----------------------------- | ------------------------------- |
+| Uso direto                    | Uso encapsulado                 |
+| Placeholder fixo via uiSchema | Placeholder dinâmico via schema |
+| Sem lógica adicional          | Permite lógica custom           |
+| Layout padrão                 | Layout customizável             |
+
+![Campos de Upload de Arquivos](../docs/images/widgetCustomText.png)
+
+
+
+#### `ui:widget (CUSTOM: widgetCustomSelect)`
+
+O `widgetCustomSelect` é um widget customizado que encapsula o `select` padrão do Site Editor, permitindo:
+
+- Carregamento dinâmico de opções via API
+- Cache em memória para evitar múltiplas requisições
+- Controle total da renderização
+- Encapsulamento de lógica assíncrona
+- Reutilização estruturada via `registry`
+
+Ele utiliza o `SchemaField` interno do rjsf-team no projeto react-jsonschema-form para manter compatibilidade total com o ecossistema do schema.
+
+---
+
+### 🧩 Propriedade
+
+| Propriedade          | Tipo     | Descrição                                                |
+| -------------------- | -------- | -------------------------------------------------------- |
+| `widgetCustomSelect` | `string` | Campo select com opções carregadas dinamicamente via API |
+
+---
+
+### 💻 Implementação no Schema
+
+```tsx
+let cachedNames: string[] | null = null
+let isFetching: boolean = false
+
+SchemaUi.schema = {
+  title: 'Configuração do schema',
+  type: 'object',
+  properties: {
+    widgetCustomSelect: {
+      type: 'string',
+      title: 'Widget Select Customizado',
+      widget: {
+        'ui:widget': ({
+          schema,
+          value,
+          onChange,
+          registry
+        }: { schema: any, value: any, onChange: OnChange, registry: Registry }) => {
+
+          const SchemaField = registry.fields.SchemaField as RegisteredComponent
+
+          if (!cachedNames && !isFetching) {
+            isFetching = true
+
+            fetch('/api/catalog_system/pub/category/tree/2')
+              .then(res => res.json())
+              .then((data: any[]) => {
+                cachedNames = data.map(i => i.name).slice(0, 5)
+                isFetching = false
+                // força re-render do RJSF
+                onChange(value)
+              })
+              .catch((err) => {
+                cachedNames = []
+                isFetching = false
+                console.error("💚🐛  ~ Erro ao buscar opções:", err)
+              })
+          }
+
+          const options =
+            cachedNames === null
+              ? ['Carregando...']
+              : (cachedNames as string[]).length
+                ? cachedNames
+                : ['Sem opções']
+
+          return (
+            <div className="custom-widget">
+              <SchemaField
+                name="selectChoice"
+                schema={{
+                  type: 'string',
+                  title: schema.title,
+                  enum: options
+                }}
+                uiSchema={{
+                  'ui:widget': 'select',
+                }}
+                formData={value || ''}
+                registry={registry}
+                onChange={(option: string) => onChange(option)}
+              />
+            </div>
+          )
+        },
+      },
+    },
+  }
+
+```
+
+⚙️ Funcionamento Técnico
+
+1. O widget intercepta as props padrão do RJSF:
+- `schema`
+- `value`
+- `onChange`
+- `registry`
+2. Utiliza variáveis externas (`cachedNames` e `isFetching`) para:
+- Evitar múltiplas requisições simultâneas
+- Manter cache em memória
+- Melhorar performance
+3. Realiza requisição para:
+   ```tsx
+      /api/catalog_system/pub/category/tree/2
+   ```
+4. Mapeia os nomes retornados e limita os resultados (ex:`slice(0, 5)`).
+5. Atualiza o enum dinamicamente no `SchemaField`.
+6. Força re-render via `onChange` após carregamento.
+
+---
+🔄 Estados Possíveis
+
+| Estado         | Resultado no Select |
+| -------------- | ------------------- |
+| null           | "Carregando..."     |
+| Array vazio    | "Sem opções"        |
+| Array populado | Lista dinâmica      |
+---
+🎯 Quando Utilizar
+
+Use `widgetCustomSelect` quando precisar:
+- Popular selects via API externa
+- Trabalhar com dados dinâmicos do VTEX
+- Evitar múltiplas requisições desnecessárias
+- Criar comportamento inteligente com cache
+- Encapsular lógica assíncrona dentro do schema
+
+🧠 Diferença para `ui:widget: select`
+
+| select padrão  | widgetCustomSelect |
+| -------------- | ------------------ |
+| Enum fixo      | Enum dinâmico      |
+| Sem fetch      | Com fetch API      |
+| Sem cache      | Cache em memória   |
+| Render simples | Render inteligente |
+
+![Campos de Upload de Arquivos](../docs/images/widgetCustomSelect.png)
+
+
 ### Estilização campos do Site Edito usando Tachyons
 #### `widget classNames `
 ##### Dynamic Configuration with Dependencies
@@ -567,7 +928,6 @@ SchemaUi.schema = {
   }
 }
  ```
-
  ![Campos de Class Style](../docs/images/class.png)
 
 ## 📌 Exemplo Completo de implementação em componentes
