@@ -2,7 +2,7 @@
   "version": "0.0.0",
   "name": "schema-ui",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/gblcintra/schema-ui.git"
