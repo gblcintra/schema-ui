@@ -820,7 +820,6 @@ SchemaUi.schema = {
               .catch((err) => {
                 cachedNames = []
                 isFetching = false
-                console.error("💚🐛  ~ Erro ao buscar opções:", err)
               })
           }
 
@@ -928,37 +927,42 @@ O `widgetCustomRange` encapsula um `input type="range"` dentro do Schema, permit
 ## 💻 Implementação no Schema
 
 ```tsx
-widgetCustomRange: {
-  type: 'number',
-  title: 'Widget Range Customizado',
-  widget: {
-    'ui:widget': ({
-      value,
-      onChange,
-    }: { value: any, onChange: OnChange }) => {
-      return (
-        <div className="custom-widget">
-          <span className="db mb2">Valor: {value || 0}</span>
+SchemaUi.schema = {
+  title: 'Configuração do schema',
+  type: 'object',
+  properties: {
+    widgetCustomRange: {
+      type: 'number',
+      title: 'Widget Range Customizado',
+      widget: {
+        'ui:widget': ({
+          value,
+          onChange,
+        }: { value: any, onChange: OnChange }) => {
+          return (
+            <div className="custom-widget">
+              <span className="db mb2">Valor: {value || 0}</span>
 
-          <input
-            type="range"
-            className="w-100"
-            min="0"
-            max="100"
-            value={value || 0}
-            onChange={(e) => onChange(Number(e.target.value))}
-          />
+              <input
+                type="range"
+                className="w-100"
+                min="0"
+                max="100"
+                value={value || 0}
+                onChange={(e) => onChange(Number(e.target.value))}
+              />
 
-          <div className="flex justify-between">
-            <span>0</span>
-            <span>50</span>
-            <span>100</span>
-          </div>
-        </div>
-      )
+              <div className="flex justify-between">
+                <span>0</span>
+                <span>50</span>
+                <span>100</span>
+              </div>
+            </div>
+          )
+        }
+      },
     }
-  },
-}
+  }
 ```
 ---
 
@@ -1013,34 +1017,39 @@ Sistema de avaliação por estrelas (1 a 5).
 ## 💻 Implementação
 
 ```tsx
-widgetCustomRating: {
-  type: 'number',
-  title: 'Widget Rating Customizado',
-  widget: {
-    'ui:widget': ({
-      value,
-      onChange,
-    }: { value: any, onChange: OnChange }) => {
-      const stars = [1, 2, 3, 4, 5]
+SchemaUi.schema = {
+  title: 'Configuração do schema',
+  type: 'object',
+  properties: {
+    widgetCustomRating: {
+      type: 'number',
+      title: 'Widget Rating Customizado',
+      widget: {
+        'ui:widget': ({
+          value,
+          onChange,
+        }: { value: any, onChange: OnChange }) => {
+          const stars = [1, 2, 3, 4, 5]
 
-      return (
-        <div className="custom-widget">
-          <div className="flex justify-center">
-            {stars.map(star => (
-              <span
-                key={star}
-                className={`f2 pointer ${value >= star ? 'gold' : 'gray'}`}
-                onClick={() => onChange(star)}
-              >
-                ★
-              </span>
-            ))}
-          </div>
-        </div>
-      )
+          return (
+            <div className="custom-widget">
+              <div className="flex justify-center">
+                {stars.map(star => (
+                  <span
+                    key={star}
+                    className={`f2 pointer ${value >= star ? 'gold' : 'gray'}`}
+                    onClick={() => onChange(star)}
+                  >
+                    ★
+                  </span>
+                ))}
+              </div>
+            </div>
+          )
+        }
+      },
     }
-  },
-}
+  }
 ```
 ---
 
@@ -1095,33 +1104,38 @@ Seletor visual de cores.
 ## 💻 Implementação
 
 ```tsx
-widgetCustomColorPicker: {
-  type: 'string',
-  title: 'Widget Color Picker Customizado',
-  widget: {
-    'ui:widget': ({
-      value,
-      onChange,
-    }: { value: any, onChange: OnChange }) => {
-      const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff']
+SchemaUi.schema = {
+  title: 'Configuração do schema',
+  type: 'object',
+  properties: {
+    widgetCustomColorPicker: {
+      type: 'string',
+      title: 'Widget Color Picker Customizado',
+      widget: {
+        'ui:widget': ({
+          value,
+          onChange,
+        }: { value: any, onChange: OnChange }) => {
+          const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff']
 
-      return (
-        <div className="custom-widget">
-          <div className="flex justify-between">
-            {colors.map(color => (
-              <div
-                key={color}
-                className={`w2 h2 pointer mr2 ${value === color ? 'ba b--black' : ''}`}
-                style={{ backgroundColor: color }}
-                onClick={() => onChange(color)}
-              />
-            ))}
-          </div>
-        </div>
-      )
+          return (
+            <div className="custom-widget">
+              <div className="flex justify-between">
+                {colors.map(color => (
+                  <div
+                    key={color}
+                    className={`w2 h2 pointer mr2 ${value === color ? 'ba b--black' : ''}`}
+                    style={{ backgroundColor: color }}
+                    onClick={() => onChange(color)}
+                  />
+                ))}
+              </div>
+            </div>
+          )
+        }
+      },
     }
-  },
-}
+  }
 ```
 ---
 
@@ -1175,28 +1189,33 @@ Campo de texto multilinha customizado.
 ## 💻 Implementação
 
 ```tsx
-widgetCustomTextArea: {
-  type: 'string',
-  title: 'Widget TextArea Customizado',
-  widget: {
-    'ui:widget': ({
-      schema,
-      value,
-      onChange,
-    }: { schema: any, value: any, onChange: OnChange }) => {
-      return (
-        <div className="custom-widget">
-          <textarea
-            className="w-100 pa2"
-            placeholder={schema.description}
-            value={value || ''}
-            onChange={(e) => onChange(e.target.value)}
-          />
-        </div>
-      )
+SchemaUi.schema = {
+  title: 'Configuração do schema',
+  type: 'object',
+  properties: {
+    widgetCustomTextArea: {
+      type: 'string',
+      title: 'Widget TextArea Customizado',
+      widget: {
+        'ui:widget': ({
+          schema,
+          value,
+          onChange,
+        }: { schema: any, value: any, onChange: OnChange }) => {
+          return (
+            <div className="custom-widget">
+              <textarea
+                className="w-100 pa2"
+                placeholder={schema.description}
+                value={value || ''}
+                onChange={(e) => onChange(e.target.value)}
+              />
+            </div>
+          )
+        }
+      },
     }
-  },
-}
+  }
 ```
 ---
 
@@ -1249,30 +1268,35 @@ Checkbox customizado.
 ## 💻 Implementação
 
 ```tsx
-widgetCustomCheckbox: {
-  type: 'boolean',
-  title: 'Widget Checkbox Customizado',
-  widget: {
-    'ui:widget': ({
-      schema,
-      value,
-      onChange,
-    }: { schema: any, value: any, onChange: OnChange }) => {
-      return (
-        <div className="custom-widget">
-          <label className="flex items-center">
-            <input
-              type="checkbox"
-              checked={value || false}
-              onChange={(e) => onChange(e.target.checked)}
-            />
-            <span className="ml2">{schema.title}</span>
-          </label>
-        </div>
-      )
+SchemaUi.schema = {
+  title: 'Configuração do schema',
+  type: 'object',
+  properties: {
+    widgetCustomCheckbox: {
+      type: 'boolean',
+      title: 'Widget Checkbox Customizado',
+      widget: {
+        'ui:widget': ({
+          schema,
+          value,
+          onChange,
+        }: { schema: any, value: any, onChange: OnChange }) => {
+          return (
+            <div className="custom-widget">
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={value || false}
+                  onChange={(e) => onChange(e.target.checked)}
+                />
+                <span className="ml2">{schema.title}</span>
+              </label>
+            </div>
+          )
+        }
+      },
     }
-  },
-}
+  }
 ```
 ---
 
@@ -1325,35 +1349,40 @@ Grupo de radio buttons customizado.
 ## 💻 Implementação
 
 ```tsx
-widgetCustomRadio: {
-  type: 'string',
-  title: 'Widget Radio Customizado',
-  enum: ['Opção A', 'Opção B', 'Opção C'],
-  widget: {
-    'ui:widget': ({
-      schema,
-      value,
-      onChange,
-    }: { schema: any, value: any, onChange: OnChange }) => {
-      return (
-        <div className="custom-widget">
-          {schema.enum.map((option: string) => (
-            <label key={option} className="flex items-center mb2">
-              <input
-                type="radio"
-                name={schema.title}
-                value={option}
-                checked={value === option}
-                onChange={() => onChange(option)}
-              />
-              <span className="ml2">{option}</span>
-            </label>
-          ))}
-        </div>
-      )
+SchemaUi.schema = {
+  title: 'Configuração do schema',
+  type: 'object',
+  properties: {
+    widgetCustomRadio: {
+      type: 'string',
+      title: 'Widget Radio Customizado',
+      enum: ['Opção A', 'Opção B', 'Opção C'],
+      widget: {
+        'ui:widget': ({
+          schema,
+          value,
+          onChange,
+        }: { schema: any, value: any, onChange: OnChange }) => {
+          return (
+            <div className="custom-widget">
+              {schema.enum.map((option: string) => (
+                <label key={option} className="flex items-center mb2">
+                  <input
+                    type="radio"
+                    name={schema.title}
+                    value={option}
+                    checked={value === option}
+                    onChange={() => onChange(option)}
+                  />
+                  <span className="ml2">{option}</span>
+                </label>
+              ))}
+            </div>
+          )
+        }
+      },
     }
-  },
-}
+  }
 ```
 ---
 
@@ -1405,45 +1434,50 @@ Seleção múltipla via checkboxes.
 ## 💻 Implementação
 
 ```tsx
-widgetCustomMultiSelect: {
-  type: 'array',
-  title: 'Widget MultiSelect Customizado',
-  items: {
-    type: 'string',
-    enum: ['Opção 1', 'Opção 2', 'Opção 3', 'Opção 4', 'Opção 5'],
-  },
-  widget: {
-    'ui:widget': ({
-      schema,
-      value,
-      onChange,
-    }: { schema: any, value: any, onChange: OnChange }) => {
-      const options = schema.items.enum || []
+SchemaUi.schema = {
+  title: 'Configuração do schema',
+  type: 'object',
+  properties: {
+    widgetCustomMultiSelect: {
+      type: 'array',
+      title: 'Widget MultiSelect Customizado',
+      items: {
+        type: 'string',
+        enum: ['Opção 1', 'Opção 2', 'Opção 3', 'Opção 4', 'Opção 5'],
+      },
+      widget: {
+        'ui:widget': ({
+          schema,
+          value,
+          onChange,
+        }: { schema: any, value: any, onChange: OnChange }) => {
+          const options = schema.items.enum || []
 
-      return (
-        <div className="custom-widget">
-          {options.map((option: string) => (
-            <label key={option} className="flex items-center mb2">
-              <input
-                type="checkbox"
-                value={option}
-                checked={value?.includes(option)}
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    onChange([...(value || []), option])
-                  } else {
-                    onChange(value.filter((v: string) => v !== option))
-                  }
-                }}
-              />
-              <span className="ml2">{option}</span>
-            </label>
-          ))}
-        </div>
-      )
+          return (
+            <div className="custom-widget">
+              {options.map((option: string) => (
+                <label key={option} className="flex items-center mb2">
+                  <input
+                    type="checkbox"
+                    value={option}
+                    checked={value?.includes(option)}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        onChange([...(value || []), option])
+                      } else {
+                        onChange(value.filter((v: string) => v !== option))
+                      }
+                    }}
+                  />
+                  <span className="ml2">{option}</span>
+                </label>
+              ))}
+            </div>
+          )
+        }
+      },
     }
-  },
-}
+  }
 ```
 ---
 
@@ -1484,6 +1518,114 @@ widgetCustomMultiSelect: {
 ![Campos Custom de Checkbox](../docs/images/widgetCustomMultiSelect.png)
 ---
 
+# `ui:widget (CUSTOM: widgetCustomWithCustomLogic)`
+
+O `widgetCustomWithCustomLogic` demonstra como implementar **lógica condicional personalizada dentro do próprio widget**, alterando dinamicamente o conteúdo exibido com base no valor do campo.
+
+Esse padrão permite encapsular comportamento inteligente diretamente no `ui:widget`, sem depender de lógica externa no componente principal.
+
+---
+
+## 🧩 Propriedade
+
+| Propriedade                   | Tipo     | Descrição                                                             |
+| ----------------------------- | -------- | --------------------------------------------------------------------- |
+| `widgetCustomWithCustomLogic` | `string` | Campo de texto com renderização condicional baseada no valor digitado |
+
+---
+
+## 💻 Implementação no Schema
+
+```tsx
+SchemaUi.schema = {
+  title: 'Configuração do schema',
+  type: 'object',
+  properties: {
+    widgetCustomWithCustomLogic: {
+      type: 'string',
+      title: 'Widget Custom Widget com Lógica Customizada',
+      description: 'Esse é um exemplo de widget customizado usando ui:widget que implementa lógica personalizada para exibir diferentes conteúdos com base no valor do input.',
+      widget: {
+        'ui:widget': ({ schema, value, onChange }: { schema: any, value: any, onChange: OnChange }) => {
+          return (
+            <div className="custom-widget">
+              <p className="mb2">{schema.description}</p>
+
+              <input
+                type="text"
+                className="w-100 pa2 mb3"
+                placeholder="Digite 'mostrar' para ver o conteúdo secreto"
+                value={value || ''}
+                onChange={(e) => onChange(e.target.value)}
+              />
+
+              {value === 'mostrar' ? (
+                <div className="pa3 bg-green white">
+                  Conteúdo Secreto Revelado!
+                </div>
+              ) : (
+                <div className="pa3 bg-red white">
+                  Digite 'mostrar' para revelar o conteúdo secreto.
+                </div>
+              )}
+            </div>
+          );
+        },
+      },
+    }
+  }
+```
+
+---
+
+## ⚙️ Funcionamento Técnico
+
+1. Recebe `schema`, `value` e `onChange` do RJSF.
+2. Exibe `schema.description` dinamicamente.
+3. Controla o input como componente controlado (`value || ''`).
+4. Executa renderização condicional baseada em:
+   ```tsx
+   value === 'mostrar'
+   ```
+5. Alterna entre dois blocos visuais com estilos distintos.
+6. Toda a lógica permanece encapsulada dentro do `ui:widget`.
+
+---
+
+## 🔄 Estados Possíveis
+
+| Estado do Valor                 | Resultado Renderizado                 |
+| ------------------------------- | ------------------------------------- |
+| `undefined`                     | Exibe bloco vermelho                  |
+| String diferente de `'mostrar'` | Exibe instrução para revelar conteúdo |
+| `'mostrar'`                     | Exibe conteúdo secreto                |
+
+---
+
+## 🎯 Quando Utilizar
+
+Use `widgetCustomWithCustomLogic` quando precisar:
+
+- Aplicar regras condicionais dentro do próprio widget  
+- Exibir conteúdo dinâmico com base em input  
+- Criar experiências interativas no Site Editor  
+- Encapsular microcomportamentos sem poluir o componente principal  
+- Implementar validações ou revelações progressivas  
+
+---
+
+## 🧠 Diferença para `ui:widget: text` padrão
+
+| Text padrão             | widgetCustomWithCustomLogic      |
+| ----------------------- | -------------------------------- |
+| Apenas input            | Input + renderização condicional |
+| Sem lógica visual       | Lógica encapsulada no widget     |
+| Render estático         | Render dinâmico                  |
+| Sem feedback contextual | Feedback visual imediato         |
+
+---
+![Campos Custom de Checkbox](../docs/images/widgetCustomWithCustomLogic.png)
+---
 
 ### Estilização campos do Site Editor usando Tachyons
 #### `widget classNames `

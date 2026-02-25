@@ -658,6 +658,36 @@ const SchemaUiItemProps = {
         }
       },
     },
+    widgetCustomWithCustomLogic: {
+      type: 'string',
+      title: 'Widget Custom Widget com Lógica Customizada',
+      description: 'Esse é um exemplo de widget customizado usando ui:widget que implementa lógica personalizada para exibir diferentes conteúdos com base no valor do input.',
+      widget: {
+        'ui:widget': ({ schema, value, onChange }: { schema: any, value: any, onChange: OnChange }) => {
+          return (
+            <div className="custom-widget">
+              <p className="mb2">{schema.description}</p>
+              <input
+                type="text"
+                className="w-100 pa2 mb3"
+                placeholder="Digite 'mostrar' para ver o conteúdo secreto"
+                value={value || ''}
+                onChange={(e) => onChange(e.target.value)}
+              />
+              {value === 'mostrar' ? (
+                <div className="pa3 bg-green white">
+                  Conteúdo Secreto Revelado!
+                </div>
+              ) : (
+                <div className="pa3 bg-red white">
+                  Digite 'mostrar' para revelar o conteúdo secreto.
+                </div>
+              )}
+            </div>
+          );
+        },
+      },
+    },
     showMoreConfig: {
       title: 'Mostrar mais Configurações com dependencies',
       type: 'boolean',
