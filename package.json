@@ -9,7 +9,9 @@
     "lint:locales": "intl-equalizer",
     "test": "cd ./react && yarn test",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "contributors:add": "all-contributors add",
+    "contributors:generate": "all-contributors generate"
   },
   "intl-equalizer": {
     "referenceLocale": "en",

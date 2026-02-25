@@ -3,13 +3,20 @@
   "projectOwner": "gblcintra",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "files": [
-    "docs/README.md"
-  ],
+  "files": ["docs/README.md"],
   "imageSize": 100,
   "commit": true,
   "commitConvention": "angular",
-  "contributors": [],
+  "contributors": [
+    {
+      "login": "gblcintra",
+      "name": "Gabriel Cintra",
+      "avatar_url": "https://avatars.githubusercontent.com/u/15270961?v=4",
+      "profile": "https://br.linkedin.com/in/gblcintra",
+      "contributions": ["code", "doc", "maintenance", "mentoring"]
+    }
+  ],
   "contributorsPerLine": 7,
   "linkToUsage": true
 }
+
