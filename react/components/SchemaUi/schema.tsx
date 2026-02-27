@@ -70,7 +70,7 @@ const SchemaUiItemProps = {
       type: "null",
       description: "Campos nulos como este são ótimos para adicionar informações extras",
       widget: {
-        'ui:field': ({ schema }: { schema: any }) => {
+        'ui:field': ({ schema }: WidgetProps) => {
           return <h4 className="ma0 f5 near-black">{schema?.description}</h4>;
         },
       },
@@ -92,7 +92,7 @@ const SchemaUiItemProps = {
           title: 'Configuração do schema Relacionados a string',
           description: 'https://github.com/rjsf-team/react-jsonschema-form',
           widget: {
-            'ui:field': ({ schema }: { schema: any }) => {
+            'ui:field': ({ schema }: WidgetProps) => {
               return <h4 className="ma0 f5 near-black">{schema?.title}</h4>;
             },
           },
@@ -140,7 +140,7 @@ const SchemaUiItemProps = {
           title: 'Configuração do schema Relacionados a data',
           description: 'https://github.com/rjsf-team/react-jsonschema-form',
           widget: {
-            'ui:field': ({ schema }: { schema: any }) => {
+            'ui:field': ({ schema }: WidgetProps) => {
               return <h4 className="ma0 f5 near-black">{schema?.title}</h4>;
             },
           },
@@ -203,7 +203,7 @@ const SchemaUiItemProps = {
           title: 'Configuração do schema Relacionados a seleções e referencias',
           description: 'https://github.com/rjsf-team/react-jsonschema-form',
           widget: {
-            'ui:field': ({ schema }: { schema: any }) => {
+            'ui:field': ({ schema }: WidgetProps) => {
               return <h4 className="ma0 f5 near-black">{schema?.title}</h4>;
             },
           },
@@ -255,7 +255,7 @@ const SchemaUiItemProps = {
           title: 'Configuração do schema Relacionados a campos restritos',
           description: 'https://github.com/rjsf-team/react-jsonschema-form',
           widget: {
-            'ui:field': ({ schema }: { schema: any }) => {
+            'ui:field': ({ schema }: WidgetProps) => {
               return <h4 className="ma0 f5 near-black">{schema?.title}</h4>;
             },
           },
@@ -350,9 +350,9 @@ const SchemaUiItemProps = {
           value,
           onChange,
           registry,
-        }: { schema: any, value: any, onChange: OnChange, registry: Registry }) => {
+        }: WidgetProps) => {
 
-          const SchemaField = registry.fields.SchemaField as RegisteredComponent
+          const SchemaField = registry.fields.SchemaField
 
           return (
             <div className="custom-widget">
@@ -367,7 +367,7 @@ const SchemaUiItemProps = {
                 }}
                 formData={value || ''}
                 registry={registry}
-                onChange={(url: string) => onChange(url)}
+                onChange={(url) => onChange(url)}
               />
             </div>
           )
@@ -384,9 +384,9 @@ const SchemaUiItemProps = {
           value,
           onChange,
           registry,
-        }: { schema: any, value: any, onChange: OnChange, registry: Registry }) => {
+        }: WidgetProps) => {
 
-          const SchemaField = registry.fields.SchemaField as RegisteredComponent
+          const SchemaField = registry.fields.SchemaField
 
           return (
             <div className="custom-widget">
@@ -402,7 +402,7 @@ const SchemaUiItemProps = {
                 }}
                 formData={value || ''}
                 registry={registry}
-                onChange={(url: string) => onChange(url)}
+                onChange={(url) => onChange(url)}
               />
             </div>
           )
@@ -418,16 +418,16 @@ const SchemaUiItemProps = {
           value,
           onChange,
           registry
-        }: { schema: any, value: any, onChange: OnChange, registry: Registry }) => {
+        }: WidgetProps) => {
 
-          const SchemaField = registry.fields.SchemaField as RegisteredComponent
+          const SchemaField = registry.fields.SchemaField
 
           if (!cachedNames && !isFetching) {
             isFetching = true
 
             fetch('/api/catalog_system/pub/category/tree/2')
               .then(res => res.json())
-              .then((data: any[]) => {
+              .then((data: Category[]) => {
                 cachedNames = data.map(i => i.name).slice(0, 5)
                 isFetching = false
                 // força re-render do RJSF
@@ -461,7 +461,7 @@ const SchemaUiItemProps = {
                 }}
                 formData={value || ''}
                 registry={registry}
-                onChange={(option: string) => onChange(option)}
+                onChange={(option) => onChange(option)}
               />
             </div>
           )
@@ -475,7 +475,7 @@ const SchemaUiItemProps = {
         'ui:widget': ({
           value,
           onChange,
-        }: { value: any, onChange: OnChange }) => {
+        }: WidgetProps<number>) => {
           return (
             <div className="custom-widget">
               <span className="db mb2">Valor: {value || 0}</span>
@@ -498,7 +498,7 @@ const SchemaUiItemProps = {
         'ui:widget': ({
           value,
           onChange,
-        }: { value: any, onChange: OnChange }) => {
+        }: WidgetProps<number>) => {
           const stars = [1, 2, 3, 4, 5]
           return (
             <div className="custom-widget">
@@ -525,7 +525,7 @@ const SchemaUiItemProps = {
         'ui:widget': ({
           value,
           onChange,
-        }: { value: any, onChange: OnChange }) => {
+        }: WidgetProps<string>) => {
           const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff']
           return (
             <div className="custom-widget">
@@ -552,13 +552,13 @@ const SchemaUiItemProps = {
           schema,
           value,
           onChange,
-        }: { schema: any, value: any, onChange: OnChange }) => {
+        }: WidgetProps) => {
           return (
             <div className="custom-widget">
               <textarea
                 className="w-100 pa2"
                 placeholder={schema.description}
-                value={value || ''}
+                value={(value as string) || ''}
                 onChange={(e) => onChange(e.target.value)}
               />
             </div>
@@ -574,13 +574,13 @@ const SchemaUiItemProps = {
           schema,
           value,
           onChange,
-        }: { schema: any, value: any, onChange: OnChange }) => {
+        }: WidgetProps) => {
           return (
             <div className="custom-widget">
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  checked={value || false}
+                  checked={(value as boolean) || false}
                   onChange={(e) => onChange(e.target.checked)}
                 />
                 <span className="ml2">{schema.title}</span>
@@ -599,11 +599,11 @@ const SchemaUiItemProps = {
           schema,
           value,
           onChange,
-        }: { schema: any, value: any, onChange: OnChange }) => {
+        }: WidgetProps) => {
           return (
             <div className="custom-widget">
               <div className="flex flex-column"></div>
-              {schema.enum.map((option: string) => (
+              {schema.enum?.map((option: string) => (
                 <label key={option} className="flex items-center mb2">
                   <input
                     type="radio"
@@ -632,8 +632,8 @@ const SchemaUiItemProps = {
           schema,
           value,
           onChange,
-        }: { schema: any, value: any, onChange: OnChange }) => {
-          const options = schema.items.enum || []
+        }: WidgetProps) => {
+          const options = schema.items?.enum || []
           return (
             <div className="custom-widget">
               {options.map((option: string) => (
@@ -641,12 +641,12 @@ const SchemaUiItemProps = {
                   <input
                     type="checkbox"
                     value={option}
-                    checked={value?.includes(option)}
+                    checked={(value as string[])?.includes(option)}
                     onChange={(e) => {
                       if (e.target.checked) {
-                        onChange([...(value || []), option])
+                        onChange([...(value as string[]) || [], option])
                       } else {
-                        onChange(value.filter((v: string) => v !== option))
+                        onChange((value as string[]).filter((v: string) => v !== option))
                       }
                     }}
                   />
@@ -663,7 +663,7 @@ const SchemaUiItemProps = {
       title: 'Widget Custom Widget com Lógica Customizada',
       description: 'Esse é um exemplo de widget customizado usando ui:widget que implementa lógica personalizada para exibir diferentes conteúdos com base no valor do input.',
       widget: {
-        'ui:widget': ({ schema, value, onChange }: { schema: any, value: any, onChange: OnChange }) => {
+        'ui:widget': ({ schema, value, onChange }: WidgetProps) => {
           return (
             <div className="custom-widget">
               <p className="mb2">{schema.description}</p>
@@ -671,7 +671,7 @@ const SchemaUiItemProps = {
                 type="text"
                 className="w-100 pa2 mb3"
                 placeholder="Digite 'mostrar' para ver o conteúdo secreto"
-                value={value || ''}
+                value={(value as string) || ''}
                 onChange={(e) => onChange(e.target.value)}
               />
               {value === 'mostrar' ? (
@@ -743,7 +743,7 @@ const SchemaUiItemProps = {
                 type: "string",
                 description: "Para ativar mais configurações, ative o campo acima.",
                 widget: {
-                  'ui:field': ({ schema }: { schema: any }) => {
+                  'ui:field': ({ schema }: WidgetProps) => {
                     return <h4 className="ma0 f5 near-black"><strong className="yellow">Atenção: </strong>{schema?.description}</h4>;
                   },
                 },

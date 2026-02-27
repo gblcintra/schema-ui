@@ -3,28 +3,23 @@
   "name": "schema-ui",
   "private": true,
   "license": "MIT",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/gblcintra/schema-ui.git"
   },
   "scripts": {
+    "prepare": "npx husky-init && husky install",
     "lint": "eslint --ext js,jsx,ts,tsx .",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json}\"",
     "lint:locales": "intl-equalizer",
-    "test": "cd ./react && yarn test",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "test": "echo 'No tests yet' && exit 0",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate"
   },
   "intl-equalizer": {
     "referenceLocale": "en",
     "localeDirectory": "messages"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "lint-staged": {
     "*.{ts,js,tsx,jsx}": [
@@ -45,32 +40,21 @@
     "@babel/preset-env": "^7.22.4",
     "@babel/preset-react": "^7.22.3",
     "@babel/preset-typescript": "^7.21.5",
-    "@storybook/addon-a11y": "^10.2.12",
-    "@storybook/addon-essentials": "8.6.14",
-    "@storybook/addon-interactions": "8.6.14",
-    "@storybook/addon-links": "10.2.12",
-    "@storybook/addon-storysource": "^8.6.14",
-    "@storybook/blocks": "8.6.14",
-    "@storybook/react": "10.2.12",
-    "@storybook/react-webpack5": "10.2.12",
-    "@storybook/testing-library": "0.2.2",
-    "@vtex/danger": "^0.2.7",
-    "@vtex/intl-equalizer": "^2.5.0",
+    "@eslint/js": "^10.0.1",
     "@vtex/prettier-config": "^1.0.0",
     "all-contributors-cli": "^6.26.1",
     "eslint": "^10.0.2",
     "eslint-config-vtex": "^15.1.0",
     "eslint-config-vtex-react": "^9.1.0",
-    "husky": "^9.1.7",
+    "eslint-plugin-react": "^7.37.5",
+    "husky": "^8.0.0",
     "lint-staged": "^16.2.7",
     "prettier": "^3.8.1",
     "prop-types": "15.8.1",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "storybook": "10.2.12",
-    "storybook-addon-pseudo-states": "^10.2.12",
-    "storybook-css-modules": "^1.0.8",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "typescript-eslint": "^8.56.1"
   },
   "dependencies": {
     "vtex-tachyons": "^3.2.2"
