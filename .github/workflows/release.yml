@@ -1,0 +1,58 @@
+name: Release on Merge
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+
+jobs:
+  release:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run standard-version
+        run: yarn release
+
+      - name: Sync version everywhere
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+
+          echo "New version: $VERSION"
+
+          # Update manifest.json
+          jq --arg version "$VERSION" '.version=$version' manifest.json > tmp.json && mv tmp.json manifest.json
+
+          # Update react/package.json
+          jq --arg version "$VERSION" '.version=$version' react/package.json > tmp2.json && mv tmp2.json react/package.json
+
+      - name: Commit synced files
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add manifest.json react/package.json
+          git commit -m "chore: sync versions across project" || echo "No changes"
+
+      - name: Push changes and tags
+        run: |
+          git push origin main --follow-tags
