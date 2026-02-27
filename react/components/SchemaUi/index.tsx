@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import { SchemaPropsDefault, SchemaUiItemProps } from './schema';
+import { downloadDataUri, getFileNameFromDataUri, getMimeTypeFromDataUri, isDataUri, isImageMime, isImageUrl, isPdfMime } from './utils';
 
 const SchemaUi = ({ titleItem, activeItem, ...props }: SchemaUiProps) => {
   if (!activeItem) return null
@@ -38,12 +39,6 @@ const SchemaUi = ({ titleItem, activeItem, ...props }: SchemaUiProps) => {
       }
     }
   )
-
-  const isImageUrl = (value: unknown): value is string => {
-    if (typeof value !== 'string') return false
-
-    return /^https?:\/\/.+\.(png|jpg|jpeg|gif|webp|svg)(\?.*)?$/i.test(value)
-  }
 
   const renderField = (
     key: string,
@@ -101,7 +96,7 @@ const SchemaUi = ({ titleItem, activeItem, ...props }: SchemaUiProps) => {
       )
     }
 
-    if (typeof value === 'string' && isImageUrl(value)) {
+    if (typeof value === 'string' && (isImageUrl(value) || (isDataUri(value) && isImageMime(getMimeTypeFromDataUri(value))))) {
       return (
         <div key={key} className={`${containerClasses} flex justify-between items-center`} data-type={schemaField.type}>
           <div className="fw6 f6 mb2 dark-gray">
@@ -129,6 +124,29 @@ const SchemaUi = ({ titleItem, activeItem, ...props }: SchemaUiProps) => {
             >
               Abrir imagem em nova aba
             </a>
+          </div>
+        </div>
+      )
+    }
+
+    if (typeof value === 'string' && (isDataUri(value) && isPdfMime(getMimeTypeFromDataUri(value)))) {
+      return (
+        <div key={key} className={containerClasses}>
+
+          <div className="flex items-center justify-between bg-near-white pa3 br3">
+            <div>
+              <span className="fw6">Documento PDF</span>
+              <p className="f7 gray mb0">
+                Arquivo incorporado em Base64: <span className="fw5 ba br2 pa2">{getFileNameFromDataUri(value) || 'documento.pdf'}</span>
+              </p>
+            </div>
+
+            <button
+              onClick={() => downloadDataUri(value, `${getFileNameFromDataUri(value) || 'documento'}.pdf`)}
+              className="f7 link dim blue bg-transparent bn pointer"
+            >
+              Baixar PDF
+            </button>
           </div>
         </div>
       )
