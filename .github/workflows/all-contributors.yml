@@ -9,8 +9,14 @@ on:
 jobs:
   allcontributors:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: all-contributors/all-contributors-cli@v6.26.1
+      # 1️⃣ Checkout do repositório
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2️⃣ Rodar All Contributors CLI via Action oficial v7
+      - name: Run All Contributors
+        uses: all-contributors/all-contributors-cli@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
