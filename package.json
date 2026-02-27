@@ -61,5 +61,8 @@
   "dependencies": {
     "ignore": "^7.0.5",
     "vtex-tachyons": "^3.2.2"
+  },
+  "resolutions": {
+    "qs": "^6.10.3"
   }
 }
