@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { SchemaPropsDefault, SchemaUiItemProps } from './schema';
 
 const SchemaUi = ({ titleItem, activeItem, ...props }: SchemaUiProps) => {
@@ -43,7 +43,7 @@ const SchemaUi = ({ titleItem, activeItem, ...props }: SchemaUiProps) => {
     key: string,
     schemaField: JSONSchemaProperty,
     value: unknown
-  ): React.ReactNode => {
+  ): ReactNode => {
     if (!schemaField?.type) return null
 
     if (schemaField.type === 'object' && typeof value === 'object' && value !== null) {
