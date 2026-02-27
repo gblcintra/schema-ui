@@ -34,11 +34,6 @@ cd schema-ui
 yarn install
 ```
 
-3. Execute o Storybook para visualizar os componentes:
-```sh
-yarn storybook
-```
-
 ### Schema
 nomeação de componentes na interface (store\interfaces.json)
 
