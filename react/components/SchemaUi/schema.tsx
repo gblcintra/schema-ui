@@ -436,7 +436,7 @@ const SchemaUiItemProps = {
               .catch((err) => {
                 cachedNames = []
                 isFetching = false
-                console.error("💚🐛  ~ Erro ao buscar opções:", err)
+                console.error("💚🐛 ~ Erro ao buscar opções:", err)
               })
           }
 
