@@ -31,13 +31,17 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Configure Git for Actions
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Run standard-version
         run: yarn release
 
       - name: Sync version everywhere
         run: |
           VERSION=$(node -p "require('./package.json').version")
-
           echo "New version: $VERSION"
 
           # Update manifest.json
@@ -54,5 +58,4 @@ jobs:
           git commit -m "chore: sync versions across project" || echo "No changes"
 
       - name: Push changes and tags
-        run: |
-          git push origin main --follow-tags
+        run: git push origin main --follow-tags
