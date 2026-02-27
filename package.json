@@ -41,7 +41,6 @@
     "@babel/preset-react": "^7.22.3",
     "@babel/preset-typescript": "^7.21.5",
     "@eslint/js": "^10.0.1",
-    "@vtex/danger": "^0.2.7",
     "@vtex/intl-equalizer": "^2.5.0",
     "@vtex/prettier-config": "^1.0.0",
     "all-contributors-cli": "^6.26.1",
