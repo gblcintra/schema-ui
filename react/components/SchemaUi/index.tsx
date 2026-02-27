@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { SchemaPropsDefault, SchemaUiItemProps } from './schema';
-import { downloadDataUri, getFileNameFromDataUri, getMimeTypeFromDataUri, isDataUri, isImageMime, isImageUrl, isPdfMime } from './utils';
+import { downloadDataUri, getFileNameFromDataUri, getMimeTypeFromDataUri, isDataUri, isImageMime, isImageUrl, mimeToExtension } from './utils';
 
 const SchemaUi = ({ titleItem, activeItem, ...props }: SchemaUiProps) => {
   if (!activeItem) return null
@@ -129,23 +129,23 @@ const SchemaUi = ({ titleItem, activeItem, ...props }: SchemaUiProps) => {
       )
     }
 
-    if (typeof value === 'string' && (isDataUri(value) && isPdfMime(getMimeTypeFromDataUri(value)))) {
+    if (typeof value === 'string' && (isDataUri(value) && mimeToExtension(getMimeTypeFromDataUri(value)))) {
       return (
         <div key={key} className={containerClasses}>
 
           <div className="flex items-center justify-between bg-near-white pa3 br3">
             <div>
-              <span className="fw6">Documento PDF</span>
+              <span className="fw6">Documento</span>
               <p className="f7 gray mb0">
-                Arquivo incorporado em Base64: <span className="fw5 ba br2 pa2">{getFileNameFromDataUri(value) || 'documento.pdf'}</span>
+                Arquivo incorporado em Base64: <span className="fw5 ba br2 pa2">{getFileNameFromDataUri(value) || 'documento'}</span>
               </p>
             </div>
 
             <button
-              onClick={() => downloadDataUri(value, `${getFileNameFromDataUri(value) || 'documento'}.pdf`)}
+              onClick={() => downloadDataUri(value, `${getFileNameFromDataUri(value) || 'documento'}`)}
               className="f7 link dim blue bg-transparent bn pointer"
             >
-              Baixar PDF
+              Baixar Arquivo
             </button>
           </div>
         </div>

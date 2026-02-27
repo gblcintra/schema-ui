@@ -16,8 +16,22 @@ export const getMimeTypeFromDataUri = (dataUri: string): string => {
 export const isImageMime = (mime: string): boolean =>
   mime.startsWith('image/')
 
-export const isPdfMime = (mime: string): boolean =>
-  mime === 'application/pdf'
+export const mimeToExtension = (mime: string): string => {
+  const map: Record<string, string> = {
+    'application/pdf': 'pdf',
+    'application/msword': 'doc',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'docx',
+    'application/vnd.ms-excel': 'xls',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'xlsx',
+    'text/csv': 'csv',
+    'application/zip': 'zip',
+    'image/png': 'png',
+    'image/jpeg': 'jpg',
+  }
+
+  return map[mime] ?? mime.split('/')[1] ?? 'bin'
+}
+
 
 export const downloadDataUri = (dataUri: string, filename: string) => {
   const link = document.createElement('a')
