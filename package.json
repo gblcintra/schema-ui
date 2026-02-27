@@ -58,8 +58,8 @@
     "typescript-eslint": "^8.56.1"
   },
   "dependencies": {
+    "fast-glob": "^3.3.3",
     "ignore": "^7.0.5",
-    "qs": "^6.15.0",
     "vtex-tachyons": "^3.2.2"
   }
 }
