@@ -13,16 +13,12 @@
     "lint:locales": "intl-equalizer",
     "test": "cd ./react && yarn test",
     "contributors:add": "all-contributors add",
-    "contributors:generate": "all-contributors generate"
+    "contributors:generate": "all-contributors generate",
+    "prepare": "husky install"
   },
   "intl-equalizer": {
     "referenceLocale": "en",
     "localeDirectory": "messages"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "lint-staged": {
     "*.{ts,js,tsx,jsx}": [
