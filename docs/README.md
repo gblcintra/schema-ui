@@ -1,6 +1,3 @@
-
-
-# Component [Schema] 🎨
 <div align="center">
   <img src="../docs/images/LogoSchemaBranco2.png/" alt="Logo do Projeto" height="200"/>
 
