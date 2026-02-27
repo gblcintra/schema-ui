@@ -59,6 +59,7 @@
   },
   "dependencies": {
     "ignore": "^7.0.5",
+    "qs": "^6.15.0",
     "vtex-tachyons": "^3.2.2"
   }
 }
