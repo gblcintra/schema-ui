@@ -26,6 +26,7 @@ Desktop.ini
 $RECYCLE.BIN/
 
 # App specific
+.husky/pre-commit
 node_modules/
 docs/_book/
 .tmp
