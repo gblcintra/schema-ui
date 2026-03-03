@@ -1,5 +1,11 @@
 <div align="center">
   <img src="../docs/images/LogoSchemaBranco2.png/" alt="Logo do Projeto" height="200"/>
+  <p align="center">
+    <a href="https://github.com/gblcintra/schema-ui/stargazers">
+      <img src="https://img.shields.io/github/stars/gblcintra/schema-ui" alt="Stars" />
+    </a>
+    <img src="https://img.shields.io/github/license/gblcintra/schema-ui" alt="License" />
+  </p>
 
   ![VTEXIO](https://img.shields.io/badge/-Vtex IO-ff69b4?style=flat-square&logo=vtex)
   ![HTML5](https://img.shields.io/badge/-HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
@@ -8,19 +14,41 @@
   ![Storybook](https://img.shields.io/badge/-Storybook-20232A?style=flat-square&logo=Storybook)
   ![Yarn](https://img.shields.io/badge/-Yarn-2C8EBB?style=flat-square&logo=yarn&logoColor=white)
   ![NPM](https://img.shields.io/badge/-npm-CB3837?style=flat-square&logo=npm&logoColor=white)
+
   <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
   [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
   <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 </div>
 
-Schema UI é um projeto que fornece um 'schema' de configuração flexível e altamente personalizável para componentes customizados no VTEX IO. Utilizando React JSON Schema Form, este repositório facilita a criação de interfaces dinâmicas e adaptáveis dentro do ecossistema VTEX.
+## 📌 Sobre o Projeto
+
+O **Schema UI** é uma ferramenta para visualização e edição dinâmica de **JSON Schema**, permitindo gerar interfaces automaticamente com base na estrutura de dados.
+
+### Principais objetivos:
+
+- 📦 Renderização dinâmica de formulários
+- 🧩 Suporte a widgets customizados
+- 🔎 Validação estruturada
+- ⚡ Manipulação dinâmica de propriedades
+
+---
 
 ### 📌 Recursos
 ✅ Definição clara de types para cada propriedade <br/>
 ✅ Uso de widgets personalizados para melhorar a experiência de edição<br/>
 ✅ Implementação de dependencies e oneOf para configurações condicionais<br/>
 ✅ Suporte a uploads, seleções, datas, arrays e muito mais<br/>
+
+------------------------------------------------------------------------
+
+## 🛠️ Tecnologias Utilizadas
+
+-   React
+-   TypeScript
+-   JSON Schema
+
+------------------------------------------------------------------------
 
 
 ### 🔧 Como Usar
@@ -34,6 +62,12 @@ cd schema-ui
 
 ```sh
 yarn install
+```
+
+3. Execute o projeto:
+
+``` bash
+vtex link -c
 ```
 
 ### Schema
@@ -1675,8 +1709,31 @@ SchemaUi.schema = {
 />
 ```
 
+------------------------------------------------------------------------
+
 📖 Documentação
 Para mais detalhes sobre a estrutura do schema, consulte a [documentação oficial do rjsf](https://github.com/rjsf-team/react-jsonschema-form).
+
+------------------------------------------------------------------------
+
+Sinta-se à vontade para contribuir com melhorias! Basta abrir uma issue ou pull request no repositório.
+
+## Como Contribuir
+1. Faça um fork do repositório.
+2. Crie uma branch para a sua feature (`git checkout -b feature/MinhaFeature`).
+3. Commit suas mudanças (`git commit -am 'Adiciona nova funcionalidade'`).
+4. Envie a branch para o repositório remoto (`git push origin feature/MinhaFeature`).
+5. Abra um Pull Request no GitHub.
+
+Se você encontrou algum bug ou tem uma sugestão, abra uma issue ou um pull request!
+
+------------------------------------------------------------------------
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT.
+
+------------------------------------------------------------------------
 
 ## 🤝 Contribuição
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -1695,27 +1752,5 @@ Para mais detalhes sobre a estrutura do schema, consulte a [documentação ofici
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-Sinta-se à vontade para contribuir com melhorias! Basta abrir uma issue ou pull request no repositório.
-
-## Como Contribuir
-1. Faça um fork do repositório.
-2. Crie uma branch para a sua feature (`git checkout -b feature/MinhaFeature`).
-3. Commit suas mudanças (`git commit -am 'Adiciona nova funcionalidade'`).
-4. Envie a branch para o repositório remoto (`git push origin feature/MinhaFeature`).
-5. Abra um Pull Request no GitHub.
-
-Se você encontrou algum bug ou tem uma sugestão, abra uma issue ou um pull request!
 
 
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
