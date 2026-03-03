@@ -1,12 +1,12 @@
 <div align="center">
   <img src="../docs/images/LogoSchemaBranco2.png/" alt="Logo do Projeto" height="200"/>
-  <p align="center">
-    <a href="https://github.com/gblcintra/schema-ui/stargazers">
-      <img src="https://img.shields.io/github/stars/gblcintra/schema-ui" alt="Stars" />
-    </a>
-    <img src="https://img.shields.io/github/license/gblcintra/schema-ui" alt="License" />
-  </p>
-
+  
+  ![Stars](https://img.shields.io/github/stars/gblcintra/schema-ui)
+  ![License](https://img.shields.io/github/license/gblcintra/schema-ui)
+  ![Version](https://img.shields.io/github/package-json/v/gblcintra/schema-ui)
+  ![Build](https://img.shields.io/github/actions/workflow/status/gblcintra/schema-ui/ci.yml) 
+  ![Last Commit](https://img.shields.io/github/last-commit/gblcintra/schema-ui)
+  
   ![VTEXIO](https://img.shields.io/badge/-Vtex IO-ff69b4?style=flat-square&logo=vtex)
   ![HTML5](https://img.shields.io/badge/-HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
   ![TypeScript](https://img.shields.io/badge/-TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white)
@@ -18,7 +18,6 @@
   <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
   [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
   <!-- ALL-CONTRIBUTORS-BADGE:END -->
-
 </div>
 
 ## 📌 Sobre o Projeto
