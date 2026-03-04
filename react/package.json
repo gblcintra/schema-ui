@@ -13,7 +13,8 @@
     "@types/node": "^13.9.8",
     "@types/react": "^16.9.31",
     "@vtex/tsconfig": "^0.6.0",
-    "typescript": "3.9.7"
+    "typescript": "3.9.7",
+    "vtex.render-runtime": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.136.2/public/@types/vtex.render-runtime"
   },
   "resolutions": {
     "@types/jest": "26.0.15"
