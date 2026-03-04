@@ -1922,21 +1922,6 @@ babel-runtime@^6.22.0, babel-runtime@^6.26.0, babel-runtime@^6.9.0:
     core-js "^2.4.0"
     regenerator-runtime "^0.11.0"
 
-babel-traverse@6.12.0:
-  version "6.12.0"
-  resolved "https://registry.yarnpkg.com/babel-traverse/-/babel-traverse-6.12.0.tgz#f22f54fa0d6eeb7f63585246bab6e637858f5d94"
-  integrity sha512-6RjoRj+aRsjviiPMJtRkcM3D5VC5qOARGj8Oz+/JT5nuJCrBk0wQBT/lQdnYF4YRao1T3ARx+nnC0CwDZrwS+A==
-  dependencies:
-    babel-code-frame "^6.8.0"
-    babel-messages "^6.8.0"
-    babel-runtime "^6.9.0"
-    babel-types "^6.9.0"
-    babylon "^6.7.0"
-    debug "^2.2.0"
-    globals "^8.3.0"
-    invariant "^2.2.0"
-    lodash "^4.2.0"
-
 babel-traverse@^6.26.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-traverse/-/babel-traverse-6.26.0.tgz#46a9cbd7edcc62c8e5c064e2d2d8d0f4035766ee"
@@ -3083,7 +3068,7 @@ esdoc@^0.5.2:
   integrity sha512-LVp+5QwnIqwYYrhJ5Hxkjbs4cSfefiIlC/Nk0XX45rpD39t9/F+WCb9Vlwd90XqEyaqGVsX1JR7r1NLZx7tRrQ==
   dependencies:
     babel-generator "6.11.4"
-    babel-traverse "6.12.0"
+    babel-traverse "6.26.0"
     babylon "6.14.1"
     cheerio "0.22.0"
     color-logger "0.0.3"
