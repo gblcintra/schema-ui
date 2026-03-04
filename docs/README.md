@@ -1572,7 +1572,7 @@ SchemaUi.schema = {
 ![Campos Custom de Checkbox](../docs/images/widgetCustomMultiSelect.png)
 ---
 
-# `ui:widget (CUSTOM: widgetCustomWithCustomLogic)`
+#### `ui:widget (CUSTOM: widgetCustomWithCustomLogic)`
 
 O `widgetCustomWithCustomLogic` demonstra como implementar **lógica condicional personalizada dentro do próprio widget**, alterando dinamicamente o conteúdo exibido com base no valor do campo.
 
