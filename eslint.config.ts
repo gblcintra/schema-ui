@@ -9,7 +9,7 @@ export default [
   // Config para TSX/TS
   {
     files: ["**/*.{ts,tsx}"],
-    ignores: ["node_modules/**", "coverage/**", "*.snap.ts"], // substitui .eslintignore
+    ignores: ["node_modules/**", "coverage/**", "*.snap.ts", "eslint.config.ts"], // substitui .eslintignore
     languageOptions: {
       parserOptions: {
         project: "./tsconfig.json",
