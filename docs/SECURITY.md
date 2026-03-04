@@ -23,7 +23,7 @@ Instead, report it privately via:
 
 📧 Email: contato.gabrielcintra@gmail.com  
 or  
-🔒 GitHub Security Advisory (preferred): https://github.com/gblcintra/schema-ui/security/advisories
+🔒 GitHub Security Advisory (preferred): https://github.com/gblcintra/schema-ui/discussions
 
 Please include:
 
