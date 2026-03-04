@@ -1,20 +1,35 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: ''
+name: 🚀 Feature
+about: Solicitação de nova funcionalidade
+title: "[FEATURE] "
+labels: feature
 assignees: ''
+---
+
+## 📌 Contexto
+Descreva o problema ou necessidade que motivou esta feature.
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+## 💡 Proposta de solução
+Explique como a funcionalidade deve funcionar.
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+---
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+## ✅ Critérios de aceite
+- [ ] Critério 1
+- [ ] Critério 2
+- [ ] Critério 3
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+---
+
+## 🎯 Impacto esperado
+Explique o valor gerado (negócio, técnico, UX etc).
+
+---
+
+## 🔥 Prioridade
+( ) Baixa  
+( ) Média  
+( ) Alta  
+( ) Crítica
