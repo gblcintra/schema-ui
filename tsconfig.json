@@ -17,8 +17,8 @@
   },
   "include": [
     "react",
-    ".storybook",
-    "dangerfile.ts"
+    "dangerfile.ts",
+    "eslint.config.ts"
   ],
   "exclude": [
     "node_modules",
