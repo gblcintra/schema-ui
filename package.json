@@ -61,7 +61,6 @@
     "typescript-eslint": "^8.56.1"
   },
   "dependencies": {
-    "babel-traverse": "^6.26.0",
     "vtex-tachyons": "^3.2.2"
   }
 }
