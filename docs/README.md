@@ -112,7 +112,7 @@ Exemplo de integração no store theme:
 ## 🛠️ Widgets Disponíveis
 
 O `SchemaUi` suporta diferentes widgets para renderização dinâmica de campos. Alguns dos principais incluem:
-```markdown
+
 | Widget                      | Tipo                      | Descrição                                                                                             |
 | --------------------------- | ------------------------- | ----------------------------------------------------------------------------------------------------- |
 | `ui:widget: textarea`       | `string`                  | Caixa de texto multilinhas.                                                                           |
@@ -132,7 +132,7 @@ O `SchemaUi` suporta diferentes widgets para renderização dinâmica de campos.
 | `ui:disabled`               | `boolean`                 | Desabilita um campo para impedir que ele seja editado pelo usuário.                                   |
 | `ui:readonly`               | `boolean`                 | Deixa o campo somente leitura, permitindo que os usuários vejam o conteúdo, mas não façam alterações. |
 | `classNames`                | `boolean`                 | Permite adicionar classes CSS personalizadas aos campos para melhor estilização.                      |
-```
+
 ## 🛠️ Tipos Disponíveis
 A configuração do schema proporciona flexibilidade através da utilização de vários tipos de dados para configurar elementos da IU. Estes tipos de dados podem ser utilizados para estilizar e definir o comportamento de diferentes componentes, quer se trate de introdução de texto, imagens, datas, cores ou menus pendentes de seleção.
 
@@ -581,12 +581,12 @@ SchemaUi.schema = {
  ```
  ![Campos de números](../docs/images/number.png)
 
-## 5️⃣ Seção Widgets Customizados para Site Editor
+## Seção Widgets Customizados para Site Editor
 
 - Organizar **widgets customizados** em **tabela resumida + link para exemplos completos**.
 - Destacar **diferença para widget padrão**:
-```markdown
-## 🛠️ Widgets Customizados
+
+### 🛠️ Widgets Customizados
 
 | Widget                    | Tipo   | Quando usar                                   |
 | ------------------------- | ------ | --------------------------------------------- |
@@ -596,7 +596,6 @@ SchemaUi.schema = {
 | `widgetCustomRange`       | number | Slider interativo com preview de valor        |
 | `widgetCustomRating`      | number | Avaliação por estrelas (1–5)                  |
 | `widgetCustomColorPicker` | string | Seletor visual de cores                       |
-```
 
 💡 **Diferença para widget padrão:** todos os custom widgets permitem **layout, lógica e reuso encapsulado**.
 
