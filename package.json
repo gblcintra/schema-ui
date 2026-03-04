@@ -4,6 +4,10 @@
   "private": true,
   "license": "MIT",
   "type": "module",
+  "author": {
+    "name": "Gabriel Cintra",
+    "email": "contato.gabrielcintra@gmail.com"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/gblcintra/schema-ui.git"
