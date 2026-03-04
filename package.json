@@ -49,6 +49,7 @@
     "eslint-config-vtex-react": "^9.1.0",
     "eslint-plugin-react": "^7.37.5",
     "husky": "^8.0.0",
+    "jiti": "^2.6.1",
     "lint-staged": "^16.2.7",
     "prettier": "^3.8.1",
     "prop-types": "15.8.1",
