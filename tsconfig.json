@@ -18,7 +18,8 @@
   "include": [
     "react",
     ".storybook",
-    "dangerfile.js"
+    "dangerfile.ts",
+    "esbuild.config.ts",
   ],
   "exclude": [
     "node_modules",

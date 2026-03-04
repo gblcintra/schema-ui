@@ -1,5 +1,5 @@
 // dangerfile.js
-const { verify } = require('@vtex/danger')
+import { verify } from '@vtex/danger'
 
 const config = {
   // Set to true to enforce keepachangelog rules.
