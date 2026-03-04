@@ -2,20 +2,41 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+This project follows semantic versioning.
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+Currently, only the latest major version receives security updates.
+
+| Version | Supported |
+|---------|-----------|
+| 1.x     | ✅        |
+| < 1.0   | ❌        |
+
+If you are using a pre-1.0 version, please upgrade to the latest stable release.
+
+---
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
+If you discover a security vulnerability, please do not open a public issue.
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+Instead, report it privately via:
+
+📧 Email: contato.gabrielcintra@gmail.com  
+or  
+🔒 GitHub Security Advisory (preferred): https://github.com/gblcintra/schema-ui/security/advisories
+
+Please include:
+
+- A clear description of the vulnerability
+- Steps to reproduce
+- Impact assessment (if known)
+- Possible mitigation suggestions (if available)
+
+### What to expect
+
+- You will receive an acknowledgment within **72 hours**
+- A fix timeline will be communicated after validation
+- If accepted, a patch release will be published
+- If declined, an explanation will be provided
+
+Thank you for helping improve the security of this project.
