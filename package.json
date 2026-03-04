@@ -42,8 +42,8 @@
     "@babel/preset-react": "^7.22.3",
     "@babel/preset-typescript": "^7.21.5",
     "@eslint/js": "^10.0.1",
-    "@vtex/prettier-config": "^1.0.0",
     "@vtex/danger": "^0.2.9",
+    "@vtex/prettier-config": "^1.0.0",
     "all-contributors-cli": "^6.26.1",
     "eslint": "^10.0.2",
     "eslint-config-vtex": "^15.1.0",
@@ -61,6 +61,7 @@
     "typescript-eslint": "^8.56.1"
   },
   "dependencies": {
+    "babel-traverse": "^6.26.0",
     "vtex-tachyons": "^3.2.2"
   }
 }
