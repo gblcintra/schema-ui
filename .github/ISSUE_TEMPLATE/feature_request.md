@@ -1,9 +1,10 @@
 ---
-name: 🚀 Feature
+name: "\U0001F680 Feature"
 about: Solicitação de nova funcionalidade
 title: "[FEATURE] "
-labels: feature
+labels: ''
 assignees: ''
+
 ---
 
 ## 📌 Contexto

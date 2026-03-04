@@ -1,9 +1,10 @@
 ---
-name: 🚑 Hotfix
+name: "\U0001F691 Hotfix"
 about: Correção urgente em produção
 title: "[HOTFIX] "
-labels: hotfix, urgent
+labels: ''
 assignees: ''
+
 ---
 
 # 🚨 INCIDENTE EM PRODUÇÃO
