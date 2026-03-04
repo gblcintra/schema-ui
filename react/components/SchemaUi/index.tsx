@@ -12,6 +12,7 @@ const SchemaUi = ({ titleItem, activeItem, ...props }: SchemaUiProps) => {
   let dynamicProperties: Record<string, JSONSchemaProperty> = {
     ...schemaProperties,
   }
+  console.info("💚🐛  ~ SchemaUi ~ dynamicProperties:", dynamicProperties)
 
   Object.entries(dependencies).forEach(
     ([dependentField, dependencyCondition]) => {
