@@ -19,7 +19,7 @@
     "react",
     ".storybook",
     "dangerfile.ts",
-    "esbuild.config.ts",
+    "eslint.config.ts"
   ],
   "exclude": [
     "node_modules",
