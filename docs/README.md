@@ -18,26 +18,30 @@
   <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
   [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
   <!-- ALL-CONTRIBUTORS-BADGE:END -->
+
+  <p><b>Schema UI:</b> Criação de schemas e widgets customizados para VTEX IO Site Editor</p>
 </div>
 
 ## 📌 Sobre o Projeto
 
-O **Schema UI** é uma ferramenta para visualização e edição dinâmica de **JSON Schema**, permitindo gerar interfaces automaticamente com base na estrutura de dados.
+O **Schema UI** é um toolkit para **VTEX IO Site Editor** que permite:
 
-### Principais objetivos:
+- Criar e configurar **schemas dinâmicos** para blocos
+- Criar **widgets customizados** para renderização livre de campos
+- Validar e gerenciar propriedades de forma estruturada
 
-- 📦 Renderização dinâmica de formulários
-- 🧩 Suporte a widgets customizados
-- 🔎 Validação estruturada
-- ⚡ Manipulação dinâmica de propriedades
+Ele dá mais liberdade aos desenvolvedores e designers na criação de interfaces, indo além dos widgets padrões do Site Editor.
 
----
+------------------------------------------------------------------------
 
 ### 📌 Recursos
-✅ Definição clara de types para cada propriedade <br/>
-✅ Uso de widgets personalizados para melhorar a experiência de edição<br/>
-✅ Implementação de dependencies e oneOf para configurações condicionais<br/>
-✅ Suporte a uploads, seleções, datas, arrays e muito mais<br/>
+
+- Definição clara de **types** (`String`, `Number`, `Boolean`, `Array`, `Object`, `Null`)
+- Widgets padrões e customizados (`text`, `textarea`, `color`, `select`, `image-uploader`, `range`, `rating`, etc.)
+- Suporte a **dependencies** e `oneOf` para configurações condicionais
+- Controle avançado de propriedades: `readonly`, `disabled`, `hidden`
+- Renderização de campos complexos com **layout customizado**
+- Upload de arquivos e imagens
 
 ------------------------------------------------------------------------
 
@@ -79,6 +83,8 @@ nomeação de componentes na interface (store\interfaces.json)
 ```
 ## 🚀 Como usar no store theme
 
+Exemplo de integração no store theme:
+
 ```jsx
 ...
 {
@@ -93,7 +99,7 @@ nomeação de componentes na interface (store\interfaces.json)
 }
 ```
 
-## Configuralçao
+## Configuraçao
 
 1. Adicione o aplicativo Login às dependências do seu tema no arquivo `manifest.json`:
 
@@ -106,7 +112,7 @@ nomeação de componentes na interface (store\interfaces.json)
 ## 🛠️ Widgets Disponíveis
 
 O `SchemaUi` suporta diferentes widgets para renderização dinâmica de campos. Alguns dos principais incluem:
-
+```markdown
 | Widget                      | Tipo                      | Descrição                                                                                             |
 | --------------------------- | ------------------------- | ----------------------------------------------------------------------------------------------------- |
 | `ui:widget: textarea`       | `string`                  | Caixa de texto multilinhas.                                                                           |
@@ -126,7 +132,7 @@ O `SchemaUi` suporta diferentes widgets para renderização dinâmica de campos.
 | `ui:disabled`               | `boolean`                 | Desabilita um campo para impedir que ele seja editado pelo usuário.                                   |
 | `ui:readonly`               | `boolean`                 | Deixa o campo somente leitura, permitindo que os usuários vejam o conteúdo, mas não façam alterações. |
 | `classNames`                | `boolean`                 | Permite adicionar classes CSS personalizadas aos campos para melhor estilização.                      |
-
+```
 ## 🛠️ Tipos Disponíveis
 A configuração do schema proporciona flexibilidade através da utilização de vários tipos de dados para configurar elementos da IU. Estes tipos de dados podem ser utilizados para estilizar e definir o comportamento de diferentes componentes, quer se trate de introdução de texto, imagens, datas, cores ou menus pendentes de seleção.
 
@@ -575,7 +581,25 @@ SchemaUi.schema = {
  ```
  ![Campos de números](../docs/images/number.png)
 
-## Widgets Custons do Site Editor
+## 5️⃣ Seção Widgets Customizados para Site Editor
+
+- Organizar **widgets customizados** em **tabela resumida + link para exemplos completos**.
+- Destacar **diferença para widget padrão**:
+```markdown
+## 🛠️ Widgets Customizados
+
+| Widget                    | Tipo   | Quando usar                                   |
+| ------------------------- | ------ | --------------------------------------------- |
+| `widgetCustomText`        | string | Texto com placeholder dinâmico, layout custom |
+| `widgetCustomUploadImage` | string | Upload de imagem com layout e lógica custom   |
+| `widgetCustomSelect`      | string | Select com opções dinâmicas via API           |
+| `widgetCustomRange`       | number | Slider interativo com preview de valor        |
+| `widgetCustomRating`      | number | Avaliação por estrelas (1–5)                  |
+| `widgetCustomColorPicker` | string | Seletor visual de cores                       |
+```
+
+💡 **Diferença para widget padrão:** todos os custom widgets permitem **layout, lógica e reuso encapsulado**.
+
 ### Tipagem para onChange e Registry
 ```jsx
   type OnChange = (val: any) => void
