@@ -103,6 +103,7 @@ export const SchemaUiItemProps = {
                 })
               })
           }
+
           return (
             <div className="custom-widget">
               <SchemaField
