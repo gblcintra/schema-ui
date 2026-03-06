@@ -192,6 +192,17 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
     )
   }
 
+  const physicalInfo: {
+    label: string
+    value: React.ReactNode
+  }[] = [
+      { label: "Weight", value: `${pokemon.weight} hg` },
+      { label: "Height", value: `${pokemon.height} dm` },
+      { label: "Base XP", value: pokemon.base_experience },
+      { label: "Order", value: pokemon.order },
+      { label: "Default Form", value: pokemon.is_default ? "Yes" : "No" },
+    ]
+
   return (
     <div className="sans-serif lh-copy mw8 center pa4 bg-white br4 shadow-3">
 
@@ -284,25 +295,34 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
       {/* Physical info */}
       <h3 className="mt4">Physical / Base Info</h3>
 
-      <p className="lh-copy">
-        <strong>Weight:</strong> {pokemon.weight} hg |{" "}
-        <strong>Height:</strong> {pokemon.height} dm |{" "}
-        <strong>Base XP:</strong> {pokemon.base_experience} |{" "}
-        <strong>Order:</strong> {pokemon.order} |{" "}
-        <strong>Default:</strong> {pokemon.is_default ? "Yes" : "No"}
-      </p>
+      <div className="flex flex-wrap justify-between w-100 mt2">
+        {physicalInfo.map((item) => (
+          <div key={item.label} className={`w-${100 / physicalInfo.length || "50"} pa2`}>
+            <div className="pa3 bg-near-white br3 shadow-1">
+              <span className="db gray f6">{item.label}</span>
+              <strong>{item.value}</strong>
+            </div>
+          </div>
+        ))}
+
+      </div>
 
       {/* Species */}
       <h3 className="mt4">Species</h3>
 
-      <a
-        href={pokemon.species.url}
-        target="_blank"
-        rel="noreferrer"
-        className="link blue underline"
-      >
-        {pokemon.species.name}
-      </a>
+      <div className="pa3 bg-near-white br3 shadow-1 inline-flex items-center">
+        <div className="db">
+          <span className="db gray f6">Species:</span>
+          <a
+            href={pokemon.species.url}
+            target="_blank"
+            rel="noreferrer"
+            className="link blue fw6 ttc"
+          >
+            <strong> {pokemon.species.name}</strong>
+          </a>
+        </div>
+      </div>
 
       {/* Forms */}
       <h3 className="mt4">Forms</h3>
@@ -338,7 +358,6 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
           </div>
         </div>
       )}
-
     </div>
   )
 }
