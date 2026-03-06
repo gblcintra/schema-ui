@@ -2,7 +2,7 @@
   "schema-ui": {
     "component": "SchemaUi"
   },
-  "schema-ui-pokemion": {
+  "schema-ui-pokemon": {
     "component": "SchemaUiPokemon"
   }
 }

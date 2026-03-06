@@ -20,7 +20,6 @@ export const PokemonStyles = () => (
       .bg-poke-dark { background:#705746 }
       .bg-poke-steel { background:#B7B7CE }
       .bg-poke-fairy { background:#D685AD }
-      .vtex-store-footer-2-x-footer{display:none}
     `}
   </style>
 )
