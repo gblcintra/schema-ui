@@ -3801,6 +3801,16 @@ pify@^5.0.0:
   resolved "https://registry.yarnpkg.com/pify/-/pify-5.0.0.tgz#1f5eca3f5e87ebec28cc6d54a0e4aaf00acc127f"
   integrity sha512-eW/gHNMlxdSP6dmG6uJip6FXN0EQBwm2clYYd8Wul42Cwu/DK8HEftzsapcNdYe2MfLiIwZqsDk2RDEsTE79hA==
 
+pokeapi-types@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/pokeapi-types/-/pokeapi-types-0.0.2.tgz#6783f1f5e8ed090e8d79be8af975219364e54126"
+  integrity sha512-yg/ZMEILjBiF6Af1lGXfSXYi5WEUUlFi6tDKxKmW6lOvdYsp1H3oNL++rKq/32Zsp6MgOig4Xltz9txYnryFpw==
+
+pokenode-ts@^1.20.0:
+  version "1.20.0"
+  resolved "https://registry.yarnpkg.com/pokenode-ts/-/pokenode-ts-1.20.0.tgz#3f07e31160f6b7f045e86726d66ed74bd10f860c"
+  integrity sha512-6MekrbiQc9nmaZJ5xpyhRSEMFo4xEsMuB7RR3EqfPvuXo/3StnH1p4brfIiIWDCcZvu7t9a0vjodiR4TnRdLEw==
+
 possible-typed-array-names@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/possible-typed-array-names/-/possible-typed-array-names-1.1.0.tgz#93e3582bc0e5426586d9d07b79ee40fc841de4ae"
