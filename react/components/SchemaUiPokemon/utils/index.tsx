@@ -1,4 +1,5 @@
 import React from "react"
+
 export const PokemonStyles = () => (
   <style>
     {`
@@ -23,6 +24,27 @@ export const PokemonStyles = () => (
     `}
   </style>
 )
+
+export const typeColors: Record<string, string> = {
+  normal: "bg-poke-normal",
+  fire: "bg-poke-fire",
+  water: "bg-poke-water",
+  electric: "bg-poke-electric",
+  grass: "bg-poke-grass",
+  ice: "bg-poke-ice",
+  fighting: "bg-poke-fighting",
+  poison: "bg-poke-poison",
+  ground: "bg-poke-ground",
+  flying: "bg-poke-flying",
+  psychic: "bg-poke-psychic",
+  bug: "bg-poke-bug",
+  rock: "bg-poke-rock",
+  ghost: "bg-poke-ghost",
+  dragon: "bg-poke-dragon",
+  dark: "bg-poke-dark",
+  steel: "bg-poke-steel",
+  fairy: "bg-poke-fairy",
+}
 
 export const capitalize = (text: string) =>
   text.charAt(0).toUpperCase() + text.slice(1)
