@@ -583,36 +583,6 @@ SchemaUi.schema = {
  ```
  ![Campos de números](../docs/images/number.png)
 
-## 🧩 Exemplo customizado: `schema-ui-pokemon`
-
-Além do `schema-ui` padrão, o projeto também inclui o bloco **`schema-ui-pokemon`**, pensado como referência de implementação avançada com **widget customizado**.
-
-Esse exemplo demonstra:
-
-- consumo de API externa (PokéAPI) dentro de um `ui:widget` customizado;
-- controle de estado com `selected`, `loading` e `inFoPoke` no valor do campo;
-- integração entre o schema no Site Editor e renderização final na storefront.
-
-Mapeamento no `store/interfaces.json`:
-
-```json
-"schema-ui-pokemon": {
-  "component": "SchemaUiPokemon"
-}
-```
-
-Exemplo de uso no tema:
-
-```json
-"store.home": {
-  "blocks": [
-    "account.schema-ui:schema-ui-pokemon"
-  ]
-}
-```
-
-Para detalhes do fluxo e da estrutura do widget, consulte a documentação dedicada: [`react/components/SchemaUiPokemon/README.MD`](../react/components/SchemaUiPokemon/README.MD).
-
 ## Seção Widgets Customizados para Site Editor
 
 - Organizar **widgets customizados** em **tabela resumida + link para exemplos completos**.
@@ -1762,6 +1732,38 @@ SchemaUi.schema = {
   }}
 />
 ```
+------------------------------------------------------------------------
+
+## 🧩 Exemplo customizado: `schema-ui-pokemon`
+
+Além do `schema-ui` padrão, o projeto também inclui o bloco **`schema-ui-pokemon`**, pensado como referência de implementação avançada com **widget customizado**.
+
+Esse exemplo demonstra:
+
+- consumo de API externa (PokéAPI) dentro de um `ui:widget` customizado;
+- controle de estado com `selected`, `loading` e `inFoPoke` no valor do campo;
+- integração entre o schema no Site Editor e renderização final na storefront.
+
+Mapeamento no `store/interfaces.json`:
+
+```json
+"schema-ui-pokemon": {
+  "component": "SchemaUiPokemon"
+}
+```
+
+Exemplo de uso no tema:
+
+```json
+"store.home": {
+  "blocks": [
+    "account.schema-ui:schema-ui-pokemon"
+  ]
+}
+```
+
+Para detalhes do fluxo e da estrutura do widget, consulte a documentação dedicada: [`react/components/SchemaUiPokemon/README.MD`](../react/components/SchemaUiPokemon/README.MD).
+
 
 ------------------------------------------------------------------------
 
