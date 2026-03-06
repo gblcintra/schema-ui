@@ -1,7 +1,7 @@
 import React from 'react'
+import { NamedAPIResource, Pokemon, PokemonAbility, PokemonMove, PokemonMoveVersion, PokemonStat, PokemonType } from 'pokenode-ts'
 import { SchemaUiItemProps } from './schema'
 import { PropsPokemon } from './typing'
-import { Pokemon } from 'pokenode-ts'
 import { capitalize, PokemonStyles } from './utils'
 
 const typeColors: Record<string, string> = {
@@ -35,7 +35,7 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
 
   if (!pokemon) return <div className="pa3">Nenhum Pokémon selecionado</div>
 
-  const renderNamedList = (list: { name: string; url: string }[]) => (
+  const renderNamedList = (list: NamedAPIResource[]) => (
     <ul className="pl3 list">
       {list.map((item) => (
         <li key={item.name}>
@@ -54,7 +54,7 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
 
   const renderMoves = () => (
     <div className="overflow-auto" style={{ maxHeight: 300 }}>
-      {pokemon.moves.map((move: { move: { name: string }; version_group_details: any[] }) => (
+      {pokemon.moves.map((move: PokemonMove) => (
         <div
           key={move.move.name}
           className="mb3 pa2 ba b--light-gray br2 bg-near-white"
@@ -62,7 +62,7 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
           <strong className="ttc">{move.move.name}</strong>
 
           <ul className="pl3 mt2">
-            {move.version_group_details.map((versionItem, index) => (
+            {move.version_group_details.map((versionItem: PokemonMoveVersion, index: number) => (
               <li key={index}>
                 <span className="ttc">
                   {versionItem.move_learn_method.name.replace("-", " ")}
@@ -135,7 +135,7 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
             <h3 className="mb4">Sprites por versão</h3>
 
             {Object.entries(imagesVersion).map(([versionName, versionData]) => {
-              const sprites = Object.values(versionData as Record<string, any>)
+              const sprites = Object.values(versionData as Record<string, { front_default: string }>)
                 .filter((img) => img?.front_default)
 
               if (!sprites.length) return null
@@ -182,7 +182,7 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
           </h1>
 
           <div className="flex flex-wrap">
-            {pokemon.types.map((typeItem: { type: { name: string } }) => (
+            {pokemon.types.map((typeItem: PokemonType) => (
               <span
                 key={typeItem.type.name}
                 className={`white br-pill fw6 ttc mr2 mb2 ph3 pv1 ${typeColors[typeItem.type.name] || "bg-gray"
@@ -199,8 +199,8 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
       <h3 className="mt4 mb2">Stats</h3>
 
       <div>
-        {pokemon.stats.map((statItem: { stat: { name: string }; base_stat: number }) => {
-          const maxStat = Math.max(...pokemon.stats.map((s: { base_stat: number }) => s.base_stat))
+        {pokemon.stats.map((statItem: PokemonStat) => {
+          const maxStat = Math.max(...pokemon.stats.map((statMap: PokemonStat) => statMap.base_stat))
           return (
             <div key={statItem.stat.name} className="flex items-center mb2">
               <div className="w4 fw6 ttc">
@@ -228,7 +228,7 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
       <h3 className="mt4">Abilities</h3>
 
       <div className="flex flex-wrap">
-        {pokemon.abilities.map((abilityItem: { ability: { name: string }; is_hidden: boolean }) => (
+        {pokemon.abilities.map((abilityItem: PokemonAbility) => (
           <span
             key={abilityItem.ability.name}
             className={`white br2 fw6 ttc mr2 mb2 ph3 pv1 ${abilityItem.is_hidden ? "bg-poke-fire" : "bg-poke-water"
