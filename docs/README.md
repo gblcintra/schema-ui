@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../docs/images/LogoSchemaBranco2.png/" alt="Logo do Projeto" height="200"/>
+  <img src="../docs/images/LogoSchemaBranco2.png" alt="Logo do Projeto" height="200"/>
   
   ![Stars](https://img.shields.io/github/stars/gblcintra/schema-ui)
   ![License](https://img.shields.io/github/license/gblcintra/schema-ui)
@@ -42,6 +42,8 @@ Ele dá mais liberdade aos desenvolvedores e designers na criação de interface
 - Controle avançado de propriedades: `readonly`, `disabled`, `hidden`
 - Renderização de campos complexos com **layout customizado**
 - Upload de arquivos e imagens
+  
+![Schema Completo](../docs/gif/SchemaCompleto.gif)
 
 ------------------------------------------------------------------------
 
@@ -74,7 +76,7 @@ vtex link -c
 ```
 
 ### Schema
-nomeação de componentes na interface (store\interfaces.json)
+nomeação de componentes na interface (`store/interfaces.json`)
 
 ```jsx
   "schema-ui": {
@@ -99,9 +101,9 @@ Exemplo de integração no store theme:
 }
 ```
 
-## Configuraçao
+## Configuração
 
-1. Adicione o aplicativo Login às dependências do seu tema no arquivo `manifest.json`:
+1. Adicione o aplicativo **Schema UI** às dependências do seu tema no arquivo `manifest.json`:
 
 ```diff
   "dependencies": {
@@ -126,7 +128,7 @@ O `SchemaUi` suporta diferentes widgets para renderização dinâmica de campos.
 | `ui:widget: radio`          | `string`                  | Botões de opção (radio buttons).                                                                      |
 | `ui:field`                  | `({ schema }: any) => {}` | Permite a criação de componentes personalizados para exibir um campo específico.                      |
 | `ui:placeholder`            | `string`                  | Define um texto de exemplo dentro do campo de entrada para orientar o usuário.                        |
-| `ui:inputType`              | `string`                  | Define o tipo de entrada de um campo de texto, como password, email, tel, etc.                        |
+| `ui:inputType`              | `string`                  | Define o tipo de entrada de um campo de texto, como `password`, `email` e `tel`, etc.                 |
 | `ui:help`                   | `string`                  | Adiciona uma dica abaixo do campo para fornecer mais contexto ao usuário.                             |
 | `ui:options`                | `object`                  | Permite configurações adicionais para widgets específicos.                                            |
 | `ui:disabled`               | `boolean`                 | Desabilita um campo para impedir que ele seja editado pelo usuário.                                   |
@@ -134,7 +136,7 @@ O `SchemaUi` suporta diferentes widgets para renderização dinâmica de campos.
 | `classNames`                | `boolean`                 | Permite adicionar classes CSS personalizadas aos campos para melhor estilização.                      |
 
 ## 🛠️ Tipos Disponíveis
-A configuração do schema proporciona flexibilidade através da utilização de vários tipos de dados para configurar elementos da IU. Estes tipos de dados podem ser utilizados para estilizar e definir o comportamento de diferentes componentes, quer se trate de introdução de texto, imagens, datas, cores ou menus pendentes de seleção.
+A configuração do schema proporciona flexibilidade por meio da utilização de diferentes tipos de dados para configurar elementos da UI. Esses tipos podem ser usados para estilizar e definir o comportamento de componentes, seja para texto, imagens, datas, cores ou menus de seleção.
 
 | Type      | Descrição                                                                       |
 | --------- | ------------------------------------------------------------------------------- |
@@ -580,6 +582,36 @@ SchemaUi.schema = {
 }
  ```
  ![Campos de números](../docs/images/number.png)
+
+## 🧩 Exemplo customizado: `schema-ui-pokemon`
+
+Além do `schema-ui` padrão, o projeto também inclui o bloco **`schema-ui-pokemon`**, pensado como referência de implementação avançada com **widget customizado**.
+
+Esse exemplo demonstra:
+
+- consumo de API externa (PokéAPI) dentro de um `ui:widget` customizado;
+- controle de estado com `selected`, `loading` e `inFoPoke` no valor do campo;
+- integração entre o schema no Site Editor e renderização final na storefront.
+
+Mapeamento no `store/interfaces.json`:
+
+```json
+"schema-ui-pokemon": {
+  "component": "SchemaUiPokemon"
+}
+```
+
+Exemplo de uso no tema:
+
+```json
+"store.home": {
+  "blocks": [
+    "account.schema-ui:schema-ui-pokemon"
+  ]
+}
+```
+
+Para detalhes do fluxo e da estrutura do widget, consulte a documentação dedicada: [`react/components/SchemaUiPokemon/README.MD`](../react/components/SchemaUiPokemon/README.MD).
 
 ## Seção Widgets Customizados para Site Editor
 
