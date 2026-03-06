@@ -2,39 +2,49 @@ import React from 'react'
 import { SchemaUiItemProps } from './schema'
 import { PropsPokemon } from './typing'
 import { Pokemon } from 'pokenode-ts'
+import { capitalize, PokemonStyles } from './utils'
 
 const typeColors: Record<string, string> = {
-  normal: "#A8A77A",
-  fire: "#EE8130",
-  water: "#6390F0",
-  electric: "#F7D02C",
-  grass: "#7AC74C",
-  ice: "#96D9D6",
-  fighting: "#C22E28",
-  poison: "#A33EA1",
-  ground: "#E2BF65",
-  flying: "#A98FF3",
-  psychic: "#F95587",
-  bug: "#A6B91A",
-  rock: "#B6A136",
-  ghost: "#735797",
-  dragon: "#6F35FC",
-  dark: "#705746",
-  steel: "#B7B7CE",
-  fairy: "#D685AD",
+  normal: "bg-poke-normal",
+  fire: "bg-poke-fire",
+  water: "bg-poke-water",
+  electric: "bg-poke-electric",
+  grass: "bg-poke-grass",
+  ice: "bg-poke-ice",
+  fighting: "bg-poke-fighting",
+  poison: "bg-poke-poison",
+  ground: "bg-poke-ground",
+  flying: "bg-poke-flying",
+  psychic: "bg-poke-psychic",
+  bug: "bg-poke-bug",
+  rock: "bg-poke-rock",
+  ghost: "bg-poke-ghost",
+  dragon: "bg-poke-dragon",
+  dark: "bg-poke-dark",
+  steel: "bg-poke-steel",
+  fairy: "bg-poke-fairy",
 }
-
 
 const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
   if (!activeItem) return null
+
   const pokemon: Pokemon | undefined = widgetCustomSelect?.inFoPoke
-  if (!pokemon) return <div>Nenhum Pokémon selecionado</div>
+  const loading: boolean = widgetCustomSelect?.loading || false
+
+  if (loading) return <div className="sans-serif lh-copy mw8 center pa4 bg-white br4 shadow-3"><div className="pa3">Carregando informações do Pokémon...</div></div>
+
+  if (!pokemon) return <div className="pa3">Nenhum Pokémon selecionado</div>
 
   const renderNamedList = (list: { name: string; url: string }[]) => (
-    <ul style={{ paddingLeft: 16 }}>
+    <ul className="pl3 list">
       {list.map((item) => (
         <li key={item.name}>
-          <a href={item.url} target="_blank" rel="noreferrer">
+          <a
+            href={item.url}
+            target="_blank"
+            rel="noreferrer"
+            className="link blue"
+          >
             {item.name}
           </a>
         </li>
@@ -43,27 +53,24 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
   )
 
   const renderMoves = () => (
-    <div style={{ maxHeight: 300, overflowY: "auto" }}>
+    <div className="overflow-auto" style={{ maxHeight: 300 }}>
       {pokemon.moves.map((move: { move: { name: string }; version_group_details: any[] }) => (
         <div
           key={move.move.name}
-          style={{
-            marginBottom: 12,
-            padding: 8,
-            border: "1px solid #eee",
-            borderRadius: 8,
-            background: "#fafafa",
-          }}
+          className="mb3 pa2 ba b--light-gray br2 bg-near-white"
         >
-          <strong style={{ textTransform: "capitalize" }}>{move.move.name}</strong>
-          <ul style={{ marginTop: 4, paddingLeft: 16 }}>
+          <strong className="ttc">{move.move.name}</strong>
+
+          <ul className="pl3 mt2">
             {move.version_group_details.map((versionItem, index) => (
               <li key={index}>
-                <span style={{ textTransform: "capitalize" }}>
+                <span className="ttc">
                   {versionItem.move_learn_method.name.replace("-", " ")}
                 </span>{" "}
                 - lvl <strong>{versionItem.level_learned_at}</strong>{" "}
-                <em style={{ color: "#555" }}>({versionItem.version_group.name})</em>
+                <em className="gray">
+                  ({versionItem.version_group.name})
+                </em>
               </li>
             ))}
           </ul>
@@ -74,6 +81,7 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
 
   const renderSprites = () => {
     const spr = pokemon.sprites
+
     const images: (string | null)[] = [
       spr.front_default,
       spr.back_default,
@@ -84,74 +92,101 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
       spr.front_shiny_female,
       spr.back_shiny_female,
     ]
-    return (
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-        {images
-          .filter((img): img is string => !!img)
-          .map((img, index) => (
-            <img
-              key={index}
-              src={img}
-              alt={`${pokemon.name}-${index}`}
-              style={{
-                width: 96,
-                height: 96,
-                objectFit: "contain",
-                background: "#f5f5f5",
-                borderRadius: 8,
-                padding: 4,
-              }}
-            />
-          ))}
+
+    const imagesVersion = spr?.versions
+
+    const SpriteCard = ({ src, alt }: { src: string; alt: string }) => (
+      <div
+        className="ma2 pa2 br3 bg-near-white shadow-1 flex items-center justify-center"
+        style={{ width: 96, height: 96 }}
+      >
+        <img
+          src={src}
+          alt={alt}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "contain"
+          }}
+          title={capitalize(pokemon.name)}
+          aria-label={capitalize(pokemon.name)}
+        />
       </div>
+    )
+
+    return (
+      <>
+        {/* Sprites principais */}
+        <div className="flex flex-wrap">
+          {images
+            .filter((img): img is string => Boolean(img))
+            .map((img, index) => (
+              <SpriteCard
+                key={index}
+                src={img}
+                alt={`${pokemon.name}-${index}`}
+              />
+            ))}
+        </div>
+
+        {/* Sprites por versão */}
+        {imagesVersion && (
+          <div className="mt5">
+            <h3 className="mb4">Sprites por versão</h3>
+
+            {Object.entries(imagesVersion).map(([versionName, versionData]) => {
+              const sprites = Object.values(versionData as Record<string, any>)
+                .filter((img) => img?.front_default)
+
+              if (!sprites.length) return null
+
+              return (
+                <div key={versionName} className="mb5">
+                  <h4 className="mb3 ttu silver">{versionName}</h4>
+
+                  <div className="flex flex-wrap">
+                    {sprites.map((img, index) => (
+                      <SpriteCard
+                        key={index}
+                        src={img.front_default}
+                        alt={`${pokemon.name}-${versionName}-${index}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        )}
+      </>
     )
   }
 
   return (
-    <div
-      style={{
-        fontFamily: "sans-serif",
-        lineHeight: 1.5,
-        maxWidth: 900,
-        margin: "30px auto",
-        padding: 24,
-        background: "#fefefe",
-        borderRadius: 16,
-        boxShadow: "0 12px 25px rgba(0,0,0,0.12)",
-      }}
-    >
-      {/* Header: Sprite + Name + Types */}
-      <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
+    <div className="sans-serif lh-copy mw8 center pa4 bg-white br4 shadow-3">
+
+      <PokemonStyles />
+      {/* Header */}
+      <div className="flex items-center">
         <img
           src={pokemon.sprites.front_default || ""}
           alt={pokemon.name}
-          style={{
-            width: 160,
-            height: 160,
-            objectFit: "contain",
-            borderRadius: 12,
-            border: "2px solid #eee",
-            background: "#fafafa",
-          }}
+          className="w5 h5 br3 ba b--light-gray bg-near-white mr4"
+          title={capitalize(pokemon.name)}
+          aria-label={capitalize(pokemon.name)}
         />
+
         <div>
-          <h1 style={{ textTransform: "capitalize", marginBottom: 6 }}>
-            {pokemon.name} <span style={{ color: "#888" }}>#{pokemon.id}</span>
+          <h1 className="ttc fw7 mb2">
+            {pokemon.name} <span className="gray">#{pokemon.id}</span>
           </h1>
-          <div style={{ display: "flex", gap: 10 }}>
+
+          <div className="flex flex-wrap">
             {pokemon.types.map((typeItem: { type: { name: string } }) => (
               <span
                 key={typeItem.type.name}
-                style={{
-                  background: typeColors[typeItem.type.name] || "#777",
-                  color: "#fff",
-                  padding: "5px 12px",
-                  borderRadius: 12,
-                  fontWeight: "bold",
-                  textTransform: "capitalize",
-                  boxShadow: "0 2px 5px rgba(0,0,0,0.15)",
-                  fontSize: 14,
-                }}
+                className={`white br-pill fw6 ttc mr2 mb2 ph3 pv1 ${typeColors[typeItem.type.name] || "bg-gray"
+                  }`}
               >
                 {typeItem.type.name}
               </span>
@@ -160,117 +195,103 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
         </div>
       </div>
 
-      {/* Stats Card */}
-      <h3 style={{ marginTop: 24, marginBottom: 8 }}>Stats</h3>
-      <div style={{ display: "grid", gap: 10 }}>
-        {pokemon.stats.map((statItem: { stat: { name: string }; base_stat: number }) => (
-          <div key={statItem.stat.name} style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ width: 130, fontWeight: "bold", textTransform: "capitalize" }}>
-              {statItem.stat.name}
+      {/* Stats */}
+      <h3 className="mt4 mb2">Stats</h3>
+
+      <div>
+        {pokemon.stats.map((statItem: { stat: { name: string }; base_stat: number }) => {
+          const maxStat = Math.max(...pokemon.stats.map((s: { base_stat: number }) => s.base_stat))
+          return (
+            <div key={statItem.stat.name} className="flex items-center mb2">
+              <div className="w4 fw6 ttc">
+                {statItem.stat.name}
+              </div>
+
+              <div className="flex-auto bg-light-gray br2 mh2">
+                <div
+                  className="bg-green h1 br2"
+                  style={{
+                    width: `${(statItem.base_stat / maxStat) * 100}%`,
+                  }}
+                />
+              </div>
+
+              <span className="fw7 w2 tr">
+                {statItem.base_stat}
+              </span>
             </div>
-            <div
-              style={{
-                flex: 1,
-                height: 14,
-                background: "#eee",
-                borderRadius: 8,
-                overflow: "hidden",
-              }}
-            >
-              <div
-                style={{
-                  width: `${(statItem.base_stat / 255) * 100}%`,
-                  background: "#4caf50",
-                  height: "100%",
-                }}
-              />
-            </div>
-            <span style={{ width: 30, textAlign: "right", fontWeight: "bold" }}>
-              {statItem.base_stat}
-            </span>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Abilities */}
-      <h3 style={{ marginTop: 24 }}>Abilities</h3>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+      <h3 className="mt4">Abilities</h3>
+
+      <div className="flex flex-wrap">
         {pokemon.abilities.map((abilityItem: { ability: { name: string }; is_hidden: boolean }) => (
           <span
             key={abilityItem.ability.name}
-            style={{
-              background: abilityItem.is_hidden ? "#ffb74d" : "#64b5f6",
-              color: "#fff",
-              padding: "6px 12px",
-              borderRadius: 10,
-              textTransform: "capitalize",
-              fontWeight: "bold",
-              fontSize: 14,
-            }}
+            className={`white br2 fw6 ttc mr2 mb2 ph3 pv1 ${abilityItem.is_hidden ? "bg-poke-fire" : "bg-poke-water"
+              }`}
           >
-            {abilityItem.ability.name} {abilityItem.is_hidden ? "(hidden)" : ""}
+            {abilityItem.ability.name}
+            {abilityItem.is_hidden ? " (hidden)" : ""}
           </span>
         ))}
       </div>
 
       {/* Moves */}
-      <h3 style={{ marginTop: 24 }}>Moves</h3>
-      <div
-        style={{
-          overflowY: "auto",
-          padding: 10,
-          border: "1px solid #eee",
-          borderRadius: 12,
-          background: "#fafafa",
-        }}
-      >
+      <h3 className="mt4">Moves</h3>
+
+      <div className="ba b--light-gray br3 pa2 bg-near-white">
         {renderMoves()}
       </div>
 
       {/* Forms */}
-      <h3 style={{ marginTop: 24 }}>Forms</h3>
+      <h3 className="mt4">Forms</h3>
       {renderNamedList(pokemon.forms)}
 
       {/* Sprites */}
-      <h3 style={{ marginTop: 24 }}>Sprites</h3>
+      <h3 className="mt4">Sprites</h3>
       {renderSprites()}
 
       {/* Physical info */}
-      <h3 style={{ marginTop: 24 }}>Physical / Base Info</h3>
-      <p style={{ margin: 4, lineHeight: 1.6 }}>
-        <strong>Weight:</strong> {pokemon.weight} hg | <strong>Height:</strong> {pokemon.height} dm |{" "}
-        <strong>Base XP:</strong> {pokemon.base_experience} | <strong>Order:</strong> {pokemon.order} |{" "}
+      <h3 className="mt4">Physical / Base Info</h3>
+
+      <p className="lh-copy">
+        <strong>Weight:</strong> {pokemon.weight} hg |{" "}
+        <strong>Height:</strong> {pokemon.height} dm |{" "}
+        <strong>Base XP:</strong> {pokemon.base_experience} |{" "}
+        <strong>Order:</strong> {pokemon.order} |{" "}
         <strong>Default:</strong> {pokemon.is_default ? "Yes" : "No"}
       </p>
 
       {/* Species */}
-      <h3 style={{ marginTop: 24 }}>Species</h3>
+      <h3 className="mt4">Species</h3>
+
       <a
         href={pokemon.species.url}
         target="_blank"
         rel="noreferrer"
-        style={{ color: "#1976d2", textDecoration: "underline" }}
+        className="link blue underline"
       >
         {pokemon.species.name}
       </a>
 
-      {/* Location Encounters */}
-      <h3 style={{ marginTop: 24 }}>Location Encounters</h3>
+      {/* Location */}
+      <h3 className="mt4">Location Encounters</h3>
+
       <a
         href={pokemon.location_area_encounters}
         target="_blank"
         rel="noreferrer"
-        style={{ color: "#1976d2", textDecoration: "underline" }}
+        className="link blue underline"
       >
         {pokemon.location_area_encounters}
       </a>
     </div>
   )
 }
-
-/* =========================
-   SCHEMA Props
-========================= */
 
 SchemaUiPokemon.schema = SchemaUiItemProps
 
