@@ -1,4 +1,6 @@
+import { Pokemon } from "pokenode-ts"
 import React from "react"
+import { capitalize } from "./utils"
 
 let cachedNames: string[] | null = null
 let isFetching = false
@@ -38,8 +40,7 @@ export const SchemaUiItemProps = {
           onChange,
           registry
         }: WidgetProps) => {
-          const typedValue = value as { selected?: string; inFoPoke?: any } | undefined
-          console.log("💚🐛  ~ typedValue:", typedValue)
+          const typedValue = value as { selected?: string; inFoPoke?: Pokemon, loading: boolean } | undefined
 
           const SchemaField = registry.fields.SchemaField
 
@@ -48,23 +49,21 @@ export const SchemaUiItemProps = {
 
             fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
               .then(res => res.json())
-              .then((data: any) => {
-                console.log("💚🐛  ~ data:", data)
-                cachedNames = data.results.map((i: any) => i.name)
-                console.log("💚🐛  ~ cachedNames:", cachedNames)
+              .then((data: { results: { name: string }[] }) => {
+                cachedNames = data.results.map((i: { name: string }) => i.name)
                 isFetching = false
                 // força re-render do RJSF
-                onChange(typedValue ? { ...typedValue, selected: typedValue.selected } : { selected: '' })
+                onChange(typedValue ? { ...typedValue, selected: typedValue.selected, loading: false } : { selected: '', loading: false })
               })
               .catch((err) => {
                 cachedNames = []
                 isFetching = false
                 console.error("💚🐛 ~ Erro ao buscar opções:", err)
+                onChange(typedValue ? { ...typedValue, selected: typedValue.selected, loading: false } : { selected: '', loading: false })
               })
           }
 
-          const capitalize = (text: string) =>
-            text.charAt(0).toUpperCase() + text.slice(1)
+
 
           const options =
             cachedNames === null
@@ -73,15 +72,14 @@ export const SchemaUiItemProps = {
                 ? cachedNames.map((name) => capitalize(name))
                 : ['Sem opções']
 
-          const handleChange = (selected: any) => {
-            console.log("💚🐛  ~ handleChange ~ selected:", selected)
+          const handleChange = (selected: string) => {
             onChange({
               selected,
-              inFoPoke: null
+              inFoPoke: null,
+              loading: true
             })
 
             const index = options.indexOf(selected)
-            console.log("💚🐛  ~ handleChange ~ options:", options)
 
             if (index === -1) return
 
@@ -92,14 +90,19 @@ export const SchemaUiItemProps = {
               .then((data) => {
                 onChange({
                   selected: selected,
-                  inFoPoke: data
+                  inFoPoke: data,
+                  loading: false
                 })
               })
               .catch((err) => {
                 console.error("Erro ao buscar pokemon:", err)
+                onChange({
+                  selected: selected,
+                  inFoPoke: null,
+                  loading: false
+                })
               })
           }
-          console.log("💚🐛  ~ value:", value)
           return (
             <div className="custom-widget">
               <SchemaField
@@ -114,7 +117,7 @@ export const SchemaUiItemProps = {
                 }}
                 formData={typedValue?.selected || ''}
                 registry={registry}
-                onChange={(option) => handleChange(option)}
+                onChange={(option) => handleChange(option as string)}
               />
             </div>
           )
