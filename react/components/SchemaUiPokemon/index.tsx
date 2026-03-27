@@ -1,35 +1,69 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { NamedAPIResource, Pokemon, PokemonAbility, PokemonMove, PokemonMoveVersion, PokemonStat, PokemonType } from 'pokenode-ts'
 import { SchemaUiItemProps } from './schema'
-import { PropsPokemon } from './typing'
-import { capitalize, PokemonStyles } from './utils'
+import { OtherPokemonSpritesExtended, PropsPokemon } from './typing'
+import { capitalize, PokemonStyles, typeColors } from './utils'
 
-const typeColors: Record<string, string> = {
-  normal: "bg-poke-normal",
-  fire: "bg-poke-fire",
-  water: "bg-poke-water",
-  electric: "bg-poke-electric",
-  grass: "bg-poke-grass",
-  ice: "bg-poke-ice",
-  fighting: "bg-poke-fighting",
-  poison: "bg-poke-poison",
-  ground: "bg-poke-ground",
-  flying: "bg-poke-flying",
-  psychic: "bg-poke-psychic",
-  bug: "bg-poke-bug",
-  rock: "bg-poke-rock",
-  ghost: "bg-poke-ghost",
-  dragon: "bg-poke-dragon",
-  dark: "bg-poke-dark",
-  steel: "bg-poke-steel",
-  fairy: "bg-poke-fairy",
+interface SpriteCardProps {
+  src: string
+  alt: string
+  title?: string
+  pokemonName: string
 }
+
+const SpriteCard = ({ src, alt, title, pokemonName }: SpriteCardProps) => (
+  <div
+    className="ma2 pa2 br3 bg-near-white shadow-1 flex items-center justify-center"
+    style={{ width: 96, height: 96 }}
+  >
+    <img
+      src={src || "https://via.placeholder.com/96?text=No+Image"}
+      alt={alt}
+      title={title ? capitalize(title) : capitalize(pokemonName)}
+      aria-label={title ? capitalize(title) : capitalize(pokemonName)}
+      style={{ width: "100%", height: "100%", objectFit: "contain" }}
+    />
+  </div>
+)
 
 const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
   if (!activeItem) return null
+  const [locations, setLocations] = useState<string[] | null>(null)
+  const [locationsError, setLocationsError] = useState(false)
+
 
   const pokemon: Pokemon | undefined = widgetCustomSelect?.inFoPoke
   const loading: boolean = widgetCustomSelect?.loading || false
+  useEffect(() => {
+    if (!pokemon?.location_area_encounters) return
+
+    let cancelled = false
+
+    const fetchLocations = async () => {
+      try {
+        const res = await fetch(pokemon.location_area_encounters)
+        const data: { location_area: NamedAPIResource }[] = await res.json()
+
+        if (cancelled) return
+
+        const names = data.map(i =>
+          capitalize(i.location_area.name.replace(/-/g, " "))
+        )
+
+        setLocations(names)
+      } catch {
+        if (!cancelled) {
+          setLocationsError(true)
+        }
+      }
+    }
+
+    fetchLocations()
+
+    return () => {
+      cancelled = true
+    }
+  }, [pokemon])
 
   if (loading) return <div className="sans-serif lh-copy mw8 center pa4 bg-white br4 shadow-3"><div className="pa3">Carregando informações do Pokémon...</div></div>
 
@@ -45,7 +79,7 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
             rel="noreferrer"
             className="link blue"
           >
-            {item.name}
+            {capitalize(item.name)}
           </a>
         </li>
       ))}
@@ -62,8 +96,8 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
           <strong className="ttc">{move.move.name}</strong>
 
           <ul className="pl3 mt2">
-            {move.version_group_details.map((versionItem: PokemonMoveVersion, index: number) => (
-              <li key={index}>
+            {move.version_group_details.map((versionItem: PokemonMoveVersion) => (
+              <li key={`${versionItem.version_group.name}-${versionItem.move_learn_method.name}`}>
                 <span className="ttc">
                   {versionItem.move_learn_method.name.replace("-", " ")}
                 </span>{" "}
@@ -82,61 +116,69 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
   const renderSprites = () => {
     const spr = pokemon.sprites
 
-    const images: (string | null)[] = [
+    const images = [
       spr.front_default,
       spr.back_default,
-      spr.front_shiny,
-      spr.back_shiny,
       spr.front_female,
       spr.back_female,
+    ]
+
+    const imagesShiny = [
+      spr.front_shiny,
+      spr.back_shiny,
       spr.front_shiny_female,
       spr.back_shiny_female,
     ]
 
-    const imagesVersion = spr?.versions
-
-    const SpriteCard = ({ src, alt }: { src: string; alt: string }) => (
-      <div
-        className="ma2 pa2 br3 bg-near-white shadow-1 flex items-center justify-center"
-        style={{ width: 96, height: 96 }}
-      >
-        <img
-          src={src}
-          alt={alt}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "contain"
-          }}
-          title={capitalize(pokemon.name)}
-          aria-label={capitalize(pokemon.name)}
-        />
-      </div>
-    )
+    const renderList = (imgs: (string | null)[], prefix = "") =>
+      imgs
+        .filter((img): img is string => Boolean(img))
+        .map((img) => (
+          <SpriteCard
+            key={`${pokemon.name}-${prefix}${img}`}
+            src={img}
+            alt={`${pokemon.name}-${prefix}${img}`}
+            title={`${pokemon.name}  ${capitalize(prefix).split("-").join(" ")}`}
+            pokemonName={pokemon.name}
+          />
+        ))
 
     return (
       <>
-        {/* Sprites principais */}
-        <div className="flex flex-wrap">
-          {images
-            .filter((img): img is string => Boolean(img))
-            .map((img, index) => (
-              <SpriteCard
-                key={index}
-                src={img}
-                alt={`${pokemon.name}-${index}`}
-              />
-            ))}
+        <div className="flex flex-column">
+          {[
+            { title: "Normal Form", imgs: images },
+            { title: "Shiny Form", imgs: imagesShiny, prefix: "shiny-" },
+          ].map(({ title, imgs, prefix }) => (
+            <div key={title} className="flex flex-column">
+              <h4>{title}</h4>
+              <div className="flex">{renderList(imgs, prefix)}</div>
+            </div>
+          ))}
         </div>
 
-        {/* Sprites por versão */}
-        {imagesVersion && (
+        {spr.other && (
+          <div className="mt5">
+            <h3 className="mb4">Sprites "Other"</h3>
+            <div className="flex flex-wrap">
+              {Object.entries(spr.other).map(([key, value]) => {
+                const img = (value)?.front_default
+                return img ? (
+                  <SpriteCard key={key} src={img} alt={`${pokemon.name}-${key}`} title={`${pokemon.name}`} pokemonName={pokemon.name} />
+                ) : null
+              })}
+            </div>
+          </div>
+        )}
+
+        {spr.versions && (
           <div className="mt5">
             <h3 className="mb4">Sprites por versão</h3>
 
-            {Object.entries(imagesVersion).map(([versionName, versionData]) => {
-              const sprites = Object.values(versionData as Record<string, { front_default: string }>)
-                .filter((img) => img?.front_default)
+            {Object.entries(spr.versions).map(([versionName, versionData]) => {
+              const sprites = Object.entries(
+                versionData as Record<string, { front_default: string | null }>
+              ).filter(([, spriteValue]) => spriteValue?.front_default)
 
               if (!sprites.length) return null
 
@@ -145,11 +187,13 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
                   <h4 className="mb3 ttu silver">{versionName}</h4>
 
                   <div className="flex flex-wrap">
-                    {sprites.map((img, index) => (
+                    {sprites.map(([gameName, sprite]) => (
                       <SpriteCard
-                        key={index}
-                        src={img.front_default}
-                        alt={`${pokemon.name}-${versionName}-${index}`}
+                        key={`${versionName}-${gameName}`}
+                        src={sprite.front_default!}
+                        alt={`${pokemon.name}-${capitalize(gameName)}`}
+                        title={`${pokemon.name} - ${capitalize(gameName).split("-").join(" ")}`}
+                        pokemonName={pokemon.name}
                       />
                     ))}
                   </div>
@@ -162,6 +206,17 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
     )
   }
 
+  const physicalInfo: {
+    label: string
+    value: React.ReactNode
+  }[] = [
+      { label: "Weight", value: `${pokemon.weight} hg` },
+      { label: "Height", value: `${pokemon.height} dm` },
+      { label: "Base XP", value: pokemon.base_experience },
+      { label: "Order", value: pokemon.order },
+      { label: "Default Form", value: pokemon.is_default ? "Yes" : "No" },
+    ]
+
   return (
     <div className="sans-serif lh-copy mw8 center pa4 bg-white br4 shadow-3">
 
@@ -169,7 +224,7 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
       {/* Header */}
       <div className="flex items-center">
         <img
-          src={pokemon.sprites.front_default || ""}
+          src={(pokemon.sprites.other as OtherPokemonSpritesExtended)?.["official-artwork"]?.front_default || pokemon.sprites.front_default || "https://via.placeholder.com/96?text=No+Image"}
           alt={pokemon.name}
           className="w5 h5 br3 ba b--light-gray bg-near-white mr4"
           title={capitalize(pokemon.name)}
@@ -247,10 +302,6 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
         {renderMoves()}
       </div>
 
-      {/* Forms */}
-      <h3 className="mt4">Forms</h3>
-      {renderNamedList(pokemon.forms)}
-
       {/* Sprites */}
       <h3 className="mt4">Sprites</h3>
       {renderSprites()}
@@ -258,37 +309,69 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
       {/* Physical info */}
       <h3 className="mt4">Physical / Base Info</h3>
 
-      <p className="lh-copy">
-        <strong>Weight:</strong> {pokemon.weight} hg |{" "}
-        <strong>Height:</strong> {pokemon.height} dm |{" "}
-        <strong>Base XP:</strong> {pokemon.base_experience} |{" "}
-        <strong>Order:</strong> {pokemon.order} |{" "}
-        <strong>Default:</strong> {pokemon.is_default ? "Yes" : "No"}
-      </p>
+      <div className="flex flex-wrap justify-between w-100 mt2">
+        {physicalInfo.map((item) => (
+          <div key={item.label} className={`w-${100 / physicalInfo.length || "50"} pa2`}>
+            <div className="pa3 bg-near-white br3 shadow-1">
+              <span className="db gray f6">{item.label}</span>
+              <strong>{item.value}</strong>
+            </div>
+          </div>
+        ))}
+
+      </div>
 
       {/* Species */}
       <h3 className="mt4">Species</h3>
 
-      <a
-        href={pokemon.species.url}
-        target="_blank"
-        rel="noreferrer"
-        className="link blue underline"
-      >
-        {pokemon.species.name}
-      </a>
+      <div className="pa3 bg-near-white br3 shadow-1 inline-flex items-center">
+        <div className="db">
+          <span className="db gray f6">Species:</span>
+          <a
+            href={pokemon.species.url}
+            target="_blank"
+            rel="noreferrer"
+            className="link blue fw6 ttc"
+          >
+            <strong> {pokemon.species.name}</strong>
+          </a>
+        </div>
+      </div>
+
+      {/* Forms */}
+      <h3 className="mt4">Forms</h3>
+      {renderNamedList(pokemon.forms)}
 
       {/* Location */}
       <h3 className="mt4">Location Encounters</h3>
 
-      <a
-        href={pokemon.location_area_encounters}
-        target="_blank"
-        rel="noreferrer"
-        className="link blue underline"
-      >
-        {pokemon.location_area_encounters}
-      </a>
+      {locationsError && (
+        <p className="red">Erro ao buscar locais.</p>
+      )}
+
+      {locations === null && !locationsError && (
+        <p className="gray">Carregando locais de encontro...</p>
+      )}
+
+      {locations?.length === 0 && (
+
+        <p className="gray">Nenhum local encontrado.</p>
+      )}
+
+      {locations && locations.length > 0 && (
+        <div className="ba b--light-gray br3 pa3 bg-near-white mt2">
+          <div className="flex flex-wrap">
+            {locations.map((loc) => (
+              <span
+                key={loc}
+                className="bg-light-gray br-pill fw5 ttc mr2 mb2 ph3 pv1"
+              >
+                {loc}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
