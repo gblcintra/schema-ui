@@ -155,48 +155,23 @@ Exemplo do payload salvo em `widgetCustomSelect`:
 }
 ```
 
-Diagrama:
+Diagrama (fluxo ponta a ponta):
 
-┌─────────────────────────────────────────────┐
-│ 1) VTEX Admin (Site Editor)                 │
-│ - Usuário abre o bloco                      │
-│ - Campo custom aparece                      │
-└───────────────┬─────────────────────────────┘
-                │ renderiza campo
-                ▼
-┌─────────────────────────────────────────────┐
-│ 2) Widget Custom (widgetCustomSelect)       │
-│ - Carrega opções (Pokémons)                 │
-│ - Exibe loading                             │
-│ - Usuário seleciona item                    │
-│ - Dispara onChange                          │
-└───────────────┬─────────────────────────────┘
-                │ fetch opções/detalhes
-                ▼
-┌─────────────────────────────────────────────┐
-│ 3) API Externa (PokéAPI)                    │
-│ GET /pokemon?limit=151  -> lista nomes      │
-│ GET /pokemon/{id}       -> detalhes item    │
-└───────────────┬─────────────────────────────┘
-                │ resposta JSON
-                ▼
-┌─────────────────────────────────────────────┐
-│ 4) Persistência no Schema do bloco          │
-│ valor salvo em widgetCustomSelect:          │
-│ {                                           │
-│   selected: "Bulbasaur",                    │
-│   inFoPoke: {...dados...},                  │
-│   loading: false                            │
-│ }                                           │
-└───────────────┬─────────────────────────────┘
-                │ props do bloco
-                ▼
-┌─────────────────────────────────────────────┐
-│ 5) Storefront (SchemaUiPokemon)             │
-│ - Lê selected/inFoPoke/loading              │
-│ - Renderiza loading OU conteúdo dinâmico    │
-│   (sprite, tipos, stats, etc.)              │
-└─────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+  A["1) VTEX Admin (Site Editor)<br/>• Usuário abre o bloco<br/>• Campo custom aparece"]
+  B["2) Widget Custom (widgetCustomSelect)<br/>• Carrega opções (Pokémons)<br/>• Exibe loading<br/>• Usuário seleciona item<br/>• Dispara onChange"]
+  C["3) API Externa (PokéAPI)<br/>GET /pokemon?limit=151 → lista nomes<br/>GET /pokemon/{id} → detalhes item"]
+  D["4) Persistência no schema do bloco<br/>valor salvo em widgetCustomSelect:<br/>{ selected, inFoPoke, loading }"]
+  E["5) Storefront (SchemaUiPokemon)<br/>• Lê selected/inFoPoke/loading<br/>• Renderiza loading ou conteúdo dinâmico<br/>(sprite, tipos, stats, etc.)"]
+
+  A -->|"renderiza campo"| B
+  B -->|"fetch opções/detalhes"| C
+  C -->|"resposta JSON"| B
+  B -->|"onChange com objeto completo"| D
+  D -->|"props do bloco"| E
+```
+
 
 ## Observações
 
