@@ -1,8 +1,30 @@
 import React, { useEffect, useState } from 'react'
-import { NamedAPIResource, Pokemon, PokemonAbility, PokemonMove, PokemonMoveVersion, PokemonStat, PokemonType, VersionSprites } from 'pokenode-ts'
+import { NamedAPIResource, Pokemon, PokemonAbility, PokemonMove, PokemonMoveVersion, PokemonStat, PokemonType } from 'pokenode-ts'
 import { SchemaUiItemProps } from './schema'
 import { OtherPokemonSpritesExtended, PropsPokemon } from './typing'
 import { capitalize, PokemonStyles, typeColors } from './utils'
+
+interface SpriteCardProps {
+  src: string
+  alt: string
+  title?: string
+  pokemonName: string
+}
+
+const SpriteCard = ({ src, alt, title, pokemonName }: SpriteCardProps) => (
+  <div
+    className="ma2 pa2 br3 bg-near-white shadow-1 flex items-center justify-center"
+    style={{ width: 96, height: 96 }}
+  >
+    <img
+      src={src || "https://via.placeholder.com/96?text=No+Image"}
+      alt={alt}
+      title={title ? capitalize(title) : capitalize(pokemonName)}
+      aria-label={title ? capitalize(title) : capitalize(pokemonName)}
+      style={{ width: "100%", height: "100%", objectFit: "contain" }}
+    />
+  </div>
+)
 
 const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
   if (!activeItem) return null
@@ -74,8 +96,8 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
           <strong className="ttc">{move.move.name}</strong>
 
           <ul className="pl3 mt2">
-            {move.version_group_details.map((versionItem: PokemonMoveVersion, index: number) => (
-              <li key={index}>
+            {move.version_group_details.map((versionItem: PokemonMoveVersion) => (
+              <li key={`${versionItem.version_group.name}-${versionItem.move_learn_method.name}`}>
                 <span className="ttc">
                   {versionItem.move_learn_method.name.replace("-", " ")}
                 </span>{" "}
@@ -108,26 +130,17 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
       spr.back_shiny_female,
     ]
 
-    const SpriteCard = ({ src, alt, title }: { src: string; alt: string; title?: string }) => (
-      <div
-        className="ma2 pa2 br3 bg-near-white shadow-1 flex items-center justify-center"
-        style={{ width: 96, height: 96 }}
-      >
-        <img
-          src={src || "https://via.placeholder.com/96?text=No+Image"}
-          alt={alt}
-          title={title ? capitalize(title) : capitalize(pokemon.name)}
-          aria-label={title ? capitalize(title) : capitalize(pokemon.name)}
-          style={{ width: "100%", height: "100%", objectFit: "contain" }}
-        />
-      </div>
-    )
-
     const renderList = (imgs: (string | null)[], prefix = "") =>
       imgs
         .filter((img): img is string => Boolean(img))
-        .map((img, i) => (
-          <SpriteCard key={i} src={img} alt={`${pokemon.name}-${prefix}${i}`} title={`${pokemon.name}  ${capitalize(prefix).split("-").join(" ")}`} />
+        .map((img) => (
+          <SpriteCard
+            key={`${pokemon.name}-${prefix}${img}`}
+            src={img}
+            alt={`${pokemon.name}-${prefix}${img}`}
+            title={`${pokemon.name}  ${capitalize(prefix).split("-").join(" ")}`}
+            pokemonName={pokemon.name}
+          />
         ))
 
     return (
@@ -149,9 +162,9 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
             <h3 className="mb4">Sprites "Other"</h3>
             <div className="flex flex-wrap">
               {Object.entries(spr.other).map(([key, value]) => {
-                const img = (value as any)?.front_default
+                const img = (value)?.front_default
                 return img ? (
-                  <SpriteCard key={key} src={img} alt={`${pokemon.name}-${key}`} title={`${pokemon.name}`} />
+                  <SpriteCard key={key} src={img} alt={`${pokemon.name}-${key}`} title={`${pokemon.name}`} pokemonName={pokemon.name} />
                 ) : null
               })}
             </div>
@@ -162,7 +175,7 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
           <div className="mt5">
             <h3 className="mb4">Sprites por versão</h3>
 
-            {Object.entries(spr.versions as VersionSprites).map(([versionName, versionData]) => {
+            {Object.entries(spr.versions).map(([versionName, versionData]) => {
               const sprites = Object.entries(
                 versionData as Record<string, { front_default: string | null }>
               ).filter(([, spriteValue]) => spriteValue?.front_default)
@@ -174,12 +187,13 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
                   <h4 className="mb3 ttu silver">{versionName}</h4>
 
                   <div className="flex flex-wrap">
-                    {sprites.map(([gameName, sprite], index) => (
+                    {sprites.map(([gameName, sprite]) => (
                       <SpriteCard
-                        key={index}
+                        key={`${versionName}-${gameName}`}
                         src={sprite.front_default!}
                         alt={`${pokemon.name}-${capitalize(gameName)}`}
                         title={`${pokemon.name} - ${capitalize(gameName).split("-").join(" ")}`}
+                        pokemonName={pokemon.name}
                       />
                     ))}
                   </div>
@@ -339,7 +353,7 @@ const SchemaUiPokemon = ({ activeItem, widgetCustomSelect }: PropsPokemon) => {
         <p className="gray">Carregando locais de encontro...</p>
       )}
 
-      {locations && locations.length === 0 && (
+      {locations?.length === 0 && (
 
         <p className="gray">Nenhum local encontrado.</p>
       )}
