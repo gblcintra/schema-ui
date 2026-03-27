@@ -1,13 +1,13 @@
 <div align="center">
   <img src="../docs/images/LogoSchemaBranco2.png" alt="Logo do Projeto" height="200"/>
-  
+
   ![Stars](https://img.shields.io/github/stars/gblcintra/schema-ui)
   ![License](https://img.shields.io/github/license/gblcintra/schema-ui)
   ![Version](https://img.shields.io/github/package-json/v/gblcintra/schema-ui)
-  ![Build](https://img.shields.io/github/actions/workflow/status/gblcintra/schema-ui/ci.yml) 
+  ![Build](https://img.shields.io/github/actions/workflow/status/gblcintra/schema-ui/ci.yml)
   ![Last Commit](https://img.shields.io/github/last-commit/gblcintra/schema-ui)
-  
-  ![VTEXIO](https://img.shields.io/badge/-Vtex IO-ff69b4?style=flat-square&logo=vtex)
+
+  ![VTEXIO](https://img.shields.io/badge/-Vtex%C2%A0IO-ff69b4?style=flat-square&logo=vtex)
   ![HTML5](https://img.shields.io/badge/-HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
   ![TypeScript](https://img.shields.io/badge/-TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white)
   ![ReactJs](https://img.shields.io/badge/-ReactJs-20232A?style=flat-square&logo=react)
@@ -22,42 +22,57 @@
   <p><b>Schema UI:</b> Criação de schemas e widgets customizados para VTEX IO Site Editor</p>
 </div>
 
-## 📌 Sobre o Projeto
+## 📌 Visão geral
 
-O **Schema UI** é um toolkit para **VTEX IO Site Editor** que permite:
+O **Schema UI** é um toolkit para **VTEX IO Site Editor** que acelera a criação de formulários de configuração para blocos de loja com suporte a **JSON Schema** e **widgets customizados**.
 
-- Criar e configurar **schemas dinâmicos** para blocos
-- Criar **widgets customizados** para renderização livre de campos
-- Validar e gerenciar propriedades de forma estruturada
+Com ele você consegue:
 
-Ele dá mais liberdade aos desenvolvedores e designers na criação de interfaces, indo além dos widgets padrões do Site Editor.
+- Definir schemas dinâmicos para blocos VTEX IO.
+- Renderizar campos com widgets nativos ou personalizados.
+- Criar experiências de edição mais guiadas com validação, dependências e regras condicionais.
 
-------------------------------------------------------------------------
-
-### 📌 Recursos
-
-- Definição clara de **types** (`String`, `Number`, `Boolean`, `Array`, `Object`, `Null`)
-- Widgets padrões e customizados (`text`, `textarea`, `color`, `select`, `image-uploader`, `range`, `rating`, etc.)
-- Suporte a **dependencies** e `oneOf` para configurações condicionais
-- Controle avançado de propriedades: `readonly`, `disabled`, `hidden`
-- Renderização de campos complexos com **layout customizado**
-- Upload de arquivos e imagens
-  
 ![Schema Completo](../docs/gif/SchemaCompleto.gif)
 
-------------------------------------------------------------------------
+---
 
-## 🛠️ Tecnologias Utilizadas
+## ✨ Recursos principais
 
--   React
--   TypeScript
--   JSON Schema
+- Tipos suportados: `String`, `Number`, `Boolean`, `Array`, `Object` e `Null`.
+- Widgets como `text`, `textarea`, `color`, `select`, `image-uploader`, `range`, `rating` e outros.
+- Suporte a `dependencies` e `oneOf` para fluxos condicionais.
+- Controle de estado com `readonly`, `disabled` e `hidden`.
+- Campos complexos com **layout customizado** via `ui:field`.
+- Upload de arquivos e imagens.
 
-------------------------------------------------------------------------
+---
 
+## 🧭 Sumário
 
-### 🔧 Como Usar
+- [Pré-requisitos](#-pré-requisitos)
+- [Instalação e desenvolvimento](#-instalação-e-desenvolvimento)
+- [Como usar no Store Theme](#-como-usar-no-store-theme)
+- [Configuração no `manifest.json`](#-configuração-no-manifestjson)
+- [Widgets disponíveis](#️-widgets-disponíveis)
+- [Tipos disponíveis](#️-tipos-disponíveis)
+- [Props disponíveis](#️-props-disponíveis)
+
+---
+
+## 🧱 Pré-requisitos
+
+Antes de começar, garanta que você tenha:
+
+- Ambiente VTEX IO configurado.
+- `node` e `yarn` instalados.
+- Conta VTEX com permissão para executar `vtex link`.
+
+---
+
+## 🔧 Instalação e desenvolvimento
+
 1. Clone o repositório:
+
 ```sh
 git clone https://github.com/gblcintra/schema-ui.git
 cd schema-ui
@@ -69,84 +84,93 @@ cd schema-ui
 yarn install
 ```
 
-3. Execute o projeto:
+3. Execute localmente no workspace VTEX:
 
-``` bash
+```sh
 vtex link -c
 ```
 
-### Schema
-nomeação de componentes na interface (`store/interfaces.json`)
+### Registrando o componente
 
-```jsx
+Mapeie o componente no arquivo `store/interfaces.json`:
+
+```json
+{
   "schema-ui": {
     "component": "SchemaUi"
   }
+}
 ```
-## 🚀 Como usar no store theme
 
-Exemplo de integração no store theme:
+---
 
-```jsx
-...
+## 🚀 Como usar no Store Theme
+
+Exemplo de integração no tema:
+
+```json
 {
   "store.home": {
     "title": "Home",
     "blocks": [
-      "account.schema-ui:schema-ui",
-      ...
+      "account.schema-ui:schema-ui"
     ]
-  },
-...
+  }
 }
 ```
 
-## Configuração
+---
 
-1. Adicione o aplicativo **Schema UI** às dependências do seu tema no arquivo `manifest.json`:
+## 📦 Configuração no `manifest.json`
+
+Adicione o aplicativo **Schema UI** às dependências do tema:
 
 ```diff
-  "dependencies": {
-+   "account.schema-ui": "0.x"
-  }
+"dependencies": {
++ "account.schema-ui": "0.x"
+}
 ```
 
-## 🛠️ Widgets Disponíveis
+---
+
+## 🛠️ Widgets disponíveis
 
 O `SchemaUi` suporta diferentes widgets para renderização dinâmica de campos. Alguns dos principais incluem:
 
-| Widget                      | Tipo                      | Descrição                                                                                             |
-| --------------------------- | ------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `ui:widget: textarea`       | `string`                  | Caixa de texto multilinhas.                                                                           |
-| `ui:widget: color`          | `string`                  | Campo para seleção de cores.                                                                          |
-| `ui:widget: password`       | `string`                  | Input de senha com máscara.                                                                           |
-| `ui:widget: date`           | `string`                  | Campo de seleção de data.                                                                             |
-| `ui:widget: datetime`       | `string`                  | Campo de seleção de data e hora.                                                                      |
-| `ui:widget: range`          | `number`                  | Slider de seleção de números.                                                                         |
-| `ui:widget: image-uploader` | `string`                  | Upload de imagens.                                                                                    |
-| `ui:widget: select`         | `string`                  | Caixa de seleção suspensa.                                                                            |
-| `ui:widget: radio`          | `string`                  | Botões de opção (radio buttons).                                                                      |
-| `ui:field`                  | `({ schema }: any) => {}` | Permite a criação de componentes personalizados para exibir um campo específico.                      |
-| `ui:placeholder`            | `string`                  | Define um texto de exemplo dentro do campo de entrada para orientar o usuário.                        |
-| `ui:inputType`              | `string`                  | Define o tipo de entrada de um campo de texto, como `password`, `email` e `tel`, etc.                 |
-| `ui:help`                   | `string`                  | Adiciona uma dica abaixo do campo para fornecer mais contexto ao usuário.                             |
-| `ui:options`                | `object`                  | Permite configurações adicionais para widgets específicos.                                            |
-| `ui:disabled`               | `boolean`                 | Desabilita um campo para impedir que ele seja editado pelo usuário.                                   |
-| `ui:readonly`               | `boolean`                 | Deixa o campo somente leitura, permitindo que os usuários vejam o conteúdo, mas não façam alterações. |
-| `classNames`                | `boolean`                 | Permite adicionar classes CSS personalizadas aos campos para melhor estilização.                      |
+| Widget                      | Tipo                      | Descrição                                                                                               |
+| --------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `ui:widget: textarea`       | `string`                  | Caixa de texto multilinhas.                                                                             |
+| `ui:widget: color`          | `string`                  | Campo para seleção de cores.                                                                            |
+| `ui:widget: password`       | `string`                  | Input de senha com máscara.                                                                             |
+| `ui:widget: date`           | `string`                  | Campo de seleção de data.                                                                               |
+| `ui:widget: datetime`       | `string`                  | Campo de seleção de data e hora.                                                                        |
+| `ui:widget: range`          | `number`                  | Slider de seleção de números.                                                                           |
+| `ui:widget: image-uploader` | `string`                  | Upload de imagens.                                                                                      |
+| `ui:widget: select`         | `string`                  | Caixa de seleção suspensa.                                                                              |
+| `ui:widget: radio`          | `string`                  | Botões de opção (radio buttons).                                                                        |
+| `ui:field`                  | `({ schema }: any) => {}` | Permite criar componentes personalizados para exibir um campo específico.                              |
+| `ui:placeholder`            | `string`                  | Define um texto de exemplo dentro do campo de entrada para orientar o usuário.                         |
+| `ui:inputType`              | `string`                  | Define o tipo de entrada de um campo de texto, como `password`, `email` e `tel`.                      |
+| `ui:help`                   | `string`                  | Adiciona uma dica abaixo do campo para fornecer mais contexto ao usuário.                              |
+| `ui:options`                | `object`                  | Permite configurações adicionais para widgets específicos.                                              |
+| `ui:disabled`               | `boolean`                 | Desabilita um campo para impedir edição pelo usuário.                                                   |
+| `ui:readonly`               | `boolean`                 | Deixa o campo somente leitura para visualização sem alteração.                                          |
+| `classNames`                | `string`                  | Permite adicionar classes CSS personalizadas aos campos para melhor estilização.                       |
 
-## 🛠️ Tipos Disponíveis
-A configuração do schema proporciona flexibilidade por meio da utilização de diferentes tipos de dados para configurar elementos da UI. Esses tipos podem ser usados para estilizar e definir o comportamento de componentes, seja para texto, imagens, datas, cores ou menus de seleção.
+## 🧩 Tipos disponíveis
+
+A configuração do schema oferece flexibilidade por meio de diferentes tipos de dados para definir elementos de UI.
 
 | Type      | Descrição                                                                       |
 | --------- | ------------------------------------------------------------------------------- |
-| `String`  | Usado para campos de texto, URL, imagem ou data.                                |
-| `Boolean` | Uma opção de alternância simples para ativar/desativar recursos.                |
-| `Object`  | Define objetos aninhados e suas propriedades.                                   |
-| `Array`   | Usado para repetir grupos de itens, como imagens, formulários ou vários campos. |
+| `String`  | Usado para campos de texto, URL, imagem ou data.                               |
+| `Number`  | Usado para valores numéricos, como tamanho, limite e quantidade.               |
+| `Boolean` | Opção de alternância para ativar ou desativar recursos.                        |
+| `Object`  | Define objetos aninhados e suas propriedades.                                  |
+| `Array`   | Repete grupos de itens, como imagens, formulários ou vários campos.            |
+| `Null`    | Exibe conteúdo informativo sem entrada de dados.                               |
 
-
-## 🎛️ Props Disponíveis
+## 🎛️ Props disponíveis
 
 | Propriedade   | Tipo      | Descrição                                                |
 | ------------- | --------- | -------------------------------------------------------- |
@@ -603,7 +627,7 @@ SchemaUi.schema = {
 
 ### Tipagem para onChange e Registry
 ```jsx
-  type OnChange = (val: any) => void
+  type OnChange = (val: unknown) => void
 
   type RegisteredComponent<P = any> = ComponentType<P> & {
     SchemaField?: {
@@ -623,6 +647,20 @@ SchemaUi.schema = {
   }
   interface Registry {
     [key: string]: RegisteredComponent
+  }
+
+  type WidgetProps<T = unknown> = {
+    schema: {
+      title?: string
+      description?: string
+      enum?: string[]
+      items?: {
+        enum?: string[]
+      }
+    }
+    value: T
+    onChange: OnChange
+    registry: Registry
   }
 ```
 
@@ -754,9 +792,9 @@ SchemaUi.schema = {
           value,
           onChange,
           registry,
-        }: { schema: any, value: any, onChange: OnChange, registry: Registry }) => {
+        }: WidgetProps) => {
 
-          const SchemaField = registry.fields.SchemaField as RegisteredComponent
+          const SchemaField = registry.fields.SchemaField
 
           return (
             <div className="custom-widget">
@@ -858,9 +896,9 @@ SchemaUi.schema = {
           value,
           onChange,
           registry
-        }: { schema: any, value: any, onChange: OnChange, registry: Registry }) => {
+        }: WidgetProps) => {
 
-          const SchemaField = registry.fields.SchemaField as RegisteredComponent
+          const SchemaField = registry.fields.SchemaField
 
           if (!cachedNames && !isFetching) {
             isFetching = true
@@ -876,6 +914,7 @@ SchemaUi.schema = {
               .catch((err) => {
                 cachedNames = []
                 isFetching = false
+                console.error("💚🐛 ~ Erro ao buscar opções:", err)
               })
           }
 
@@ -994,7 +1033,7 @@ SchemaUi.schema = {
         'ui:widget': ({
           value,
           onChange,
-        }: { value: any, onChange: OnChange }) => {
+        }: WidgetProps<number>) => {
           return (
             <div className="custom-widget">
               <span className="db mb2">Valor: {value || 0}</span>
@@ -1084,7 +1123,7 @@ SchemaUi.schema = {
         'ui:widget': ({
           value,
           onChange,
-        }: { value: any, onChange: OnChange }) => {
+        }: WidgetProps<number>) => {
           const stars = [1, 2, 3, 4, 5]
 
           return (
@@ -1171,7 +1210,7 @@ SchemaUi.schema = {
         'ui:widget': ({
           value,
           onChange,
-        }: { value: any, onChange: OnChange }) => {
+        }: WidgetProps<string>) => {
           const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff']
 
           return (
@@ -1257,7 +1296,7 @@ SchemaUi.schema = {
           schema,
           value,
           onChange,
-        }: { schema: any, value: any, onChange: OnChange }) => {
+        }: WidgetProps) => {
           return (
             <div className="custom-widget">
               <textarea
@@ -1336,13 +1375,13 @@ SchemaUi.schema = {
           schema,
           value,
           onChange,
-        }: { schema: any, value: any, onChange: OnChange }) => {
+        }: WidgetProps) => {
           return (
             <div className="custom-widget">
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  checked={value || false}
+                  checked={(value as boolean) || false}
                   onChange={(e) => onChange(e.target.checked)}
                 />
                 <span className="ml2">{schema.title}</span>
@@ -1418,7 +1457,7 @@ SchemaUi.schema = {
           schema,
           value,
           onChange,
-        }: { schema: any, value: any, onChange: OnChange }) => {
+        }: WidgetProps) => {
           return (
             <div className="custom-widget">
               {schema.enum.map((option: string) => (
@@ -1506,7 +1545,7 @@ SchemaUi.schema = {
           schema,
           value,
           onChange,
-        }: { schema: any, value: any, onChange: OnChange }) => {
+        }: WidgetProps) => {
           const options = schema.items.enum || []
 
           return (
@@ -1516,12 +1555,12 @@ SchemaUi.schema = {
                   <input
                     type="checkbox"
                     value={option}
-                    checked={value?.includes(option)}
+                    checked={(value as string[])?.includes(option)}
                     onChange={(e) => {
                       if (e.target.checked) {
-                        onChange([...(value || []), option])
+                        onChange([...((value as string[]) || []), option])
                       } else {
-                        onChange(value.filter((v: string) => v !== option))
+                        onChange((value as string[]).filter((v: string) => v !== option))
                       }
                     }}
                   />
@@ -1602,7 +1641,7 @@ SchemaUi.schema = {
       title: 'Widget Custom Widget com Lógica Customizada',
       description: 'Esse é um exemplo de widget customizado usando ui:widget que implementa lógica personalizada para exibir diferentes conteúdos com base no valor do input.',
       widget: {
-        'ui:widget': ({ schema, value, onChange }: { schema: any, value: any, onChange: OnChange }) => {
+        'ui:widget': ({ schema, value, onChange }: WidgetProps) => {
           return (
             <div className="custom-widget">
               <p className="mb2">{schema.description}</p>
@@ -1611,7 +1650,7 @@ SchemaUi.schema = {
                 type="text"
                 className="w-100 pa2 mb3"
                 placeholder="Digite 'mostrar' para ver o conteúdo secreto"
-                value={value || ''}
+                value={(value as string) || ''}
                 onChange={(e) => onChange(e.target.value)}
               />
 
