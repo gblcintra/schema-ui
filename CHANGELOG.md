@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.7](https://github.com/gblcintra/schema-ui/compare/v0.0.6...v0.0.7) (2026-03-27)
+
+
+### Features
+
+* **Pokemon:** add colors and adjust layout ([ade4d62](https://github.com/gblcintra/schema-ui/commit/ade4d6281e16848fc30de5f9ba7287fbbe2a796e))
+* **Pokemon:** add loading first info ([6bbec2a](https://github.com/gblcintra/schema-ui/commit/6bbec2aaf2fd426b811959e9649e7e4dcfa181e2))
+* **pokemon:** add schema custom for exemple who to use ([9a13dc5](https://github.com/gblcintra/schema-ui/commit/9a13dc5bc81a67eef1a71697debd673c0f0dfd56))
+* **pokemon:** adjust name interface pokemon ([4b38a12](https://github.com/gblcintra/schema-ui/commit/4b38a12dcce28ac8b75a1154abee9e6513310dc5))
+* **Pokemon:** adjust typings ([cd67c35](https://github.com/gblcintra/schema-ui/commit/cd67c356b615b909d4d3e3c72f1d74bfabc95994))
+* **Pokemon:** adjust typings ([7f507b5](https://github.com/gblcintra/schema-ui/commit/7f507b5e5467b532f1355013544ff3b1f45b1d39))
+
 ### [0.0.6](https://github.com/gblcintra/schema-ui/compare/v0.0.5...v0.0.6) (2026-03-04)
 
 ### [0.0.5](https://github.com/gblcintra/schema-ui/compare/v0.0.4...v0.0.5) (2026-03-04)
